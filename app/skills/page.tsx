@@ -781,7 +781,7 @@ export default function Skills() {
               <div className="flex items-center space-x-4">
                 <span className="text-sm font-medium mr-2">Contáctame</span>
                 <a
-                  href={`https://wa.me/+1234567890?text=Hola,%20tengo%20una%20pregunta%20sobre%20${selectedTech}`}
+                  href={`https://wa.link/gqwair`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2 bg-green-500 text-white rounded-full hover:bg-green-600"
@@ -789,7 +789,7 @@ export default function Skills() {
                   <MessageSquare size={16} />
                 </a>
                 <a
-                  href={`mailto:tu@email.com?subject=Consulta sobre ${selectedTech}`}
+                  href={`mailto:joelpstudy10@gmail.com?subject=Consulta sobre ${selectedTech}`}
                   className="p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600"
                 >
                   <Mail size={16} />

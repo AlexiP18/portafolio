@@ -80,7 +80,7 @@ const coursesData: Course[] = [
     technology: "Frontend",
     type: "Curso",  // Added type
     hours: "32 Horas",
-    certificateUrl: "/documents/certificate-angular.pdf",
+    certificateUrl: "https://drive.google.com/file/d/1adS7sk4GXfNoIQMs3RvsDyaqPdJJF0w4/view?usp=drive_link",
     courseUrl: "https://drive.google.com/file/d/1adS7sk4GXfNoIQMs3RvsDyaqPdJJF0w4/view?usp=drive_link"
   },
   {

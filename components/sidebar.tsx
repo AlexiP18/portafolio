@@ -28,7 +28,7 @@ const menuItems = [
 		icon: BarChart3,
 	},
 	{
-		name: "Education",
+		name: "Educación",
 		href: "/education",
 		icon: GraduationCap,
 	},
@@ -62,15 +62,20 @@ export function Sidebar() {
 						className="flex items-center space-x-3"
 						onClick={closeMobileMenu}
 					>
-						<div className="w-10 h-10 rounded-full border-2 border-teal-500 overflow-hidden">
-							<Image
-								src="https://scontent.fatf6-1.fna.fbcdn.net/v/t39.30808-1/482063674_122098752290799599_4639200773569733832_n.jpg?stp=c219.0.864.864a_dst-jpg_s200x200_tt6&_nc_cat=100&ccb=1-7&_nc_sid=e99d92&_nc_ohc=1cnEuO3TAx4Q7kNvwFadUFF&_nc_oc=Adn-kIeTUNzzJu8bMVLfUSHeTYF8b4MBbflKKqNLMqW5OU5KsUj1Tkn_Ieqip5swMbg&_nc_zt=24&_nc_ht=scontent.fatf6-1.fna&_nc_gid=1Rj8s84CAcqY-mEIEiC3vQ&oh=00_AfOdguSZAs2oXvotJXG7jP_3a8kI3Jf7w_xqQ7IlxUAEVQ&oe=686B5D55"
-								alt="Profile"
-								width={40}
-								height={40}
-								className="w-full h-full object-cover"
-							/>
-						</div>
+						<Link href="/" onClick={(e) => {
+							e.stopPropagation();
+							closeMobileMenu();
+						}}>
+							<div className="w-10 h-10 rounded-full border-2 border-teal-500 overflow-hidden cursor-pointer hover:shadow-md transition-all duration-200">
+								<Image
+									src="https://scontent.fatf6-1.fna.fbcdn.net/v/t39.30808-1/482063674_122098752290799599_4639200773569733832_n.jpg?stp=c219.0.864.864a_dst-jpg_s200x200_tt6&_nc_cat=100&ccb=1-7&_nc_sid=e99d92&_nc_ohc=1cnEuO3TAx4Q7kNvwFadUFF&_nc_oc=Adn-kIeTUNzzJu8bMVLfUSHeTYF8b4MBbflKKqNLMqW5OU5KsUj1Tkn_Ieqip5swMbg&_nc_zt=24&_nc_ht=scontent.fatf6-1.fna&_nc_gid=1Rj8s84CAcqY-mEIEiC3vQ&oh=00_AfOdguSZAs2oXvotJXG7jP_3a8kI3Jf7w_xqQ7IlxUAEVQ&oe=686B5D55"
+									alt="Profile"
+									width={40}
+									height={40}
+									className="w-full h-full object-cover"
+								/>
+							</div>
+						</Link>
 						<div>
 							<h2 className="text-lg font-semibold text-gray-800">
 								Alexis Poaquiza
@@ -117,15 +122,20 @@ export function Sidebar() {
 						className="flex items-center space-x-3"
 						onClick={closeMobileMenu}
 					>
-						<div className="w-10 h-10 rounded-full border-2 border-teal-500 overflow-hidden">
-							<Image
-								src="https://scontent.fatf6-1.fna.fbcdn.net/v/t39.30808-1/482063674_122098752290799599_4639200773569733832_n.jpg?stp=c219.0.864.864a_dst-jpg_s200x200_tt6&_nc_cat=100&ccb=1-7&_nc_sid=e99d92&_nc_ohc=1cnEuO3TAx4Q7kNvwFadUFF&_nc_oc=Adn-kIeTUNzzJu8bMVLfUSHeTYF8b4MBbflKKqNLMqW5OU5KsUj1Tkn_Ieqip5swMbg&_nc_zt=24&_nc_ht=scontent.fatf6-1.fna&_nc_gid=1Rj8s84CAcqY-mEIEiC3vQ&oh=00_AfOdguSZAs2oXvotJXG7jP_3a8kI3Jf7w_xqQ7IlxUAEVQ&oe=686B5D55"
-								alt="Profile"
-								width={40}
-								height={40}
-								className="w-full h-full object-cover"
-							/>
-						</div>
+						<Link href="/" onClick={(e) => {
+							e.stopPropagation();
+							closeMobileMenu();
+						}}>
+							<div className="w-10 h-10 rounded-full border-2 border-teal-500 overflow-hidden cursor-pointer hover:shadow-md transition-all duration-200">
+								<Image
+									src="https://scontent.fatf6-1.fna.fbcdn.net/v/t39.30808-1/482063674_122098752290799599_4639200773569733832_n.jpg?stp=c219.0.864.864a_dst-jpg_s200x200_tt6&_nc_cat=100&ccb=1-7&_nc_sid=e99d92&_nc_ohc=1cnEuO3TAx4Q7kNvwFadUFF&_nc_oc=Adn-kIeTUNzzJu8bMVLfUSHeTYF8b4MBbflKKqNLMqW5OU5KsUj1Tkn_Ieqip5swMbg&_nc_zt=24&_nc_ht=scontent.fatf6-1.fna&_nc_gid=1Rj8s84CAcqY-mEIEiC3vQ&oh=00_AfOdguSZAs2oXvotJXG7jP_3a8kI3Jf7w_xqQ7IlxUAEVQ&oe=686B5D55"
+									alt="Profile"
+									width={40}
+									height={40}
+									className="w-full h-full object-cover"
+								/>
+							</div>
+						</Link>
 						<div>
 							<h2 className="text-lg font-semibold text-gray-800">
 								Alexis Poaquiza
@@ -187,15 +197,17 @@ export function Sidebar() {
 				{/* Profile Section */}
 				<div className="flex flex-col items-center py-8 px-6">
 					<div className="relative">
-						<div className="w-24 h-24 rounded-full border-4 border-teal-500 overflow-hidden">
-							<Image
-								src="https://scontent.fatf6-1.fna.fbcdn.net/v/t39.30808-1/482063674_122098752290799599_4639200773569733832_n.jpg?stp=c219.0.864.864a_dst-jpg_s200x200_tt6&_nc_cat=100&ccb=1-7&_nc_sid=e99d92&_nc_ohc=1cnEuO3TAx4Q7kNvwFadUFF&_nc_oc=Adn-kIeTUNzzJu8bMVLfUSHeTYF8b4MBbflKKqNLMqW5OU5KsUj1Tkn_Ieqip5swMbg&_nc_zt=24&_nc_ht=scontent.fatf6-1.fna&_nc_gid=1Rj8s84CAcqY-mEIEiC3vQ&oh=00_AfOdguSZAs2oXvotJXG7jP_3a8kI3Jf7w_xqQ7IlxUAEVQ&oe=686B5D55"
-								alt="Profile"
-								width={96}
-								height={96}
-								className="w-full h-full object-cover"
-							/>
-						</div>
+						<Link href="/" className="block">
+							<div className="w-24 h-24 rounded-full border-4 border-teal-500 overflow-hidden cursor-pointer hover:shadow-lg transition-all duration-300">
+								<Image
+									src="https://scontent.fatf6-1.fna.fbcdn.net/v/t39.30808-1/482063674_122098752290799599_4639200773569733832_n.jpg?stp=c219.0.864.864a_dst-jpg_s200x200_tt6&_nc_cat=100&ccb=1-7&_nc_sid=e99d92&_nc_ohc=1cnEuO3TAx4Q7kNvwFadUFF&_nc_oc=Adn-kIeTUNzzJu8bMVLfUSHeTYF8b4MBbflKKqNLMqW5OU5KsUj1Tkn_Ieqip5swMbg&_nc_zt=24&_nc_ht=scontent.fatf6-1.fna&_nc_gid=1Rj8s84CAcqY-mEIEiC3vQ&oh=00_AfOdguSZAs2oXvotJXG7jP_3a8kI3Jf7w_xqQ7IlxUAEVQ&oe=686B5D55"
+									alt="Profile"
+									width={96}
+									height={96}
+									className="w-full h-full object-cover"
+								/>
+							</div>
+						</Link>
 					</div>
 					<div className="mt-4 text-center">
 						<h2 className="text-xl font-semibold text-gray-800">

@@ -255,6 +255,84 @@ const techDetails = {
       proyectos: ["Blog personal", "Plataforma educativa", "Sitio corporativo", "E-commerce"],
     },
   },
+  // Frontend - Adding TypeScript
+  TypeScript: {
+    years: "2 Años",
+    sections: {
+      fundamentos: ["Tipos básicos", "Interfaces", "Tipos genéricos", "Enums", "Type Assertions"],
+      caracteristicasAvanzadas: ["Tipos condicionales", "Mapped types", "Utility Types", "Decoradores", "Namespaces y módulos"],
+      ecosistema: ["TSConfig", "ESLint", "ts-node", "TypeScript + React", "TypeScript + Node.js"],
+      proyectos: ["API Rest tipadas", "Aplicaciones React/Next.js", "Librerías con tipos", "CLIs"],
+    },
+  },
+  // Backend - Adding Express, Python, FastAPI
+  Express: {
+    years: "2 Años",
+    sections: {
+      fundamentos: ["Routing", "Middleware", "Request/Response", "Error handling", "Static files"],
+      caracteristicasAvanzadas: ["Custom middleware", "Template engines", "RESTful APIs", "Authentication", "File uploads"],
+      ecosistema: ["Express-validator", "Passport.js", "Mongoose", "Multer", "Morgan"],
+      proyectos: ["REST APIs", "Aplicaciones MVC", "Microservicios", "Gateway APIs"],
+    },
+  },
+  Python: {
+    years: "1.5 Años",
+    sections: {
+      fundamentos: ["Sintaxis básica", "Estructuras de datos", "Funciones", "Clases y OOP", "Manejo de archivos"],
+      caracteristicasAvanzadas: ["Decoradores", "Generadores", "Context Managers", "AsyncIO", "Type Hints"],
+      ecosistema: ["Pip/Poetry", "Virtualenv", "Pytest", "Numpy/Pandas", "Django/Flask"],
+      proyectos: ["Automatización", "Scraping", "Análisis de datos", "APIs backend"],
+    },
+  },
+  FastAPI: {
+    years: "1 Año",
+    sections: {
+      fundamentos: ["Path operations", "Query parameters", "Request body", "Response models", "Path parameters"],
+      caracteristicasAvanzadas: ["Dependency Injection", "Security & Auth", "Middleware", "Background tasks", "WebSockets"],
+      ecosistema: ["Pydantic", "SQLAlchemy", "Alembic", "Uvicorn", "Starlette"],
+      proyectos: ["APIs de alto rendimiento", "Microservicios", "Aplicaciones asíncronas", "Integración con frontend"],
+    },
+  },
+  // Databases - Adding Firebase
+  Firebase: {
+    years: "1.5 Años",
+    sections: {
+      fundamentos: ["Firestore", "Realtime Database", "Authentication", "Storage", "Hosting"],
+      caracteristicasAvanzadas: ["Security Rules", "Cloud Functions", "Transactions", "Offline capabilities", "Indexing"],
+      ecosistema: ["Firebase CLI", "Firebase Admin SDK", "Firebase Emulators", "Extensions", "Analytics"],
+      proyectos: ["Apps en tiempo real", "Autenticación de usuarios", "Aplicaciones móviles", "Serverless backends"],
+    },
+  },
+  // DevOps & Cloud - Adding Docker
+  Docker: {
+    years: "2 Años",
+    sections: {
+      fundamentos: ["Imágenes", "Contenedores", "Dockerfile", "Docker Compose", "Volúmenes"],
+      caracteristicasAvanzadas: ["Multi-stage builds", "Networking", "Docker Swarm", "Secrets", "Health checks"],
+      ecosistema: ["Docker Hub", "Docker Desktop", "Portainer", "Docker Registry", "Kubernetes"],
+      proyectos: ["Entornos de desarrollo", "CI/CD pipelines", "Microservicios", "Aplicaciones contenerizadas"],
+    },
+  },
+  // Herramientas - Adding VS Code
+  "VS Code": {
+    years: "3 Años",
+    sections: {
+      fundamentos: ["Navegación de código", "Debugging", "Terminal integrado", "Git integration", "Atajos de teclado"],
+      caracteristicasAvanzadas: ["Remote Development", "Tasks", "Multi-root workspaces", "Settings sync", "Custom snippets"],
+      ecosistema: ["ESLint", "Prettier", "Live Share", "GitLens", "Thunder Client"],
+      proyectos: ["Desarrollo web", "Desarrollo fullstack", "Edición remota", "Pair programming"],
+    },
+  },
+  // Testing & Otros - Adding Jest
+  Jest: {
+    years: "2 Años",
+    sections: {
+      fundamentos: ["Test suites", "Matchers", "Mocks", "Snapshots", "Setup/Teardown"],
+      caracteristicasAvanzadas: ["Custom matchers", "Mock implementations", "Timer mocks", "Manual mocks", "Module mocking"],
+      ecosistema: ["Testing Library", "Supertest", "jest-axe", "Jest Extended", "jest-dom"],
+      proyectos: ["Unit testing", "Integration testing", "UI component testing", "API testing"],
+    },
+  },
 }
 
 const skillsData = {

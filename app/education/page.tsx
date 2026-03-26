@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { GraduationCap, MapPin, CalendarClock, Award, ExternalLink, RotateCw, Plus, Minus, BookOpen, Clock, Code, Presentation, ChevronLeft, ChevronRight } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import { useLanguage } from "@/components/language-provider"
 
 // Education data
 interface EducationItem {
@@ -224,6 +225,7 @@ const eventsData: AcademicEvent[] = [
 ];
 
 export default function Education() {
+  const { language } = useLanguage()
   const [isAccordionOpen, setIsAccordionOpen] = useState(true)
   const [isCoursesOpen, setIsCoursesOpen] = useState(true) // New state for courses accordion
   const [hoveredCard, setHoveredCard] = useState<number | null>(null)
@@ -361,10 +363,68 @@ export default function Education() {
     setTypeEventFilter(null);
   };
 
+  const pageText = {
+    title: language === "en" ? "Education" : "Educación",
+    professionalTraining: language === "en" ? "Professional Training" : "Formación Profesional",
+    coursesAndDiplomas: language === "en" ? "Courses - Diplomas" : "Cursos - Diplomados",
+    academicEvents: language === "en" ? "Academic Events" : "Eventos Académicos",
+    filterBy: language === "en" ? "Filter by:" : "Filtrar por:",
+    clearFilters: language === "en" ? "Clear filters" : "Limpiar filtros",
+    modality: language === "en" ? "Modality" : "Modalidad",
+    technology: language === "en" ? "Technology" : "Tecnología",
+    type: language === "en" ? "Type" : "Tipo",
+    choose: language === "en" ? "Choose..." : "Elija...",
+    viewCertificate: language === "en" ? "View certificate" : "Ver certificado",
+    noCourses:
+      language === "en"
+        ? "No courses found for the selected filters."
+        : "No se encontraron cursos con los filtros seleccionados.",
+    noEvents:
+      language === "en"
+        ? "No academic events found for the selected filters."
+        : "No se encontraron eventos académicos con los filtros seleccionados.",
+  }
+
+  const modalityLabelMap: Record<string, { en: string; es: string }> = {
+    Presencial: { en: "On-site", es: "Presencial" },
+    Hibrido: { en: "Hybrid", es: "Híbrido" },
+    Virtual: { en: "Virtual", es: "Virtual" },
+  }
+
+  const technologyLabelMap: Record<string, { en: string; es: string }> = {
+    Frontend: { en: "Frontend", es: "Frontend" },
+    Backend: { en: "Backend", es: "Backend" },
+    "Bases de datos": { en: "Databases", es: "Bases de datos" },
+    Despliegue: { en: "Deployment", es: "Despliegue" },
+    Otros: { en: "Others", es: "Otros" },
+  }
+
+  const courseTypeLabelMap: Record<string, { en: string; es: string }> = {
+    Curso: { en: "Course", es: "Curso" },
+    Diplomado: { en: "Diploma", es: "Diplomado" },
+  }
+
+  const eventTypeLabelMap: Record<string, { en: string; es: string }> = {
+    Seminario: { en: "Seminar", es: "Seminario" },
+    Congreso: { en: "Congress", es: "Congreso" },
+    Conferencia: { en: "Conference", es: "Conferencia" },
+  }
+
+  const eventRoleLabelMap: Record<string, { en: string; es: string }> = {
+    Asistente: { en: "Attendee", es: "Asistente" },
+    Expositor: { en: "Speaker", es: "Expositor" },
+    Moderador: { en: "Moderator", es: "Moderador" },
+  }
+
+  const formatHours = (value: string) => {
+    if (language === "es") return value
+    return value.replace(/Horas?/g, "Hours").replace(/hora/g, "hour")
+  }
+
   return (
     <div className="max-w-6xl mx-auto p-4 md:p-8">
       <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 md:mb-10 text-center">
-        Educación
+        {pageText.title}
       </h1>
       
       {/* Formación Profesional */}
@@ -378,7 +438,7 @@ export default function Education() {
             <div className="p-1.5 md:p-2 bg-teal-500/10 rounded-lg shadow-inner">
               <GraduationCap className="w-5 h-5 md:w-6 md:h-6 text-teal-600" />
             </div>
-            <h2 className="text-base md:text-lg font-semibold text-gray-800">Formación Profesional</h2>
+            <h2 className="text-base md:text-lg font-semibold text-gray-800">{pageText.professionalTraining}</h2>
           </div>
           <button className="w-7 h-7 md:w-8 md:h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-teal-100 transition-all duration-300">
             {isAccordionOpen ? (
@@ -490,7 +550,7 @@ export default function Education() {
                               onClick={(e) => e.stopPropagation()}
                             >
                               <Award className="w-4 h-4 text-amber-500 group-hover:scale-110 transition-all duration-300" />
-                              <span className="text-xs">Ver certificado</span>
+                              <span className="text-xs">{pageText.viewCertificate}</span>
                             </Link>
                           </div>
                         </div>
@@ -520,7 +580,7 @@ export default function Education() {
             <div className="p-1.5 md:p-2 bg-blue-500/10 rounded-lg shadow-inner">
               <BookOpen className="w-5 h-5 md:w-6 md:h-6 text-blue-600" />
             </div>
-            <h2 className="text-base md:text-lg font-semibold text-gray-800">Cursos - Diplomados</h2>
+            <h2 className="text-base md:text-lg font-semibold text-gray-800">{pageText.coursesAndDiplomas}</h2>
           </div>
           <button className="w-7 h-7 md:w-8 md:h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-blue-100 transition-all duration-300">
             {isCoursesOpen ? (
@@ -542,7 +602,7 @@ export default function Education() {
             <div className="mb-6">
               <div className="flex flex-col gap-4">
                 <div className="flex items-center justify-between">
-                  <div className="text-gray-700 font-medium">Filtrar por:</div>
+                  <div className="text-gray-700 font-medium">{pageText.filterBy}</div>
                   
                   {/* Reset Filters Button - Now with icon */}
                   {(modalityFilter || technologyFilter || typeFilter) && (
@@ -551,7 +611,7 @@ export default function Education() {
                       className="flex items-center gap-1 px-3 py-1.5 rounded-md bg-blue-50 text-blue-600 hover:bg-blue-100 transition-all duration-300"
                     >
                       <RotateCw size={14} className="text-blue-600" />
-                      <span className="text-sm font-medium">Limpiar filtros</span>
+                      <span className="text-sm font-medium">{pageText.clearFilters}</span>
                     </button>
                   )}
                 </div>
@@ -560,17 +620,17 @@ export default function Education() {
                 <div className="flex items-center gap-3">
                   {/* Modality Filter - Equal width on all screens */}
                   <div className="w-1/3">
-                    <label className="block text-sm font-medium text-gray-600 mb-1">Modalidad</label>
+                    <label className="block text-sm font-medium text-gray-600 mb-1">{pageText.modality}</label>
                     <div className="relative">
                       <select
                         value={modalityFilter || ''}
                         onChange={(e) => setModalityFilter(e.target.value || null)}
                         className="block w-full rounded-md border border-gray-300 py-2 pl-3 pr-10 text-gray-700 focus:border-blue-500 focus:outline-none focus:ring-blue-500 text-sm appearance-none"
                       >
-                        <option value="">Elija...</option>
-                        <option value="Presencial">Presencial</option>
-                        <option value="Hibrido">Híbrido</option>
-                        <option value="Virtual">Virtual</option>
+                        <option value="">{pageText.choose}</option>
+                        <option value="Presencial">{modalityLabelMap.Presencial[language]}</option>
+                        <option value="Hibrido">{modalityLabelMap.Hibrido[language]}</option>
+                        <option value="Virtual">{modalityLabelMap.Virtual[language]}</option>
                       </select>
                       <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                         <svg className="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -582,19 +642,19 @@ export default function Education() {
                   
                   {/* Technology Filter - Equal width on all screens */}
                   <div className="w-1/3">
-                    <label className="block text-sm font-medium text-gray-600 mb-1">Tecnología</label>
+                    <label className="block text-sm font-medium text-gray-600 mb-1">{pageText.technology}</label>
                     <div className="relative">
                       <select
                         value={technologyFilter || ''}
                         onChange={(e) => setTechnologyFilter(e.target.value || null)}
                         className="block w-full rounded-md border border-gray-300 py-2 pl-3 pr-10 text-gray-700 focus:border-blue-500 focus:outline-none focus:ring-blue-500 text-sm appearance-none"
                       >
-                        <option value="">Elija...</option>
-                        <option value="Frontend">Frontend</option>
-                        <option value="Backend">Backend</option>
-                        <option value="Bases de datos">Bases de datos</option>
-                        <option value="Despliegue">Despliegue</option>
-                        <option value="Otros">Otros</option>
+                        <option value="">{pageText.choose}</option>
+                        <option value="Frontend">{technologyLabelMap.Frontend[language]}</option>
+                        <option value="Backend">{technologyLabelMap.Backend[language]}</option>
+                        <option value="Bases de datos">{technologyLabelMap["Bases de datos"][language]}</option>
+                        <option value="Despliegue">{technologyLabelMap.Despliegue[language]}</option>
+                        <option value="Otros">{technologyLabelMap.Otros[language]}</option>
                       </select>
                       <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                         <svg className="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -606,16 +666,16 @@ export default function Education() {
                   
                   {/* Type Filter - Equal width on all screens */}
                   <div className="w-1/3">
-                    <label className="block text-sm font-medium text-gray-600 mb-1">Tipo</label>
+                    <label className="block text-sm font-medium text-gray-600 mb-1">{pageText.type}</label>
                     <div className="relative">
                       <select
                         value={typeFilter || ''}
                         onChange={(e) => setTypeFilter(e.target.value || null)}
                         className="block w-full rounded-md border border-gray-300 py-2 pl-3 pr-10 text-gray-700 focus:border-blue-500 focus:outline-none focus:ring-blue-500 text-sm appearance-none"
                       >
-                        <option value="">Elija...</option>
-                        <option value="Curso">Curso</option>
-                        <option value="Diplomado">Diplomado</option>
+                        <option value="">{pageText.choose}</option>
+                        <option value="Curso">{courseTypeLabelMap.Curso[language]}</option>
+                        <option value="Diplomado">{courseTypeLabelMap.Diplomado[language]}</option>
                       </select>
                       <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                         <svg className="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -698,28 +758,28 @@ export default function Education() {
                                       <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
                                     </svg>
                                   </div>
-                                  <span className="text-gray-800 font-medium text-xs">{course.type}</span>
+                                  <span className="text-gray-800 font-medium text-xs">{courseTypeLabelMap[course.type]?.[language] ?? course.type}</span>
                                 </div>
                                 
                                 <div className="flex items-center gap-2">
                                   <div className="w-5 h-5 flex items-center justify-center">
                                     <Presentation size={14} className="text-gray-700" />
                                   </div>
-                                  <span className="text-gray-800 font-medium text-xs">{course.modality}</span>
+                                  <span className="text-gray-800 font-medium text-xs">{modalityLabelMap[course.modality]?.[language] ?? course.modality}</span>
                                 </div>
                                 
                                 <div className="flex items-center gap-2">
                                   <div className="w-5 h-5 flex items-center justify-center">
                                     <Code size={14} className="text-gray-700" />
                                   </div>
-                                  <span className="text-gray-800 font-medium text-xs">{course.technology}</span>
+                                  <span className="text-gray-800 font-medium text-xs">{technologyLabelMap[course.technology]?.[language] ?? course.technology}</span>
                                 </div>
                                 
                                 <div className="flex items-center gap-2">
                                   <div className="w-5 h-5 flex items-center justify-center">
                                     <Clock size={14} className="text-gray-700" />
                                   </div>
-                                  <span className="text-gray-800 font-medium text-xs">{course.hours}</span>
+                                  <span className="text-gray-800 font-medium text-xs">{formatHours(course.hours)}</span>
                                 </div>
                               </div>
                               
@@ -731,7 +791,7 @@ export default function Education() {
                                   onClick={(e) => e.stopPropagation()}
                                 >
                                   <Award size={14} className="text-amber-500 group-hover:scale-110 transition-all duration-300" />
-                                  <span className="font-medium text-xs">Ver certificado</span>
+                                  <span className="font-medium text-xs">{pageText.viewCertificate}</span>
                                 </a>
                               </div>
                             </div>
@@ -753,7 +813,7 @@ export default function Education() {
                     </div>
                   )) : (
                     <div className="col-span-full text-center p-8 text-gray-500">
-                      No se encontraron cursos con los filtros seleccionados.
+                      {pageText.noCourses}
                     </div>
                   )}
                 </div>
@@ -819,7 +879,7 @@ export default function Education() {
             <div className="p-1.5 md:p-2 bg-purple-500/10 rounded-lg shadow-inner">
               <Presentation className="w-5 h-5 md:w-6 md:h-6 text-purple-600" />
             </div>
-            <h2 className="text-base md:text-lg font-semibold text-gray-800">Eventos Académicos</h2>
+            <h2 className="text-base md:text-lg font-semibold text-gray-800">{pageText.academicEvents}</h2>
           </div>
           <button className="w-7 h-7 md:w-8 md:h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-purple-100 transition-all duration-300">
             {isEventsOpen ? (
@@ -841,7 +901,7 @@ export default function Education() {
             <div className="mb-6">
               <div className="flex flex-col gap-4">
                 <div className="flex items-center justify-between">
-                  <div className="text-gray-700 font-medium">Filtrar por:</div>
+                  <div className="text-gray-700 font-medium">{pageText.filterBy}</div>
                   
                   {/* Reset Filters Button */}
                   {(modalityEventFilter || typeEventFilter) && (
@@ -850,7 +910,7 @@ export default function Education() {
                       className="flex items-center gap-1 px-3 py-1.5 rounded-md bg-purple-50 text-purple-600 hover:bg-purple-100 transition-all duration-300"
                     >
                       <RotateCw size={14} className="text-purple-600" />
-                      <span className="text-sm font-medium">Limpiar filtros</span>
+                      <span className="text-sm font-medium">{pageText.clearFilters}</span>
                     </button>
                   )}
                 </div>
@@ -859,17 +919,17 @@ export default function Education() {
                 <div className="flex flex-row items-center gap-3">
                   {/* Modality Filter */}
                   <div className="w-1/2">
-                    <label className="block text-sm font-medium text-gray-600 mb-1">Modalidad</label>
+                    <label className="block text-sm font-medium text-gray-600 mb-1">{pageText.modality}</label>
                     <div className="relative">
                       <select
                         value={modalityEventFilter || ''}
                         onChange={(e) => setModalityEventFilter(e.target.value || null)}
                         className="block w-full rounded-md border border-gray-300 py-2 pl-3 pr-10 text-gray-700 focus:border-purple-500 focus:outline-none focus:ring-purple-500 text-sm appearance-none"
                       >
-                        <option value="">Elija...</option>
-                        <option value="Presencial">Presencial</option>
-                        <option value="Hibrido">Híbrido</option>
-                        <option value="Virtual">Virtual</option>
+                        <option value="">{pageText.choose}</option>
+                        <option value="Presencial">{modalityLabelMap.Presencial[language]}</option>
+                        <option value="Hibrido">{modalityLabelMap.Hibrido[language]}</option>
+                        <option value="Virtual">{modalityLabelMap.Virtual[language]}</option>
                       </select>
                       <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                         <svg className="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -881,17 +941,17 @@ export default function Education() {
                   
                   {/* Type Filter - New options for events */}
                   <div className="w-1/2">
-                    <label className="block text-sm font-medium text-gray-600 mb-1">Tipo</label>
+                    <label className="block text-sm font-medium text-gray-600 mb-1">{pageText.type}</label>
                     <div className="relative">
                       <select
                         value={typeEventFilter || ''}
                         onChange={(e) => setTypeEventFilter(e.target.value || null)}
                         className="block w-full rounded-md border border-gray-300 py-2 pl-3 pr-10 text-gray-700 focus:border-purple-500 focus:outline-none focus:ring-purple-500 text-sm appearance-none"
                       >
-                        <option value="">Elija...</option>
-                        <option value="Seminario">Seminario</option>
-                        <option value="Congreso">Congreso</option>
-                        <option value="Conferencia">Conferencia</option>
+                        <option value="">{pageText.choose}</option>
+                        <option value="Seminario">{eventTypeLabelMap.Seminario[language]}</option>
+                        <option value="Congreso">{eventTypeLabelMap.Congreso[language]}</option>
+                        <option value="Conferencia">{eventTypeLabelMap.Conferencia[language]}</option>
                       </select>
                       <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                         <svg className="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -978,14 +1038,14 @@ export default function Education() {
                                       <rect x="8" y="15" width="2" height="2" />
                                     </svg>
                                   </div>
-                                  <span className="text-gray-800 font-medium text-xs">{event.type}</span>
+                                  <span className="text-gray-800 font-medium text-xs">{eventTypeLabelMap[event.type]?.[language] ?? event.type}</span>
                                 </div>
                                 
                                 <div className="flex items-center gap-2">
                                   <div className="w-5 h-5 flex items-center justify-center">
                                     <Presentation size={14} className="text-gray-700" />
                                   </div>
-                                  <span className="text-gray-800 font-medium text-xs">{event.modality}</span>
+                                  <span className="text-gray-800 font-medium text-xs">{modalityLabelMap[event.modality]?.[language] ?? event.modality}</span>
                                 </div>
                                 
                                 <div className="flex items-center gap-2">
@@ -997,7 +1057,7 @@ export default function Education() {
                                       <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                                     </svg>
                                   </div>
-                                  <span className="text-gray-800 font-medium text-xs">{event.role}</span>
+                                  <span className="text-gray-800 font-medium text-xs">{eventRoleLabelMap[event.role]?.[language] ?? event.role}</span>
                                 </div>
                                 
                                 <div className="flex items-center gap-2">
@@ -1019,7 +1079,7 @@ export default function Education() {
                                   onClick={(e) => e.stopPropagation()}
                                 >
                                   <Award size={14} className="text-amber-500 group-hover:scale-110 transition-all duration-300" />
-                                  <span className="font-medium text-xs">Ver certificado</span>
+                                  <span className="font-medium text-xs">{pageText.viewCertificate}</span>
                                 </a>
                               </div>
                             </div>
@@ -1041,7 +1101,7 @@ export default function Education() {
                     </div>
                   )) : (
                     <div className="col-span-full text-center p-8 text-gray-500">
-                      No se encontraron eventos académicos con los filtros seleccionados.
+                      {pageText.noEvents}
                     </div>
                   )}
                 </div>

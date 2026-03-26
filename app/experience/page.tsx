@@ -2,8 +2,8 @@
 
 import { useState } from "react"
 import { MapPin, Globe, Plus, Minus, MessageSquare, Mail } from "lucide-react"
-import Link from "next/link"
 import Image from "next/image"
+import { useLanguage } from "@/components/language-provider"
 
 // Experience data structure
 interface Technology {
@@ -26,108 +26,98 @@ interface ExperienceItem {
   emailContact: string
 }
 
-// Mock data for experiences
+// Experience data
 const experienceData: ExperienceItem[] = [
   {
     id: 1,
-    position: "Frontend Developer",
-    company: "Google",
-    logo: "https://crystalpng.com/wp-content/uploads/2025/05/google-logo-png.png", // Replace with actual logo path
+    position: "Web Developer",
+    company: "Casa de la Cultura (Núcleo Tungurahua)",
+    logo: "",
     location: "Ambato, Tungurahua - Ecuador",
     locationUrl: "https://maps.google.com/?q=Ambato,Tungurahua,Ecuador",
-    websiteUrl: "https://www.google.com",
-    dateRange: "Enero 2025 - Act.",
-    description: `Improving ads ranking models on the core TikTok product. Experience working on modeling two-tower architectures like DeepFM, Wide & deep learning, etc. Working on Large Language Models (LLM) pretraining and Large Multi-modal Model (LMM) finetuning strategies.`,
+    websiteUrl: "https://casadelacultura.gob.ec/",
+    dateRange: "2024 - Actualidad",
+    description:
+      "Desarrollo y mantenimiento de soluciones web para procesos institucionales y culturales. Participación en páginas informativas, módulos de certificados y mejoras continuas de la experiencia digital para usuarios y administradores.",
     technologies: [
-      { name: "HTML", color: "#e34c26" },
+      { name: "WordPress", color: "#21759b" },
+      { name: "PHP", color: "#777bb4" },
       { name: "CSS", color: "#264de4" },
       { name: "JavaScript", color: "#f7df1e" },
-      { name: "React", color: "#61dafb" },
-      { name: "Angular", color: "#dd0031" }
+      { name: "MySQL", color: "#4479a1" },
     ],
     whatsappContact: "https://wa.link/gqwair",
-    emailContact: "mailto:contacto@google.com"
+    emailContact: "mailto:alexispoaquiza.dev@gmail.com",
   },
   {
     id: 2,
-    position: "Backend Developer",
-    company: "Facebook",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Facebook_icon_%28black%29.svg/2048px-Facebook_icon_%28black%29.svg.png", // Replace with actual logo path
-    location: "Ambato, Tungurahua - Ecuador",
-    locationUrl: "https://maps.google.com/?q=Ambato,Tungurahua,Ecuador",
-    websiteUrl: "https://www.facebook.com",
-    dateRange: "Marzo 2023 - Febrero 2024",
-    description: `Desarrollo de APIs RESTful y GraphQL para aplicaciones de alto rendimiento. Implementación de microservicios y optimización de bases de datos para mejorar la escalabilidad y el rendimiento de las aplicaciones.`,
-    technologies: [
-      { name: "Node.js", color: "#339933" },
-      { name: "Python", color: "#3776ab" },
-      { name: "Express", color: "#000000" },
-      { name: "MongoDB", color: "#47a248" },
-      { name: "GraphQL", color: "#e535ab" }
-    ],
-    whatsappContact: "https://wa.link/gqwair",
-    emailContact: "mailto:contacto@facebook.com"
-  },
-  {
-    id: 3,
-    position: "DevOps Engineer",
-    company: "Instagram",
-    logo: "https://static.vecteezy.com/system/resources/previews/042/148/632/non_2x/instagram-logo-instagram-social-media-icon-free-png.png", // Replace with actual logo path
-    location: "Ambato, Tungurahua - Ecuador",
-    locationUrl: "https://maps.google.com/?q=Ambato,Tungurahua,Ecuador",
-    websiteUrl: "https://www.kavak.com",
-    dateRange: "Septiembre 2022 - Febrero 2023",
-    description: `Implementación y gestión de infraestructura como código utilizando Terraform y CloudFormation. Configuración de pipelines CI/CD para automatizar el despliegue de aplicaciones. Monitoreo y optimización del rendimiento de sistemas en la nube.`,
-    technologies: [
-      { name: "Docker", color: "#2496ed" },
-      { name: "Kubernetes", color: "#326ce5" },
-      { name: "AWS", color: "#ff9900" },
-      { name: "Terraform", color: "#7b42bc" },
-      { name: "Jenkins", color: "#d33833" }
-    ],
-    whatsappContact: "https://wa.link/gqwair",
-    emailContact: "mailto:contacto@kavak.com"
-  },
-  {
-    id: 4,
-    position: "Wordpress Designer",
+    position: "Freelancer (Web, Soporte y IA)",
     company: "Freelancer",
-    logo: "https://cdn-icons-png.flaticon.com/512/9495/9495859.png", // Replace with actual logo path
+    logo: "",
     location: "Ambato, Tungurahua - Ecuador",
     locationUrl: "https://maps.google.com/?q=Ambato,Tungurahua,Ecuador",
-    websiteUrl: "https://www.microsoft.com",
-    dateRange: "Abril 2022 - Agosto 2022",
-    description: `Diseño y prototipado de interfaces de usuario para aplicaciones web y móviles. Investigación de usuarios y pruebas de usabilidad para mejorar la experiencia de usuario de los productos.`,
+    websiteUrl: "https://github.com/AlexiP18",
+    dateRange: "2022 - Actualidad",
+    description:
+      "Servicios freelance enfocados en desarrollo de páginas web, mantenimiento de software y hardware, montaje y optimización de PCs, e implementación de agentes de IA para automatización de tareas y asistencia operativa.",
     technologies: [
-      { name: "Figma", color: "#f24e1e" },
-      { name: "Adobe XD", color: "#ff61f6" },
-      { name: "Sketch", color: "#fa6400" },
-      { name: "InVision", color: "#ff3366" },
-      { name: "Zeplin", color: "#fdbd39" }
+      { name: "React", color: "#61dafb" },
+      { name: "Next.js", color: "#111827" },
+      { name: "WordPress", color: "#21759b" },
+      { name: "Soporte SW/HW", color: "#4b5563" },
+      { name: "Montaje de PCs", color: "#2563eb" },
+      { name: "Agentes de IA", color: "#8b5cf6" },
     ],
     whatsappContact: "https://wa.link/gqwair",
-    emailContact: "mailto:contacto@microsoft.com"
+    emailContact: "mailto:alexispoaquiza.dev@gmail.com",
   },
-  {
-    id: 5,
-    position: "Técnico en Mantenimiento de PCs",
-    company: "Freelancer",
-    logo: "https://cdn-icons-png.flaticon.com/512/9495/9495859.png", // Replace with actual logo path
-    location: "Ambato, Tungurahua - Ecuador",
-    locationUrl: "https://maps.google.com/?q=Ambato,Tungurahua,Ecuador",
-    websiteUrl: "https://www.amazon.com",
-    dateRange: "Enero 2022 - Marzo 2022",
-    description: `Responsable del diagnóstico, reparación y mantenimiento integral de equipos informáticos, garantizando la continuidad operativa y la máxima productividad para los usuarios. Proporcioné soporte técnico especializado tanto a nivel de hardware como de software, aplicando una metodología de resolución de problemas para identificar y solucionar incidencias de manera eficiente.`,
-    technologies: [
-      { name: "PCs", color: "#02569b" }
-    ],
-    whatsappContact: "https://wa.link/gqwair",
-    emailContact: "mailto:contacto@amazon.com"
-  }
 ]
 
+const experienceLocaleContent: Record<
+  number,
+  {
+    position: { en: string; es: string }
+    dateRange: { en: string; es: string }
+    description: { en: string; es: string }
+  }
+> = {
+  1: {
+    position: {
+      en: "Web Developer",
+      es: "Web Developer",
+    },
+    dateRange: {
+      en: "2024 - Present",
+      es: "2024 - Actualidad",
+    },
+    description: {
+      en: "Development and maintenance of web solutions for institutional and cultural processes. Involved in informational pages, certificate modules, and continuous UX improvements for users and administrators.",
+      es: "Desarrollo y mantenimiento de soluciones web para procesos institucionales y culturales. Participación en páginas informativas, módulos de certificados y mejoras continuas de la experiencia digital para usuarios y administradores.",
+    },
+  },
+  2: {
+    position: {
+      en: "Freelancer (Web, Support, and AI)",
+      es: "Freelancer (Web, Soporte y IA)",
+    },
+    dateRange: {
+      en: "2022 - Present",
+      es: "2022 - Actualidad",
+    },
+    description: {
+      en: "Freelance services focused on website development, software and hardware maintenance, PC assembly and optimization, and AI agents implementation for task automation and operational support.",
+      es: "Servicios freelance enfocados en desarrollo de páginas web, mantenimiento de software y hardware, montaje y optimización de PCs, e implementación de agentes de IA para automatización de tareas y asistencia operativa.",
+    },
+  },
+}
+
 export default function Experience() {
+  const { language } = useLanguage()
   const [expandedId, setExpandedId] = useState<number | null>(1);
+  const pageText = {
+    title: language === "en" ? "Work Experience" : "Experiencia Laboral",
+    references: language === "en" ? "References" : "Referencias",
+  }
   
   const toggleExpand = (id: number) => {
     setExpandedId(expandedId === id ? null : id);
@@ -135,7 +125,7 @@ export default function Experience() {
   
   return (
     <div className="max-w-6xl mx-auto px-4 py-16">
-      <h1 className="text-3xl font-bold text-gray-800 mb-10 text-center">Experiencia Laboral</h1>
+      <h1 className="text-3xl font-bold text-gray-800 mb-10 text-center">{pageText.title}</h1>
       
       <div className="relative">
         {/* Timeline center line - Fixed positioning for all screen sizes */}
@@ -143,11 +133,12 @@ export default function Experience() {
         
         {/* Experience items */}
         <div className="relative">
-          {experienceData.map((item, index) => {
-            const isOdd = index % 2 === 1; // Use odd index for right placement on desktop
-            const isActive = expandedId === item.id;
-            
-            return (
+	          {experienceData.map((item, index) => {
+	            const isOdd = index % 2 === 1; // Use odd index for right placement on desktop
+	            const isActive = expandedId === item.id;
+              const localizedItem = experienceLocaleContent[item.id]
+	            
+	            return (
               <div key={item.id} className="mb-16 relative">
                 {/* Timeline circle with logo - Middle z-index */}
                 <div className={`absolute left-8 transform -translate-x-1/2 md:left-1/2 md:-translate-x-1/2 flex items-center justify-center z-10`}>
@@ -198,9 +189,9 @@ export default function Experience() {
                       className="flex items-center justify-between p-4 border-b cursor-pointer hover:bg-gray-50"
                       onClick={() => toggleExpand(item.id)}
                     >
-                      <h3 className="font-bold text-lg text-gray-800">{item.position}</h3>
-                      <div className="flex items-center">
-                        <span className="text-gray-600 text-sm mr-3">{item.dateRange}</span>
+	                      <h3 className="font-bold text-lg text-gray-800">{localizedItem?.position[language] ?? item.position}</h3>
+	                      <div className="flex items-center">
+	                        <span className="text-gray-600 text-sm mr-3">{localizedItem?.dateRange[language] ?? item.dateRange}</span>
                         <button className="w-6 h-6 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition-colors duration-300">
                           {isActive ? (
                             <Minus size={16} className="text-gray-600" />
@@ -244,10 +235,10 @@ export default function Experience() {
                           </div>
                         </div>
                         
-                        {/* Description */}
-                        <p className="text-gray-600 text-sm mb-4">
-                          {item.description}
-                        </p>
+	                        {/* Description */}
+	                        <p className="text-gray-600 text-sm mb-4">
+	                          {localizedItem?.description[language] ?? item.description}
+	                        </p>
                         
                         {/* Technologies */}
                         <div className="flex flex-wrap gap-2">
@@ -274,9 +265,9 @@ export default function Experience() {
                       </div>
                     </div>
                     
-                    {/* Card Footer */}
-                    <div className="flex items-center justify-between p-3 bg-gray-50 border-t">
-                      <div className="text-gray-600 text-sm">Referencias</div>
+	                    {/* Card Footer */}
+	                    <div className="flex items-center justify-between p-3 bg-gray-50 border-t">
+	                      <div className="text-gray-600 text-sm">{pageText.references}</div>
                       <div className="flex items-center space-x-2">
                         <a 
                           href={item.whatsappContact}

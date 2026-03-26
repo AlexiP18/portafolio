@@ -5,6 +5,7 @@ import type React from "react"
 import { useState, useEffect } from "react"
 import { User, TrendingUp, FolderOpen, BarChart3, GraduationCap, ArrowRight, Sparkles } from "lucide-react"
 import Link from "next/link"
+import { useLanguage } from "@/components/language-provider"
 
 interface NavPoint {
   id: string
@@ -16,55 +17,106 @@ interface NavPoint {
   description: string
 }
 
-const navPoints: NavPoint[] = [
-  {
-    id: "sobre-mi",
-    name: "Sobre mí",
-    href: "/sobre-mi",
-    icon: User,
-    position: { x: 15, y: 25 },
-    color: "from-blue-400 to-blue-600",
-    description: "Conoce mi historia y experiencia",
-  },
-  {
-    id: "experiencia",
-    name: "Experiencia",
-    href: "/experience",
-    icon: TrendingUp,
-    position: { x: 85, y: 20 },
-    color: "from-green-400 to-green-600",
-    description: "Mi trayectoria profesional",
-  },
-  {
-    id: "proyectos",
-    name: "Proyectos",
-    href: "/proyectos",
-    icon: FolderOpen,
-    position: { x: 80, y: 75 },
-    color: "from-purple-400 to-purple-600",
-    description: "Trabajos y creaciones destacadas",
-  },
-  {
-    id: "skills",
-    name: "Skills",
-    href: "/skills",
-    icon: BarChart3,
-    position: { x: 20, y: 80 },
-    color: "from-orange-400 to-orange-600",
-    description: "Tecnologías y habilidades",
-  },
-  {
-    id: "education",
-    name: "Educacion",
-    href: "/education",
-    icon: GraduationCap,
-    position: { x: 50, y: 15 },
-    color: "from-teal-400 to-teal-600",
-    description: "Formación académica",
-  },
-]
+const navPointsByLanguage: Record<"en" | "es", NavPoint[]> = {
+  en: [
+    {
+      id: "sobre-mi",
+      name: "About Me",
+      href: "/sobre-mi",
+      icon: User,
+      position: { x: 15, y: 25 },
+      color: "from-blue-400 to-blue-600",
+      description: "Learn about my profile and background",
+    },
+    {
+      id: "experiencia",
+      name: "Experience",
+      href: "/experience",
+      icon: TrendingUp,
+      position: { x: 85, y: 20 },
+      color: "from-green-400 to-green-600",
+      description: "My professional journey",
+    },
+    {
+      id: "proyectos",
+      name: "Projects",
+      href: "/proyectos",
+      icon: FolderOpen,
+      position: { x: 80, y: 75 },
+      color: "from-purple-400 to-purple-600",
+      description: "Highlighted work and builds",
+    },
+    {
+      id: "skills",
+      name: "Skills",
+      href: "/skills",
+      icon: BarChart3,
+      position: { x: 20, y: 80 },
+      color: "from-orange-400 to-orange-600",
+      description: "Technologies and capabilities",
+    },
+    {
+      id: "education",
+      name: "Education",
+      href: "/education",
+      icon: GraduationCap,
+      position: { x: 50, y: 15 },
+      color: "from-teal-400 to-teal-600",
+      description: "Academic background",
+    },
+  ],
+  es: [
+    {
+      id: "sobre-mi",
+      name: "Sobre mí",
+      href: "/sobre-mi",
+      icon: User,
+      position: { x: 15, y: 25 },
+      color: "from-blue-400 to-blue-600",
+      description: "Conoce mi perfil y trayectoria",
+    },
+    {
+      id: "experiencia",
+      name: "Experiencia",
+      href: "/experience",
+      icon: TrendingUp,
+      position: { x: 85, y: 20 },
+      color: "from-green-400 to-green-600",
+      description: "Mi trayectoria profesional",
+    },
+    {
+      id: "proyectos",
+      name: "Proyectos",
+      href: "/proyectos",
+      icon: FolderOpen,
+      position: { x: 80, y: 75 },
+      color: "from-purple-400 to-purple-600",
+      description: "Trabajos y creaciones destacadas",
+    },
+    {
+      id: "skills",
+      name: "Skills",
+      href: "/skills",
+      icon: BarChart3,
+      position: { x: 20, y: 80 },
+      color: "from-orange-400 to-orange-600",
+      description: "Tecnologías y habilidades",
+    },
+    {
+      id: "education",
+      name: "Educación",
+      href: "/education",
+      icon: GraduationCap,
+      position: { x: 50, y: 15 },
+      color: "from-teal-400 to-teal-600",
+      description: "Formación académica",
+    },
+  ],
+}
 
 export default function Home() {
+  const { language } = useLanguage()
+  const navPoints = navPointsByLanguage[language]
   const [displayText, setDisplayText] = useState("")
   const [currentWordIndex, setCurrentWordIndex] = useState(0)
   const [currentCharIndex, setCurrentCharIndex] = useState(0)
@@ -75,15 +127,22 @@ export default function Home() {
   const [isMobile, setIsMobile] = useState(false)
 
   // Palabras diferentes para móvil (más cortas) y desktop
-  const desktopWords = [
-    "Ingeniero de Software",
-    "Desarrollador Full Stack",
-    "Creador Digital",
-    "Solucionador de Problemas",
-  ]
-  const mobileWords = ["Ingeniero", "Desarrollador", "Creador", "Innovador"]
+  const desktopWords =
+    language === "en"
+      ? ["Software Engineer", "Full Stack Developer", "Digital Creator", "Problem Solver"]
+      : ["Ingeniero de Software", "Desarrollador Full Stack", "Creador Digital", "Solucionador de Problemas"]
+  const mobileWords = language === "en" ? ["Engineer", "Developer", "Creator", "Innovator"] : ["Ingeniero", "Desarrollador", "Creador", "Innovador"]
 
   const words = isMobile ? mobileWords : desktopWords
+  const homeText = {
+    topSubtitle: language === "en" ? "Full Stack Developer" : "Desarrollador Full Stack",
+    description:
+      language === "en"
+        ? "Building innovative digital solutions with modern technologies and user-centered design"
+        : "Creando soluciones digitales innovadoras con tecnologías modernas y diseño centrado en el usuario",
+    cta: language === "en" ? "Contact Me" : "Contáctame",
+    explore: language === "en" ? "Explore" : "Explorar",
+  }
 
   // Detectar si es móvil
   useEffect(() => {
@@ -148,6 +207,14 @@ export default function Home() {
 
     return () => clearTimeout(typewriterTimeout)
   }, [currentCharIndex, currentWordIndex, isDeleting, isPaused, words])
+
+  useEffect(() => {
+    setDisplayText("")
+    setCurrentCharIndex(0)
+    setCurrentWordIndex(0)
+    setIsDeleting(false)
+    setIsPaused(false)
+  }, [language])
 
   // Efecto de pulso para los círculos
   useEffect(() => {
@@ -275,7 +342,7 @@ export default function Home() {
                       </div>
                       <p className="text-sm text-gray-600 mb-3">{point.description}</p>
                       <div className="flex items-center text-teal-600 text-sm font-medium">
-                        <span>Explorar</span>
+                        <span>{homeText.explore}</span>
                         <ArrowRight className="w-4 h-4 ml-1" />
                       </div>
                       {/* Flecha del tooltip - Posición dinámica */}
@@ -315,10 +382,10 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Subtítulo superior */}
-          <p className="text-gray-400 text-xs md:text-sm lg:text-base tracking-[0.2em] md:tracking-[0.3em] uppercase mb-6 md:mb-8 font-light animate-fade-in">
-            Desarrollador Full Stack
-          </p>
+	          {/* Subtítulo superior */}
+	          <p className="text-gray-400 text-xs md:text-sm lg:text-base tracking-[0.2em] md:tracking-[0.3em] uppercase mb-6 md:mb-8 font-light animate-fade-in">
+	            {homeText.topSubtitle}
+	          </p>
 
           {/* Título principal con animación typewriter - Altura fija y sin wrap */}
           <div className="mb-4 md:mb-6">
@@ -336,19 +403,19 @@ export default function Home() {
             </h1>
           </div>
 
-          {/* Descripción */}
-          <p className="text-gray-300 text-sm md:text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed mb-6 md:mb-8 animate-fade-in-delay">
-            Creando soluciones digitales innovadoras con tecnologías modernas y diseño centrado en el usuario
-          </p>
+	          {/* Descripción */}
+	          <p className="text-gray-300 text-sm md:text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed mb-6 md:mb-8 animate-fade-in-delay">
+	            {homeText.description}
+	          </p>
 
           {/* Botón CTA */}
-          <div className="mt-6 md:mt-8 animate-fade-in-delay-2">
-            <Link href="https://wa.link/gqwair">
-              <button className="group bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white px-6 md:px-8 py-3 md:py-4 rounded-full font-medium transition-all duration-300 shadow-lg hover:shadow-teal-500/25 hover:scale-105 transform flex items-center space-x-2 mx-auto text-sm md:text-base">
-                <span>Contáctame</span>
-                <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
-            </Link>
+	          <div className="mt-6 md:mt-8 animate-fade-in-delay-2">
+	            <Link href="https://wa.link/gqwair">
+	              <button className="group bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white px-6 md:px-8 py-3 md:py-4 rounded-full font-medium transition-all duration-300 shadow-lg hover:shadow-teal-500/25 hover:scale-105 transform flex items-center space-x-2 mx-auto text-sm md:text-base">
+	                <span>{homeText.cta}</span>
+	                <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform" />
+	              </button>
+	            </Link>
           </div>
 
           {/* Indicador de scroll - Solo desktop */}

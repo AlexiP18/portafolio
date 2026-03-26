@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import { Mail, Github, Linkedin, MessageCircle, FileText, MapPin, Briefcase, ExternalLink } from "lucide-react"
+import { useLanguage } from "@/components/language-provider"
 
 const contactLinks = {
   email: "mailto:alexispoaquiza.dev@gmail.com",
@@ -16,17 +17,40 @@ const githubUser = "AlexiP18"
 
 const linkedinCard = {
   name: "Alexis Poaquiza",
-  role: "Ingeniero de Software | Frontend & DevOps",
+  role: {
+    en: "Software Engineer | Frontend & DevOps",
+    es: "Ingeniero de Software | Frontend & DevOps",
+  },
   location: "Ambato, Ecuador",
-  about:
-    "Apasionado por construir experiencias web modernas, accesibles y con buen rendimiento. Enfocado en React, Next.js, TypeScript y despliegue en la nube.",
+  about: {
+    en: "Passionate about building modern, accessible, and high-performance web experiences. Focused on React, Next.js, TypeScript, and cloud deployment.",
+    es: "Apasionado por construir experiencias web modernas, accesibles y con buen rendimiento. Enfocado en React, Next.js, TypeScript y despliegue en la nube.",
+  },
   avatar:
     "https://scontent.fatf6-1.fna.fbcdn.net/v/t39.30808-1/482063674_122098752290799599_4639200773569733832_n.jpg?stp=c219.0.864.864a_dst-jpg_s200x200_tt6&_nc_cat=100&ccb=1-7&_nc_sid=e99d92&_nc_ohc=1cnEuO3TAx4Q7kNvwFadUFF&_nc_oc=Adn-kIeTUNzzJu8bMVLfUSHeTYF8b4MBbflKKqNLMqW5OU5KsUj1Tkn_Ieqip5swMbg&_nc_zt=24&_nc_ht=scontent.fatf6-1.fna&_nc_gid=1Rj8s84CAcqY-mEIEiC3vQ&oh=00_AfOdguSZAs2oXvotJXG7jP_3a8kI3Jf7w_xqQ7IlxUAEVQ&oe=686B5D55",
 }
 
 export default function ContactoPage() {
+  const { language } = useLanguage()
   const [isScrolled, setIsScrolled] = useState(false)
   const lastScrollY = useRef(0)
+
+  const pageText = {
+    title: language === "en" ? "Contact" : "Contacto",
+    subtitle:
+      language === "en"
+        ? "If you want to collaborate on a project, schedule an interview, or request my resume, reach out through any of these channels."
+        : "Si quieres colaborar en un proyecto, agendar una entrevista o solicitar mi hoja de vida, puedes escribirme por cualquiera de estos canales.",
+    emailAria: language === "en" ? "Email" : "Correo",
+    cvAria: language === "en" ? "View CV" : "Ver CV",
+    available: language === "en" ? "Available for opportunities" : "Disponible para oportunidades",
+    viewProfile: language === "en" ? "View profile" : "Ver perfil",
+    githubLive: language === "en" ? "Live GitHub" : "GitHub en vivo",
+    githubLiveDescription:
+      language === "en"
+        ? `Widgets connected to @${githubUser}. They update automatically with your activity.`
+        : `Widgets conectados a @${githubUser}. Se actualizan automáticamente con tu actividad.`,
+  }
 
   useEffect(() => {
     const onScroll = () => {
@@ -50,10 +74,9 @@ export default function ContactoPage() {
   return (
     <div className="max-w-5xl mx-auto px-4 py-12 lg:py-16 space-y-8">
       <div>
-        <h1 className="text-3xl lg:text-4xl font-bold text-gray-900">Contacto</h1>
+        <h1 className="text-3xl lg:text-4xl font-bold text-gray-900">{pageText.title}</h1>
         <p className="mt-3 text-gray-600 max-w-3xl">
-          Si quieres colaborar en un proyecto, agendar una entrevista o solicitar mi hoja de vida,
-          puedes escribirme por cualquiera de estos canales.
+          {pageText.subtitle}
         </p>
       </div>
 
@@ -89,7 +112,7 @@ export default function ContactoPage() {
           <a
             href={contactLinks.email}
             className="text-gray-500 hover:text-red-700 transition-colors duration-200"
-            aria-label="Correo"
+            aria-label={pageText.emailAria}
           >
             <Mail className="w-8 h-8" />
           </a>
@@ -98,7 +121,7 @@ export default function ContactoPage() {
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-teal-600 text-white hover:bg-teal-700 transition-colors duration-200"
-            aria-label="Ver CV"
+            aria-label={pageText.cvAria}
           >
             <FileText className="w-6 h-6" />
           </a>
@@ -128,7 +151,7 @@ export default function ContactoPage() {
 
                 <div className="mt-4">
                   <h2 className="text-xl font-semibold text-gray-900 leading-tight">{linkedinCard.name}</h2>
-                  <p className="mt-1 text-sm text-gray-700">{linkedinCard.role}</p>
+                  <p className="mt-1 text-sm text-gray-700">{linkedinCard.role[language]}</p>
 
                   <div className="mt-4 space-y-2 text-sm text-gray-600">
                     <div className="inline-flex items-center gap-2">
@@ -137,11 +160,11 @@ export default function ContactoPage() {
                     </div>
                     <div className="inline-flex items-center gap-2">
                       <Briefcase className="w-4 h-4" />
-                      <span>Disponible para oportunidades</span>
+                      <span>{pageText.available}</span>
                     </div>
                   </div>
 
-                  <p className="mt-4 text-sm text-gray-600 leading-relaxed">{linkedinCard.about}</p>
+                  <p className="mt-4 text-sm text-gray-600 leading-relaxed">{linkedinCard.about[language]}</p>
 
                   <a
                     href={contactLinks.linkedin}
@@ -149,7 +172,7 @@ export default function ContactoPage() {
                     rel="noopener noreferrer"
                     className="mt-5 inline-flex items-center gap-1.5 rounded-full bg-blue-600 px-4 py-2 text-white text-sm font-medium hover:bg-blue-700 transition-colors"
                   >
-                    Ver perfil
+                    {pageText.viewProfile}
                     <ExternalLink className="w-3.5 h-3.5" />
                   </a>
                 </div>
@@ -158,9 +181,9 @@ export default function ContactoPage() {
         </div>
 
         <div className="rounded-2xl border border-gray-200 bg-white p-5 lg:p-6 shadow-sm">
-          <h2 className="text-xl font-semibold text-gray-900">GitHub en vivo</h2>
+          <h2 className="text-xl font-semibold text-gray-900">{pageText.githubLive}</h2>
           <p className="mt-2 text-gray-600 text-sm">
-            Widgets conectados a @{githubUser}. Se actualizan automáticamente con tu actividad.
+            {pageText.githubLiveDescription}
           </p>
 
           <div className="mt-5 flex flex-col gap-4">

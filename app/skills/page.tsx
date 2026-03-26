@@ -1,7 +1,8 @@
 "use client"
 
 import { useState } from "react"
-import { Server, Database, Monitor, X, Mail, MessageSquare, Users, Briefcase } from "lucide-react"
+import { Server, Database, Monitor, X, Mail, MessageSquare, Users, Briefcase, BookOpen, Sparkles, Layers, FolderOpen, ChevronDown, ShoppingBag } from "lucide-react"
+import { useLanguage } from "@/components/language-provider"
 
 // Mock data for technology details
 const techDetails = {
@@ -493,6 +494,7 @@ const additionalSkills = {
   categories: [
     {
       name: "DevOps & Cloud",
+      icon: Server,
       technologies: [
         {
           name: "Docker",
@@ -514,6 +516,7 @@ const additionalSkills = {
     },
     {
       name: "Herramientas",
+      icon: Monitor,
       technologies: [
         {
           name: "Git",
@@ -535,6 +538,7 @@ const additionalSkills = {
     },
     {
       name: "Testing & Otros",
+      icon: MessageSquare,
       technologies: [
         {
           name: "Jest",
@@ -560,6 +564,7 @@ const additionalSkills = {
     },
     {
       name: "CRM y similares",
+      icon: Users,
       technologies: [
         {
           name: "Odoo",
@@ -571,7 +576,7 @@ const additionalSkills = {
         },
         {
           name: "Shopify",
-          icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/shopify/shopify-original.svg" className="w-12 h-12" alt="Shopify" />,
+          icon: <ShoppingBag className="w-12 h-12 text-[#95BF47]" />,
         },
       ],
     },
@@ -579,6 +584,7 @@ const additionalSkills = {
 }
 
 export default function Skills() {
+  const { language } = useLanguage()
   const [selectedTech, setSelectedTech] = useState<keyof typeof techDetails | null>(null)
   const [activeSections, setActiveSections] = useState({
     fundamentos: true,
@@ -623,11 +629,93 @@ export default function Skills() {
     </div>
   )
 
+  const selectedTechIcon =
+    selectedTech
+      ? Object.values(skillsData)
+          .flatMap((category) => category.technologies)
+          .concat(...additionalSkills.categories.flatMap((cat) => cat.technologies))
+          .find((tech) => tech.name === selectedTech)?.icon
+      : null
+
+  const pageText = {
+    title: language === "en" ? "Technical Skills" : "Skills Técnicas",
+    subtitle:
+      language === "en"
+        ? "Technologies and tools I use to build complete digital solutions"
+        : "Tecnologías y herramientas que domino para crear soluciones digitales completas",
+    additionalSkillsTitle: language === "en" ? "More Skills..." : "Más Skills...",
+    additionalSkillsDescription:
+      language === "en"
+        ? "Other technologies and tools that complement my development stack"
+        : "Otras tecnologías y herramientas que complementan mi stack de desarrollo",
+    modalDetail: language === "en" ? "Technical experience details" : "Detalle de experiencia técnica",
+    fundamentals: language === "en" ? "Fundamentals" : "Fundamentos",
+    advanced: language === "en" ? "Advanced Features" : "Características Avanzadas",
+    ecosystem: language === "en" ? "Ecosystem and Tools" : "Ecosistema y otras herramientas",
+    projects: language === "en" ? "Projects and Practical Apps" : "Proyecto y Aplicaciones prácticas",
+    noInfo: language === "en" ? "Information not available" : "Información no disponible",
+    questions: language === "en" ? "Do you have questions about this technology?" : "¿Tienes dudas sobre esta tecnología?",
+    contactMe: language === "en" ? "Contact me" : "Contáctame",
+    year: language === "en" ? "Year" : "Año",
+    years: language === "en" ? "Years" : "Años",
+  }
+
+  const categoryTitleMap: Record<string, { en: string; es: string }> = {
+    frontend: {
+      en: "Frontend",
+      es: "Frontend",
+    },
+    backend: {
+      en: "Backend",
+      es: "Backend",
+    },
+    database: {
+      en: "Databases",
+      es: "Bases de Datos",
+    },
+  }
+
+  const categoryDescriptionMap: Record<string, { en: string; es: string }> = {
+    frontend: {
+      en: "Specialized in building modern and responsive user interfaces. Solid experience with React, Next.js, TypeScript, and frontend tooling.",
+      es: "Especializado en crear interfaces de usuario modernas y responsivas. Experiencia sólida en React, Next.js, TypeScript y herramientas de desarrollo frontend.",
+    },
+    backend: {
+      en: "Development of robust and scalable APIs. Experience with Node.js, Python, databases, and microservice architectures.",
+      es: "Desarrollo de APIs robustas y escalables. Experiencia en Node.js, Python, bases de datos y arquitecturas de microservicios para aplicaciones empresariales.",
+    },
+    database: {
+      en: "Management and design of relational and NoSQL databases. Query optimization and data architecture for high-performance applications.",
+      es: "Gestión y diseño de bases de datos relacionales y NoSQL. Optimización de consultas y arquitectura de datos para aplicaciones de alto rendimiento.",
+    },
+  }
+
+  const additionalCategoryNameMap: Record<string, { en: string; es: string }> = {
+    "DevOps & Cloud": { en: "DevOps & Cloud", es: "DevOps & Cloud" },
+    Herramientas: { en: "Tools", es: "Herramientas" },
+    "Testing & Otros": { en: "Testing & Others", es: "Testing & Otros" },
+    "CRM y similares": { en: "CRM and Similar", es: "CRM y similares" },
+  }
+
+  const formatYears = (value: string) => {
+    if (language === "es") return value
+
+    const normalized = value.trim()
+    if (normalized.endsWith("Año")) {
+      return normalized.replace(/Año$/, pageText.year)
+    }
+    if (normalized.endsWith("Años")) {
+      return normalized.replace(/Años$/, pageText.years)
+    }
+
+    return normalized
+  }
+
   return (
     <div className="max-w-6xl mx-auto p-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">Skills Técnicas</h1>
-        <p className="text-gray-600">Tecnologías y herramientas que domino para crear soluciones digitales completas</p>
+        <h1 className="text-3xl font-bold text-gray-800 mb-4">{pageText.title}</h1>
+        <p className="text-gray-600">{pageText.subtitle}</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -639,15 +727,15 @@ export default function Skills() {
               className={`bg-white rounded-lg shadow-sm border-2 ${category.borderColor} p-6 ${category.bgColor}`}
             >
               {/* Header */}
-              <div className="flex items-center mb-4">
-                <div className={`p-3 rounded-lg ${category.bgColor} mr-4`}>
-                  <IconComponent className={`w-6 h-6 ${category.color}`} />
-                </div>
-                <h2 className={`text-xl font-semibold ${category.color}`}>{category.title}</h2>
-              </div>
+	              <div className="flex items-center mb-4">
+	                <div className={`p-3 rounded-lg ${category.bgColor} mr-4`}>
+	                  <IconComponent className={`w-6 h-6 ${category.color}`} />
+	                </div>
+	                <h2 className={`text-xl font-semibold ${category.color}`}>{categoryTitleMap[key]?.[language] ?? category.title}</h2>
+	              </div>
 
-              {/* Description */}
-              <p className="text-gray-600 text-sm mb-6">{category.description}</p>
+	              {/* Description */}
+	              <p className="text-gray-600 text-sm mb-6">{categoryDescriptionMap[key]?.[language] ?? category.description}</p>
 
               {/* Technologies Grid - Solo iconos */}
               <div className="grid grid-cols-3 gap-4">
@@ -659,50 +747,63 @@ export default function Skills() {
       </div>
 
       {/* Sección adicional que ocupa todo el ancho */}
-      <div className="mt-8 bg-white rounded-lg shadow-sm border-2 border-gray-200/50 p-6">
-        <div className="mb-6">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-2">{additionalSkills.title}</h2>
-          <p className="text-gray-600">{additionalSkills.description}</p>
+      <div className="mt-10 rounded-2xl border border-gray-200 bg-gradient-to-br from-white to-slate-50 shadow-sm p-6 sm:p-8">
+        <div className="mb-8">
+          <h2 className="text-2xl font-semibold text-gray-800 mb-2">{pageText.additionalSkillsTitle}</h2>
+          <p className="text-gray-600">{pageText.additionalSkillsDescription}</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {additionalSkills.categories.map((category) => (
-            <div key={category.name} className="space-y-4">
-              <h3 className="text-lg font-medium text-gray-700 border-b border-gray-200 pb-2">{category.name}</h3>
-              <div className="grid grid-cols-2 gap-3">
-                {category.technologies.map((tech) => renderTechItem(tech))}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
+          {additionalSkills.categories.map((category) => {
+            const CategoryIcon = category.icon
+
+            return (
+              <div key={category.name} className="rounded-xl border border-gray-200/80 bg-white p-4 sm:p-5 shadow-sm">
+                <h3 className="text-base font-semibold text-gray-800 pb-3 border-b border-gray-100 flex items-center gap-2">
+                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-slate-100 text-slate-700">
+                    <CategoryIcon className="w-4 h-4" />
+                  </span>
+                  <span>{additionalCategoryNameMap[category.name]?.[language] ?? category.name}</span>
+                </h3>
+                <div className="mt-4 grid grid-cols-2 gap-3">
+                  {category.technologies.map((tech) => renderTechItem(tech))}
+                </div>
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </div>
 
       {/* Technology Experience Modal */}
       {selectedTech && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg shadow-xl w-full max-w-lg max-h-[90vh] flex flex-col">
+        <div
+          className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
+          onClick={handleCloseModal}
+        >
+          <div
+            className="bg-white rounded-2xl border border-gray-200 shadow-2xl w-full max-w-2xl max-h-[92vh] flex flex-col overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
             {/* Modal Header */}
-            <div className="flex items-center justify-between p-4 border-b">
-              <div className="flex items-center space-x-3">
-                {Object.values(skillsData)
-                  .flatMap((category) => category.technologies)
-                  .concat(...additionalSkills.categories.flatMap((cat) => cat.technologies))
-                  .find((tech) => tech.name === selectedTech)?.icon || <div className="w-12 h-12 bg-gray-200 rounded-full"></div>}
-                <h2 className="text-xl font-bold">{selectedTech}</h2>
-              </div>
-
-              <div className="flex items-center space-x-4">
-                <div className="flex items-center space-x-2">
-                  <div className="bg-gray-800 rounded-full p-1">
-                    <span className="text-white text-xs font-bold px-1">XP</span>
-                  </div>
-                  <span className="text-sm font-medium">
-                    {techDetails[selectedTech!].years || "1 Año"}
-                  </span>
+            <div className="flex items-center justify-between p-5 border-b bg-gradient-to-r from-slate-50 to-white">
+              <div className="flex items-center gap-4 min-w-0">
+                <div className="w-14 h-14 rounded-xl border border-gray-200 bg-white shadow-sm flex items-center justify-center shrink-0">
+                  {selectedTechIcon || <div className="w-10 h-10 bg-gray-200 rounded-lg"></div>}
                 </div>
+	                <div className="min-w-0">
+	                  <h2 className="text-2xl font-bold text-gray-900 truncate">{selectedTech}</h2>
+	                  <p className="text-sm text-gray-500">{pageText.modalDetail}</p>
+	                </div>
+	              </div>
+
+              <div className="flex items-center gap-3">
+	                <div className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-3 py-1.5 text-white text-xs font-semibold">
+	                  <Briefcase className="w-3.5 h-3.5" />
+	                  <span>{formatYears(techDetails[selectedTech!].years || `1 ${pageText.year}`)}</span>
+	                </div>
                 <button
                   onClick={handleCloseModal}
-                  className="text-gray-500 hover:text-gray-700"
+                  className="w-9 h-9 rounded-full border border-gray-200 bg-white text-gray-500 hover:text-gray-700 hover:bg-gray-50 transition-colors flex items-center justify-center"
                 >
                   <X size={20} />
                 </button>
@@ -710,132 +811,127 @@ export default function Skills() {
             </div>
 
             {/* Modal Body - Accordion sections */}
-            <div className="overflow-y-auto flex-1">
+            <div className="overflow-y-auto flex-1 p-4 bg-white space-y-3">
               {/* Fundamentos */}
-              <div className="border-b">
+              <div className="rounded-xl border border-gray-200 overflow-hidden">
                 <button
-                  className="w-full px-4 py-3 flex justify-between items-center hover:bg-gray-50"
+                  className="w-full px-4 py-3.5 flex justify-between items-center hover:bg-gray-50 transition-colors"
                   onClick={() => toggleSection("fundamentos")}
                 >
-                  <span className="font-medium">Fundamentos</span>
-                  <svg
-                    className={`w-5 h-5 transition-transform ${activeSections.fundamentos ? "transform rotate-180" : ""}`}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
-                  </svg>
+	                  <span className="font-medium text-gray-800 flex items-center gap-2">
+	                    <BookOpen className="w-4 h-4 text-teal-600" />
+	                    {pageText.fundamentals}
+	                  </span>
+                  <ChevronDown
+                    className={`w-5 h-5 text-gray-500 transition-transform ${activeSections.fundamentos ? "rotate-180" : ""}`}
+                  />
                 </button>
                 {activeSections.fundamentos && (
-                  <div className="px-4 py-2">
-                    <ul className="list-disc pl-5 space-y-1 text-sm">
-                      {techDetails[selectedTech]?.sections.fundamentos.map((item, index) => (
-                        <li key={index}>{item}</li>
-                      )) || <li>Información no disponible</li>}
-                    </ul>
-                  </div>
-                )}
-              </div>
+                  <div className="px-4 pb-4">
+	                    <ul className="list-disc pl-5 space-y-1.5 text-sm text-gray-700">
+	                      {techDetails[selectedTech]?.sections.fundamentos.map((item, index) => (
+	                        <li key={index}>{item}</li>
+	                      )) || <li>{pageText.noInfo}</li>}
+	                    </ul>
+	                  </div>
+	                )}
+	              </div>
 
               {/* Características Avanzadas */}
-              <div className="border-b">
+              <div className="rounded-xl border border-gray-200 overflow-hidden">
                 <button
-                  className="w-full px-4 py-3 flex justify-between items-center hover:bg-gray-50"
+                  className="w-full px-4 py-3.5 flex justify-between items-center hover:bg-gray-50 transition-colors"
                   onClick={() => toggleSection("caracteristicasAvanzadas")}
                 >
-                  <span className="font-medium">Características Avanzadas</span>
-                  <svg
-                    className={`w-5 h-5 transition-transform ${activeSections.caracteristicasAvanzadas ? "transform rotate-180" : ""}`}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
-                  </svg>
+	                  <span className="font-medium text-gray-800 flex items-center gap-2">
+	                    <Sparkles className="w-4 h-4 text-violet-600" />
+	                    {pageText.advanced}
+	                  </span>
+                  <ChevronDown
+                    className={`w-5 h-5 text-gray-500 transition-transform ${activeSections.caracteristicasAvanzadas ? "rotate-180" : ""}`}
+                  />
                 </button>
                 {activeSections.caracteristicasAvanzadas && (
-                  <div className="px-4 py-2">
-                    <ul className="list-disc pl-5 space-y-1 text-sm">
-                      {techDetails[selectedTech]?.sections.caracteristicasAvanzadas.map((item, index) => (
-                        <li key={index}>{item}</li>
-                      )) || <li>Información no disponible</li>}
-                    </ul>
-                  </div>
-                )}
-              </div>
+                  <div className="px-4 pb-4">
+	                    <ul className="list-disc pl-5 space-y-1.5 text-sm text-gray-700">
+	                      {techDetails[selectedTech]?.sections.caracteristicasAvanzadas.map((item, index) => (
+	                        <li key={index}>{item}</li>
+	                      )) || <li>{pageText.noInfo}</li>}
+	                    </ul>
+	                  </div>
+	                )}
+	              </div>
 
               {/* Ecosistema y otras herramientas */}
-              <div className="border-b">
+              <div className="rounded-xl border border-gray-200 overflow-hidden">
                 <button
-                  className="w-full px-4 py-3 flex justify-between items-center hover:bg-gray-50"
+                  className="w-full px-4 py-3.5 flex justify-between items-center hover:bg-gray-50 transition-colors"
                   onClick={() => toggleSection("ecosistema")}
                 >
-                  <span className="font-medium">Ecosistema y otras herramientas</span>
-                  <svg
-                    className={`w-5 h-5 transition-transform ${activeSections.ecosistema ? "transform rotate-180" : ""}`}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
-                  </svg>
+	                  <span className="font-medium text-gray-800 flex items-center gap-2">
+	                    <Layers className="w-4 h-4 text-blue-600" />
+	                    {pageText.ecosystem}
+	                  </span>
+                  <ChevronDown
+                    className={`w-5 h-5 text-gray-500 transition-transform ${activeSections.ecosistema ? "rotate-180" : ""}`}
+                  />
                 </button>
                 {activeSections.ecosistema && (
-                  <div className="px-4 py-2">
-                    <ul className="list-disc pl-5 space-y-1 text-sm">
-                      {techDetails[selectedTech]?.sections.ecosistema.map((item, index) => (
-                        <li key={index}>{item}</li>
-                      )) || <li>Información no disponible</li>}
-                    </ul>
-                  </div>
-                )}
-              </div>
+                  <div className="px-4 pb-4">
+	                    <ul className="list-disc pl-5 space-y-1.5 text-sm text-gray-700">
+	                      {techDetails[selectedTech]?.sections.ecosistema.map((item, index) => (
+	                        <li key={index}>{item}</li>
+	                      )) || <li>{pageText.noInfo}</li>}
+	                    </ul>
+	                  </div>
+	                )}
+	              </div>
 
               {/* Proyecto y Aplicaciones prácticas */}
-              <div className="border-b">
+              <div className="rounded-xl border border-gray-200 overflow-hidden">
                 <button
-                  className="w-full px-4 py-3 flex justify-between items-center hover:bg-gray-50"
+                  className="w-full px-4 py-3.5 flex justify-between items-center hover:bg-gray-50 transition-colors"
                   onClick={() => toggleSection("proyectos")}
                 >
-                  <span className="font-medium">Proyecto y Aplicaciones prácticas</span>
-                  <svg
-                    className={`w-5 h-5 transition-transform ${activeSections.proyectos ? "transform rotate-180" : ""}`}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
-                  </svg>
+	                  <span className="font-medium text-gray-800 flex items-center gap-2">
+	                    <FolderOpen className="w-4 h-4 text-orange-600" />
+	                    {pageText.projects}
+	                  </span>
+                  <ChevronDown
+                    className={`w-5 h-5 text-gray-500 transition-transform ${activeSections.proyectos ? "rotate-180" : ""}`}
+                  />
                 </button>
                 {activeSections.proyectos && (
-                  <div className="px-4 py-2">
-                    <ul className="list-disc pl-5 space-y-1 text-sm">
-                      {techDetails[selectedTech]?.sections.proyectos.map((item, index) => (
-                        <li key={index}>{item}</li>
-                      )) || <li>Información no disponible</li>}
-                    </ul>
-                  </div>
-                )}
-              </div>
+                  <div className="px-4 pb-4">
+	                    <ul className="list-disc pl-5 space-y-1.5 text-sm text-gray-700">
+	                      {techDetails[selectedTech]?.sections.proyectos.map((item, index) => (
+	                        <li key={index}>{item}</li>
+	                      )) || <li>{pageText.noInfo}</li>}
+	                    </ul>
+	                  </div>
+	                )}
+	              </div>
             </div>
 
             {/* Modal Footer */}
-            <div className="border-t p-4 flex items-center justify-between">
-              <div className="text-gray-600 text-sm">Tiene dudas?...</div>
-              <div className="flex items-center space-x-4">
-                <span className="text-sm font-medium mr-2">Contáctame</span>
+	            <div className="border-t p-4 bg-slate-50 flex items-center justify-between gap-4">
+	              <div className="text-gray-600 text-sm flex items-center gap-2">
+	                <MessageSquare size={16} className="text-gray-500" />
+	                {pageText.questions}
+	              </div>
+	              <div className="flex items-center space-x-3">
+	                <span className="text-sm font-medium">{pageText.contactMe}</span>
                 <a
                   href={`https://wa.link/gqwair`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 bg-green-500 text-white rounded-full hover:bg-green-600"
+                  className="p-2 bg-green-500 text-white rounded-full hover:bg-green-600 transition-colors"
                 >
                   <MessageSquare size={16} />
                 </a>
                 <a
                   href={`mailto:joelpstudy10@gmail.com?subject=Consulta sobre ${selectedTech}`}
-                  className="p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600"
+                  className="p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors"
                 >
                   <Mail size={16} />
                 </a>

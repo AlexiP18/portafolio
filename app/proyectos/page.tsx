@@ -7,6 +7,7 @@ import { ExternalLink, Code2, Globe, Layers, Zap, BrainCircuit, X, Github, BookO
 import Image from "next/image"
 import { Dialog, DialogClose, DialogContent, DialogTitle } from "@/components/ui/dialog"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
+import { useLanguage } from "@/components/language-provider"
 
 interface Project {
   id: string
@@ -227,10 +228,121 @@ const filterIcons: Record<string, React.ReactNode> = {
 
 const isUrlAvailable = (url?: string) => Boolean(url && url !== "#")
 
+const projectLocaleContent: Record<
+  string,
+  {
+    title: { en: string; es: string }
+    description: { en: string; es: string }
+  }
+> = {
+  ecommerce: {
+    title: { en: "Ecommerce Platform", es: "Plataforma Ecommerce" },
+    description: {
+      en: "Complete e-commerce platform with product management, shopping cart, payment gateway, and admin dashboard.",
+      es: "Plataforma completa de comercio electrónico con gestión de productos, carrito de compras, pasarela de pagos y panel administrativo.",
+    },
+  },
+  "flight-system": {
+    title: { en: "Flight Booking System", es: "Sistema de Vuelos" },
+    description: {
+      en: "Application for flight booking and management with advanced search, price comparison, and offer notifications.",
+      es: "Aplicación para reserva y gestión de vuelos con búsqueda avanzada, comparación de precios y sistema de notificaciones para ofertas.",
+    },
+  },
+  "event-management": {
+    title: { en: "Event Management", es: "Gestión de Eventos" },
+    description: {
+      en: "System for event planning and management with interactive calendar, attendee registration, and analytics.",
+      es: "Sistema para planificación y gestión de eventos con calendario interactivo, registro de participantes y análisis de estadísticas.",
+    },
+  },
+  "credit-simulator": {
+    title: { en: "Credit Simulator", es: "Simulador de Crédito" },
+    description: {
+      en: "Financial tool to simulate loans with interest rate calculations, payment terms, and amortization plans.",
+      es: "Herramienta financiera para simular préstamos con cálculo de tasas de interés, plazos de pago y generación de planes de amortización.",
+    },
+  },
+  "sign-language": {
+    title: { en: "Sign Language Prediction", es: "Predicción de Lenguaje de Señas" },
+    description: {
+      en: "AI application that recognizes and translates sign language gestures into real-time text using machine learning.",
+      es: "Aplicación de inteligencia artificial que reconoce y traduce gestos de lenguaje de señas a texto en tiempo real mediante aprendizaje automático.",
+    },
+  },
+  "law-firm": {
+    title: { en: "Law Firm Website", es: "Buffet de Abogados" },
+    description: {
+      en: "Corporate website for a law firm with legal services information, online appointment system, and specialized blog.",
+      es: "Sitio web corporativo para despacho de abogados con información de servicios legales, sistema de citas en línea y blog especializado.",
+    },
+  },
+  "carpio-constructora": {
+    title: { en: "Carpio Construction Website", es: "Carpio-Constructora" },
+    description: {
+      en: "Modern website for a construction company with project showcase, gallery, specialized services, and integrated contact form.",
+      es: "Sitio web moderno para empresa constructora con showcase de proyectos, galería de obras realizadas, servicios especializados y formulario de contacto integrado.",
+    },
+  },
+  "casa-cultura-web": {
+    title: {
+      en: "Casa de la Cultura Tungurahua Website",
+      es: "Página web - Casa de la Cultura Núcleo de Tungurahua",
+    },
+    description: {
+      en: "Institutional portal with cultural events management, educational calendar, multimedia galleries, and workshop registration.",
+      es: "Portal institucional con gestión de eventos culturales, calendario de actividades educativas, galerías multimedia de exposiciones y sistema de inscripción para talleres y programas.",
+    },
+  },
+  "casa-cultura-certificados": {
+    title: {
+      en: "Certificates System - Casa de la Cultura Tungurahua",
+      es: "Certificados - Casa de la Cultura Núcleo de Tungurahua",
+    },
+    description: {
+      en: "System for issuing, managing, and validating digital certificates with customizable templates and authenticity verification.",
+      es: "Sistema de generación, administración y validación de certificados digitales con plantillas personalizables, descarga automatizada y verificación de autenticidad integrada.",
+    },
+  },
+}
+
 export default function Proyectos() {
+  const { language } = useLanguage()
   const [activeFilter, setActiveFilter] = useState("All")
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const pageText = {
+    title: language === "en" ? "My Projects" : "Mis Proyectos",
+    subtitle:
+      language === "en"
+        ? "A collection of projects that demonstrate my skills and experience"
+        : "Una colección de proyectos que demuestran mis habilidades y experiencia",
+    filterLabel: language === "en" ? "Filter:" : "Filtro:",
+    viewDocs: language === "en" ? "Documentation" : "Documentación",
+    viewCode: language === "en" ? "Code" : "Código",
+    viewProject: language === "en" ? "View Project" : "Ver proyecto",
+    aboutProject: language === "en" ? "About the Project" : "Acerca del Proyecto",
+    technologies: language === "en" ? "Technologies" : "Tecnologías",
+    noResults:
+      language === "en"
+        ? "No projects found for the selected filter."
+        : "No se encontraron proyectos para el filtro seleccionado.",
+    detailsTitle: language === "en" ? "Project Details" : "Detalles del Proyecto",
+    featured: language === "en" ? "Featured" : "Destacado",
+    closeModal: language === "en" ? "Close modal" : "Cerrar modal",
+    openDocumentation: language === "en" ? "Open documentation" : "Ver documentación",
+    openCode: language === "en" ? "Open code" : "Ver código",
+    openProject: language === "en" ? "Open project" : "Ver proyecto",
+  }
+
+  const getLocalizedProjectContent = (project: Project) => {
+    const localeEntry = projectLocaleContent[project.id]
+    return {
+      title: localeEntry?.title[language] ?? project.title,
+      description: localeEntry?.description[language] ?? project.description,
+    }
+  }
 
   const filteredProjects = projects.filter((project) => {
     if (activeFilter === "All") return true
@@ -240,14 +352,14 @@ export default function Proyectos() {
   return (
     <div className="max-w-6xl mx-auto p-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">Mis Proyectos</h1>
-        <p className="text-gray-600">Una colección de proyectos que demuestran mis habilidades y experiencia</p>
+        <h1 className="text-3xl font-bold text-gray-800 mb-4">{pageText.title}</h1>
+        <p className="text-gray-600">{pageText.subtitle}</p>
       </div>
 
       {/* Filtros */}
       <div className="mb-8">
         <div className="flex items-center gap-4 flex-wrap">
-          <span className="text-gray-700 font-medium">Filter:</span>
+          <span className="text-gray-700 font-medium">{pageText.filterLabel}</span>
           {filterOptions.map((filter) => (
             <button
               key={filter}
@@ -304,8 +416,8 @@ export default function Proyectos() {
             <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-6">
               {/* Contenido principal */}
               <div className="flex-1">
-                <h3 className="text-white text-xl font-bold mb-3">{project.title}</h3>
-                <p className="text-gray-200 text-sm leading-relaxed">{project.description}</p>
+                <h3 className="text-white text-xl font-bold mb-3">{getLocalizedProjectContent(project).title}</h3>
+                <p className="text-gray-200 text-sm leading-relaxed">{getLocalizedProjectContent(project).description}</p>
               </div>
 
               {/* Tecnologías y enlace */}
@@ -338,7 +450,7 @@ export default function Proyectos() {
                       rel="noopener noreferrer"
                       className="bg-white/20 backdrop-blur-sm rounded-full p-2 hover:bg-white/30 transition-colors group/link"
                       onClick={(e) => e.stopPropagation()}
-                      title="Ver documentación"
+                      title={pageText.openDocumentation}
                     >
                       <BookOpen className="w-5 h-5 text-white group-hover/link:scale-110 transition-transform" />
                     </a>
@@ -351,7 +463,7 @@ export default function Proyectos() {
                       rel="noopener noreferrer"
                       className="bg-white/20 backdrop-blur-sm rounded-full p-2 hover:bg-white/30 transition-colors group/link"
                       onClick={(e) => e.stopPropagation()}
-                      title="Ver código"
+                      title={pageText.openCode}
                     >
                       <Github className="w-5 h-5 text-white group-hover/link:scale-110 transition-transform" />
                     </a>
@@ -364,7 +476,7 @@ export default function Proyectos() {
                       rel="noopener noreferrer"
                       className="bg-white/20 backdrop-blur-sm rounded-full p-2 hover:bg-white/30 transition-colors group/link"
                       onClick={(e) => e.stopPropagation()}
-                      title="Ver proyecto"
+                      title={pageText.openProject}
                     >
                       <ExternalLink className="w-5 h-5 text-white group-hover/link:scale-110 transition-transform" />
                     </a>
@@ -376,7 +488,7 @@ export default function Proyectos() {
             {/* Indicador de proyecto destacado */}
             {project.featured && (
               <div className="absolute top-4 left-4 bg-teal-500 text-white px-2 py-1 rounded text-xs font-medium">
-                Destacado
+                {pageText.featured}
               </div>
             )}
           </div>
@@ -386,7 +498,7 @@ export default function Proyectos() {
       {/* Mensaje cuando no hay proyectos */}
       {filteredProjects.length === 0 && (
         <div className="text-center py-12">
-          <p className="text-gray-500 text-lg">No se encontraron proyectos para el filtro seleccionado.</p>
+          <p className="text-gray-500 text-lg">{pageText.noResults}</p>
         </div>
       )}
 
@@ -397,12 +509,12 @@ export default function Proyectos() {
         >
           <DialogClose
             className="absolute right-0 top-0 z-10 inline-flex h-12 w-12 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-gray-900 text-white shadow-lg transition-colors hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-white/70 focus:ring-offset-2 focus:ring-offset-transparent"
-            aria-label="Cerrar modal"
+            aria-label={pageText.closeModal}
           >
             <X className="h-5 w-5" />
           </DialogClose>
 
-          <DialogTitle className="sr-only">Detalles del Proyecto</DialogTitle>
+          <DialogTitle className="sr-only">{pageText.detailsTitle}</DialogTitle>
 
           {selectedProject && (
             <div className="h-full">
@@ -436,10 +548,10 @@ export default function Proyectos() {
                 </div>
 
                 <div className="flex flex-col h-full py-2">
-                  <h2 className="text-3xl font-bold text-gray-900 mb-6">{selectedProject.title}</h2>
+                  <h2 className="text-3xl font-bold text-gray-900 mb-6">{getLocalizedProjectContent(selectedProject).title}</h2>
 
                   <div className="mb-6">
-                    <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">Tecnologías</h3>
+                    <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">{pageText.technologies}</h3>
                     <div className="flex gap-2 flex-wrap">
                       {selectedProject.technologies.map((tech) => (
                         <div
@@ -454,9 +566,9 @@ export default function Proyectos() {
                   </div>
 
                   <div className="mb-8">
-                    <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">Acerca del Proyecto</h3>
+                    <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">{pageText.aboutProject}</h3>
                     <div className="max-h-44 lg:max-h-56 overflow-y-auto pr-2">
-                      <p className="text-gray-600 text-base leading-relaxed">{selectedProject.description}</p>
+                      <p className="text-gray-600 text-base leading-relaxed">{getLocalizedProjectContent(selectedProject).description}</p>
                     </div>
                   </div>
 
@@ -469,7 +581,7 @@ export default function Proyectos() {
                         className="flex-1 min-w-[140px] flex items-center justify-center gap-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 font-medium py-3.5 px-6 rounded-xl transition-all shadow-sm hover:shadow-md"
                       >
                         <FileText className="w-5 h-5 shrink-0" />
-                        Documentación
+                        {pageText.viewDocs}
                       </a>
                     ) : (
                       <button
@@ -478,7 +590,7 @@ export default function Proyectos() {
                         className="flex-1 min-w-[140px] flex items-center justify-center gap-2 bg-gray-100 text-gray-500 border border-gray-200 font-medium py-3.5 px-6 rounded-xl cursor-not-allowed"
                       >
                         <FileText className="w-5 h-5 shrink-0" />
-                        Documentación
+                        {pageText.viewDocs}
                       </button>
                     )}
 
@@ -490,7 +602,7 @@ export default function Proyectos() {
                         className="flex-1 min-w-[140px] flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-800 border border-gray-200 font-medium py-3.5 px-6 rounded-xl transition-all shadow-sm hover:shadow-md"
                       >
                         <Github className="w-5 h-5" />
-                        Código
+                        {pageText.viewCode}
                       </a>
                     ) : (
                       <button
@@ -499,7 +611,7 @@ export default function Proyectos() {
                         className="flex-1 min-w-[140px] flex items-center justify-center gap-2 bg-gray-100 text-gray-400 border border-gray-200 font-medium py-3.5 px-6 rounded-xl cursor-not-allowed"
                       >
                         <Github className="w-5 h-5" />
-                        Código
+                        {pageText.viewCode}
                       </button>
                     )}
 
@@ -511,7 +623,7 @@ export default function Proyectos() {
                         className="flex-1 min-w-[140px] flex items-center justify-center gap-2 bg-gray-900 hover:bg-gray-800 text-white font-medium py-3.5 px-6 rounded-xl transition-all shadow-sm hover:shadow-md"
                       >
                         <ExternalLink className="w-5 h-5" />
-                        Ver proyecto
+                        {pageText.viewProject}
                       </a>
                     ) : (
                       <button
@@ -520,7 +632,7 @@ export default function Proyectos() {
                         className="flex-1 min-w-[140px] flex items-center justify-center gap-2 bg-gray-100 text-gray-400 border border-gray-200 font-medium py-3.5 px-6 rounded-xl cursor-not-allowed"
                       >
                         <ExternalLink className="w-5 h-5" />
-                        Ver proyecto
+                        {pageText.viewProject}
                       </button>
                     )}
                   </div>

@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Server, Database, Monitor, X, Mail, MessageSquare } from "lucide-react"
+import { Server, Database, Monitor, X, Mail, MessageSquare, Users, Briefcase } from "lucide-react"
 
 // Mock data for technology details
 const techDetails = {
@@ -333,6 +333,34 @@ const techDetails = {
       proyectos: ["Unit testing", "Integration testing", "UI component testing", "API testing"],
     },
   },
+  // CRM y similares
+  WordPress: {
+    years: "2 Años",
+    sections: {
+      fundamentos: ["Posts y Páginas", "Temas básicos", "Plugins", "Gestión de usuarios", "Multimedia"],
+      caracteristicasAvanzadas: ["Custom Post Types", "Advanced Custom Fields", "Desarrollo de Temas", "Shortcodes", "WP-CLI"],
+      ecosistema: ["WooCommerce", "Elementor", "WPML", "Yoast SEO", "Contact Form 7"],
+      proyectos: ["Blogs corporativos", "Tiendas online (WooCommerce)", "Portafolios", "Integraciones con APIs"],
+    },
+  },
+  Shopify: {
+    years: "1 Año",
+    sections: {
+      fundamentos: ["Gestión de productos", "Colecciones", "Descuentos", "Configuración de envíos", "Pagos"],
+      caracteristicasAvanzadas: ["Liquid templating", "Desarrollo de temas custom", "Storefront API", "Webhooks", "Metafields"],
+      ecosistema: ["Shopify Apps", "Shopify CLI", "Hydrogen", "Polaris", "Shopify Plus"],
+      proyectos: ["E-commerce B2C", "Custom storefronts", "Migraciones de tienda", "Integración ERP"],
+    },
+  },
+  Odoo: {
+    years: "1 Año",
+    sections: {
+      fundamentos: ["CRM", "Ventas", "Compras", "Inventario", "Facturación"],
+      caracteristicasAvanzadas: ["Personalización de módulos", "Flujos de trabajo", "Reportes avanzados", "Vistas automatizadas", "Gestión de permisos"],
+      ecosistema: ["Odoo Apps", "Comunidad Odoo", "Odoo Studio", "eCommerce", "Website Builder"],
+      proyectos: ["Implementación ERP", "Gestión comercial integral", "Puntos de venta (POS)", "Facturación electrónica"],
+    },
+  },
 }
 
 const skillsData = {
@@ -527,6 +555,23 @@ const additionalSkills = {
         {
           name: "Burpsuite",
           icon: <img src="https://www.kali.org/tools/burpsuite/images/burpsuite-logo.svg" className="w-12 h-12" alt="Burp Suite" />,
+        },
+      ],
+    },
+    {
+      name: "CRM y similares",
+      technologies: [
+        {
+          name: "Odoo",
+          icon: <Briefcase className="w-12 h-12 text-[#714B67]" />,
+        },
+        {
+          name: "WordPress",
+          icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-plain.svg" className="w-12 h-12" alt="WordPress" />,
+        },
+        {
+          name: "Shopify",
+          icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/shopify/shopify-original.svg" className="w-12 h-12" alt="Shopify" />,
         },
       ],
     },

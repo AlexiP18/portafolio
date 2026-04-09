@@ -40,7 +40,7 @@ const projects: Project[] = [
       },
       {
         name: "Tailwind CSS",
-        icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg" className="w-5 h-5" alt="Tailwind CSS" />,
+        icon: <img src="https://cdn.simpleicons.org/tailwindcss/06B6D4" className="w-5 h-5" alt="Tailwind CSS" />,
       },
       {
         name: "Spring Boot",
@@ -620,7 +620,7 @@ export default function Proyectos() {
                         href={selectedProject.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex-1 min-w-[140px] flex items-center justify-center gap-2 bg-gray-900 hover:bg-gray-800 text-white font-medium py-3.5 px-6 rounded-xl transition-all shadow-sm hover:shadow-md"
+                        className="flex-1 min-w-[140px] flex items-center justify-center gap-2 whitespace-nowrap bg-gray-900 hover:bg-gray-800 text-white font-medium py-3.5 px-6 rounded-xl transition-all shadow-sm hover:shadow-md"
                       >
                         <ExternalLink className="w-5 h-5" />
                         {pageText.viewProject}
@@ -629,7 +629,7 @@ export default function Proyectos() {
                       <button
                         type="button"
                         disabled
-                        className="flex-1 min-w-[140px] flex items-center justify-center gap-2 bg-gray-100 text-gray-400 border border-gray-200 font-medium py-3.5 px-6 rounded-xl cursor-not-allowed"
+                        className="flex-1 min-w-[140px] flex items-center justify-center gap-2 whitespace-nowrap bg-gray-100 text-gray-400 border border-gray-200 font-medium py-3.5 px-6 rounded-xl cursor-not-allowed"
                       >
                         <ExternalLink className="w-5 h-5" />
                         {pageText.viewProject}

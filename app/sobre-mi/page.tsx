@@ -241,6 +241,16 @@ export default function AboutMePage() {
     },
   }
 
+  const getReferenceFallbackAvatar = (name: string) =>
+    `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=0f172a&color=ffffff&size=128`
+
+  const getReferenceAvatar = (reference: LearningReference) => {
+    const handleMatch = reference.url.match(/@([^/?]+)/)
+    const handle = handleMatch?.[1]
+    if (!handle) return getReferenceFallbackAvatar(reference.name)
+    return `https://unavatar.io/youtube/${decodeURIComponent(handle)}`
+  }
+
   const aboutPageText = {
     profileBadge: language === "en" ? "Professional Profile" : "Perfil Profesional",
     summaryTitle: language === "en" ? "Summary" : "Resumen",
@@ -419,31 +429,47 @@ export default function AboutMePage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {learningReferences.map((reference) => (
             <article key={reference.name} className="rounded-xl border border-gray-200 bg-slate-50/70 p-4">
-              <div className="flex items-center justify-between gap-3">
-                <h3 className="text-base font-semibold text-gray-900">{reference.name}</h3>
-                <span className="inline-flex items-center gap-1 rounded-full bg-red-50 text-red-700 border border-red-100 px-2.5 py-1 text-xs font-medium">
-                  <Youtube className="w-3.5 h-3.5" />
-                  {reference.platform}
-                </span>
+              <div className="flex items-start gap-3">
+                <div className="mt-0.5 h-14 w-14 shrink-0 rounded-full border-2 border-white bg-slate-200 shadow-sm overflow-hidden">
+                  <img
+                    src={getReferenceAvatar(reference)}
+                    alt={`${reference.name} avatar`}
+                    className="h-full w-full object-cover"
+                    loading="lazy"
+                    onError={(e) => {
+                      e.currentTarget.src = getReferenceFallbackAvatar(reference.name)
+                    }}
+                  />
+                </div>
+
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center justify-between gap-3">
+                    <h3 className="text-base font-semibold text-gray-900">{reference.name}</h3>
+                    <span className="inline-flex items-center gap-1 rounded-full bg-red-50 text-red-700 border border-red-100 px-2.5 py-1 text-xs font-medium">
+                      <Youtube className="w-3.5 h-3.5" />
+                      {reference.platform}
+                    </span>
+                  </div>
+
+                  <p className="text-sm text-gray-700 mt-3">
+                    <span className="font-medium text-gray-900">{aboutPageText.focusLabel}</span>{" "}
+                    {language === "en" ? (referenceTranslation[reference.name]?.focus ?? reference.focus) : reference.focus}
+                  </p>
+                  <p className="text-sm text-gray-600 mt-2">
+                    {language === "en" ? (referenceTranslation[reference.name]?.insight ?? reference.insight) : reference.insight}
+                  </p>
+
+                  <a
+                    href={reference.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-indigo-700 hover:text-indigo-800"
+                  >
+                    {aboutPageText.viewChannel}
+                    <ExternalLink className="w-4 h-4" />
+                  </a>
+                </div>
               </div>
-
-              <p className="text-sm text-gray-700 mt-3">
-                <span className="font-medium text-gray-900">{aboutPageText.focusLabel}</span>{" "}
-                {language === "en" ? (referenceTranslation[reference.name]?.focus ?? reference.focus) : reference.focus}
-              </p>
-              <p className="text-sm text-gray-600 mt-2">
-                {language === "en" ? (referenceTranslation[reference.name]?.insight ?? reference.insight) : reference.insight}
-              </p>
-
-              <a
-                href={reference.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-indigo-700 hover:text-indigo-800"
-              >
-                {aboutPageText.viewChannel}
-                <ExternalLink className="w-4 h-4" />
-              </a>
             </article>
           ))}
         </div>

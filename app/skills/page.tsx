@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Server, Database, Monitor, X, Mail, MessageSquare, Users, Briefcase, BookOpen, Sparkles, Layers, FolderOpen, ChevronDown, ShoppingBag } from "lucide-react"
+import { Server, Database, Monitor, X, Mail, MessageSquare, Briefcase, BookOpen, Sparkles, Layers, FolderOpen, ChevronDown, Globe, ShieldCheck, Settings2, Rocket } from "lucide-react"
 import { useLanguage } from "@/components/language-provider"
 
 // Mock data for technology details
@@ -362,6 +362,168 @@ const techDetails = {
       proyectos: ["Implementación ERP", "Gestión comercial integral", "Puntos de venta (POS)", "Facturación electrónica"],
     },
   },
+  Astro: {
+    years: "1 Año",
+    sections: {
+      fundamentos: ["Islas de componentes", "Ruteo basado en archivos", "SSR/SSG", "Markdown", "Integraciones"],
+      caracteristicasAvanzadas: ["Astro Content Collections", "Server Endpoints", "View Transitions", "Optimización de assets", "Adaptadores"],
+      ecosistema: ["Tailwind", "React/Vue/Svelte integrations", "Vercel/Netlify adapters", "Image optimization", "Partytown"],
+      proyectos: ["Landing pages", "Sitios corporativos", "Blogs de alto rendimiento", "Portafolios modernos"],
+    },
+  },
+  "Java (Spring Boot)": {
+    years: "1.5 Años",
+    sections: {
+      fundamentos: ["POO en Java", "Spring IoC", "Controladores REST", "JPA", "Validaciones"],
+      caracteristicasAvanzadas: ["Spring Security", "JWT", "Paginación y filtros", "Microservicios", "Testing"],
+      ecosistema: ["Spring Data", "Maven/Gradle", "Lombok", "Swagger/OpenAPI", "Docker"],
+      proyectos: ["APIs empresariales", "Sistemas de gestión", "Integraciones con frontend", "Backends escalables"],
+    },
+  },
+  PHP: {
+    years: "2 Años",
+    sections: {
+      fundamentos: ["Sintaxis", "Variables y funciones", "POO", "Manejo de formularios", "Conexión a BD"],
+      caracteristicasAvanzadas: ["Composer", "Namespaces", "Middlewares", "Patrones MVC", "Seguridad básica"],
+      ecosistema: ["Laravel", "WordPress", "PHP-FPM", "MySQL", "Apache/Nginx"],
+      proyectos: ["Sitios corporativos", "Módulos CMS", "Backends web", "Automatización de procesos"],
+    },
+  },
+  CSS3: {
+    years: "3 Años",
+    sections: {
+      fundamentos: ["Selectores", "Box Model", "Flexbox", "Grid", "Responsive Design"],
+      caracteristicasAvanzadas: ["Animaciones", "Transiciones", "Variables CSS", "Pseudo-elementos", "Media queries complejas"],
+      ecosistema: ["SASS", "PostCSS", "BEM", "Autoprefixer", "Design tokens"],
+      proyectos: ["Interfaces responsivas", "Sistemas de diseño", "Animaciones UI", "Dashboards"],
+    },
+  },
+  "JavaScript (ES6+)": {
+    years: "2.5 Años",
+    sections: {
+      fundamentos: ["Tipos y estructuras", "Funciones", "DOM", "Eventos", "Módulos"],
+      caracteristicasAvanzadas: ["Async/Await", "Promises", "Closures", "Destructuring", "Fetch API"],
+      ecosistema: ["NPM", "Babel", "ESLint", "Jest", "Vite/Webpack"],
+      proyectos: ["Apps SPA", "Consumo de APIs", "Automatizaciones", "Componentes interactivos"],
+    },
+  },
+  WooCommerce: {
+    years: "1 Año",
+    sections: {
+      fundamentos: ["Productos", "Carrito y checkout", "Métodos de pago", "Pedidos", "Inventario"],
+      caracteristicasAvanzadas: ["Hooks y filtros", "Plantillas custom", "Shortcodes", "Cupones avanzados", "Impuestos y envíos"],
+      ecosistema: ["WordPress", "Elementor", "Pasarelas de pago", "Plugins de marketing", "Analytics"],
+      proyectos: ["Tiendas online", "Catálogos B2C", "Integración con ERP", "Optimización de conversiones"],
+    },
+  },
+  BrowserStack: {
+    years: "1 Año",
+    sections: {
+      fundamentos: ["Pruebas cross-browser", "Pruebas en dispositivos reales", "Capturas y reportes", "Sesiones remotas", "Debug visual"],
+      caracteristicasAvanzadas: ["Automate", "Percy visual testing", "Integración CI", "Paralelización", "Network logs"],
+      ecosistema: ["Selenium", "Cypress", "Playwright", "GitHub Actions", "Jira"],
+      proyectos: ["QA de frontends", "Validación multi-dispositivo", "Regresión visual", "Release checks"],
+    },
+  },
+  "Katalon Studio": {
+    years: "1 Año",
+    sections: {
+      fundamentos: ["Test cases", "Object Repository", "Test suites", "Web testing", "API testing"],
+      caracteristicasAvanzadas: ["Data-driven testing", "Keywords custom", "Parallel execution", "BDD", "Reporting"],
+      ecosistema: ["Selenium engine", "Jenkins", "Git", "Katalon TestOps", "Integración CI/CD"],
+      proyectos: ["Automatización QA", "Pruebas funcionales", "Pruebas de APIs", "Regression suites"],
+    },
+  },
+  "Burp Suite": {
+    years: "1 Año",
+    sections: {
+      fundamentos: ["Proxy", "Repeater", "Intruder", "Scanner", "Target"],
+      caracteristicasAvanzadas: ["Sequencer", "Decoder", "Extensions", "Macros", "Session handling"],
+      ecosistema: ["OWASP", "BApp Store", "Jython", "REST API", "JWT analysis"],
+      proyectos: ["Pruebas de seguridad web", "Seguridad de APIs", "Validación de autenticación", "Hardening"],
+    },
+  },
+  "Google Cloud Platform (GCP)": {
+    years: "1 Año",
+    sections: {
+      fundamentos: ["Compute Engine", "Cloud Storage", "Cloud Functions", "Cloud Run", "IAM"],
+      caracteristicasAvanzadas: ["GKE", "BigQuery", "Pub/Sub", "Cloud SQL", "Monitoring"],
+      ecosistema: ["gcloud CLI", "Firebase", "Cloud Build", "Artifact Registry", "Service Accounts"],
+      proyectos: ["Backends escalables", "Deploy de apps web", "Pipelines cloud", "Análisis de datos"],
+    },
+  },
+  "GitHub Actions (CI/CD)": {
+    years: "1 Año",
+    sections: {
+      fundamentos: ["Workflows", "Jobs", "Runners", "Triggers", "Artifacts"],
+      caracteristicasAvanzadas: ["Matrix builds", "Reusable workflows", "Secrets", "Caching", "Environments"],
+      ecosistema: ["GitHub", "Docker", "Vercel", "Azure", "BrowserStack"],
+      proyectos: ["CI pipelines", "Automatización de despliegues", "Quality gates", "Release automation"],
+    },
+  },
+  cPanel: {
+    years: "1 Año",
+    sections: {
+      fundamentos: ["Gestión de dominios", "File Manager", "Cuentas de correo", "Bases de datos", "SSL"],
+      caracteristicasAvanzadas: ["Cron jobs", "Subdominios", "Backups", "DNS Zone Editor", "Redirects"],
+      ecosistema: ["Apache/Nginx", "PHP", "MySQL", "Softaculous", "Email services"],
+      proyectos: ["Administración de hosting", "Despliegue de sitios", "Mantenimiento web", "Soporte técnico"],
+    },
+  },
+  Notion: {
+    years: "1 Año",
+    sections: {
+      fundamentos: ["Páginas y bloques", "Bases de datos", "Templates", "Kanban", "Calendario"],
+      caracteristicasAvanzadas: ["Automations", "Relaciones", "Rollups", "Integraciones", "Wikis de equipo"],
+      ecosistema: ["API de Notion", "Zapier", "Slack", "GitHub", "Google Calendar"],
+      proyectos: ["Gestión de proyectos", "Documentación técnica", "Roadmaps", "Knowledge base"],
+    },
+  },
+  Asana: {
+    years: "1 Año",
+    sections: {
+      fundamentos: ["Proyectos", "Tareas", "Subtareas", "Timeline", "Assignations"],
+      caracteristicasAvanzadas: ["Reglas", "Portfolios", "Workload", "Custom fields", "Dependencias"],
+      ecosistema: ["Slack", "Google Workspace", "GitHub", "Zapier", "Calendarios"],
+      proyectos: ["Seguimiento de entregables", "Planificación de sprints", "Coordinación de equipos", "PM operativo"],
+    },
+  },
+  "Linux (Ubuntu, CentOS, Pop!_OS)": {
+    years: "2 Años",
+    sections: {
+      fundamentos: ["Terminal", "Permisos", "Gestión de paquetes", "Servicios", "Redes básicas"],
+      caracteristicasAvanzadas: ["Shell scripting", "Systemd", "SSH", "Logs y monitoreo", "Hardening básico"],
+      ecosistema: ["Ubuntu", "CentOS", "Pop!_OS", "Nginx/Apache", "Docker"],
+      proyectos: ["Configuración de entornos", "Deploy de aplicaciones", "Automatización operativa", "Soporte de servidores"],
+    },
+  },
+  "IntelliJ IDEA": {
+    years: "1 Año",
+    sections: {
+      fundamentos: ["Navegación de código", "Refactorización", "Debugging", "Maven/Gradle", "Atajos"],
+      caracteristicasAvanzadas: ["Inspecciones", "Profiling", "Integración Git", "Plugins", "Run configurations"],
+      ecosistema: ["Java", "Spring Boot", "Kotlin", "JUnit", "Docker"],
+      proyectos: ["APIs Java", "Backends empresariales", "Mantenimiento de código", "Productividad de desarrollo"],
+    },
+  },
+  "Apache NetBeans": {
+    years: "1 Año",
+    sections: {
+      fundamentos: ["Proyectos Java", "Depuración", "GUI Builder", "Ant/Maven", "Editor integrado"],
+      caracteristicasAvanzadas: ["Profiler", "Integración con servidores", "Refactoring", "Plugins", "Templates"],
+      ecosistema: ["Java", "PHP", "Git", "Tomcat/GlassFish", "Maven"],
+      proyectos: ["Aplicaciones de escritorio", "Proyectos académicos", "Backends Java", "Mantenimiento legacy"],
+    },
+  },
+  Antigravity: {
+    years: "1 Año",
+    sections: {
+      fundamentos: ["Entorno de trabajo", "Flujo de desarrollo", "Configuración inicial", "Atajos", "Organización de proyectos"],
+      caracteristicasAvanzadas: ["Personalización", "Integraciones", "Automatizaciones", "Plantillas", "Optimización de productividad"],
+      ecosistema: ["IDEs", "Control de versiones", "Herramientas de QA", "Gestión de tareas", "Documentación"],
+      proyectos: ["Prototipos rápidos", "Soporte de desarrollo", "Mejora de flujo técnico", "Trabajo colaborativo"],
+    },
+  },
 }
 
 const skillsData = {
@@ -372,26 +534,22 @@ const skillsData = {
     bgColor: "bg-blue-400/10",
     icon: Monitor,
     description:
-      "Especializado en crear interfaces de usuario modernas y responsivas. Experiencia sólida en React, Next.js, TypeScript y herramientas de desarrollo frontend.",
+      "Desarrollo frontend moderno con enfoque en rendimiento, arquitectura escalable y experiencia de usuario.",
     technologies: [
       {
-        name: "React",
-        icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" className="w-12 h-12" alt="React" />,
+        name: "Angular",
+        icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg" className="w-12 h-12" alt="Angular" />,
       },
       {
-        name: "Next.js",
-        icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" className="w-12 h-12" alt="Next.js" />,
+        name: "Astro",
+        icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/astro/astro-original.svg" className="w-12 h-12" alt="Astro" />,
       },
       {
         name: "TypeScript",
         icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" className="w-12 h-12" alt="TypeScript" />,
       },
       {
-        name: "Tailwind CSS",
-        icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" className="w-12 h-12" alt="Tailwind CSS" />,
-      },
-      {
-        name: "JavaScript",
+        name: "JavaScript (ES6+)",
         icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" className="w-12 h-12" alt="JavaScript" />,
       },
       {
@@ -399,20 +557,8 @@ const skillsData = {
         icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" className="w-12 h-12" alt="HTML5" />,
       },
       {
-        name: "CSS",
-        icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" className="w-12 h-12" alt="CSS" />,
-      },
-      {
-        name: "Angular",
-        icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg" className="w-12 h-12" alt="Angular" />,
-      },
-      {
-        name: "Bootstrap",
-        icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" className="w-12 h-12" alt="Bootstrap" />,
-      },
-      {
-        name: "jQuery",
-        icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jquery/jquery-original.svg" className="w-12 h-12" alt="jQuery" />,
+        name: "CSS3",
+        icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" className="w-12 h-12" alt="CSS3" />,
       },
     ],
   },
@@ -423,31 +569,15 @@ const skillsData = {
     bgColor: "bg-green-400/10",
     icon: Server,
     description:
-      "Desarrollo de APIs robustas y escalables. Experiencia en Node.js, Python, bases de datos y arquitecturas de microservicios para aplicaciones empresariales.",
+      "Desarrollo backend orientado a APIs y lógica de negocio con foco en robustez y mantenibilidad.",
     technologies: [
       {
-        name: "Node.js",
-        icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" className="w-12 h-12" alt="Node.js" />,
-      },
-      {
-        name: "NestJS",
-        icon: <img src="https://nestjs.com/img/logo_text.svg" className="w-12 h-12" alt="NestJS" />,
-      },
-      {
-        name: "Spring Boot",
+        name: "Java (Spring Boot)",
         icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" className="w-12 h-12" alt="Spring Boot" />,
       },
       {
-        name: "Express",
-        icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" className="w-12 h-12" alt="Express" />,
-      },
-      {
-        name: "Python",
-        icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" className="w-12 h-12" alt="Python" />,
-      },
-      {
-        name: "FastAPI",
-        icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" className="w-12 h-12" alt="FastAPI" />,
+        name: "PHP",
+        icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" className="w-12 h-12" alt="PHP" />,
       },
     ],
   },
@@ -458,15 +588,11 @@ const skillsData = {
     bgColor: "bg-purple-400/10",
     icon: Database,
     description:
-      "Gestión y diseño de bases de datos relacionales y NoSQL. Optimización de consultas y arquitectura de datos para aplicaciones de alto rendimiento.",
+      "Persistencia de datos en motores relacionales y NoSQL con diseño y optimización para producción.",
     technologies: [
       {
         name: "PostgreSQL",
         icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" className="w-12 h-12" alt="PostgreSQL" />,
-      },
-      {
-        name: "MongoDB",
-        icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" className="w-12 h-12" alt="MongoDB" />,
       },
       {
         name: "MySQL",
@@ -475,10 +601,6 @@ const skillsData = {
       {
         name: "SQL Server",
         icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-plain.svg" className="w-12 h-12" alt="SQL Server" />,
-      },
-      {
-        name: "SQLite",
-        icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg" className="w-12 h-12" alt="SQLite" />,
       },
       {
         name: "Firebase",
@@ -493,31 +615,76 @@ const additionalSkills = {
   description: "Otras tecnologías y herramientas que complementan mi stack de desarrollo",
   categories: [
     {
-      name: "DevOps & Cloud",
-      icon: Server,
+      name: "Plataformas & CMS",
+      icon: Globe,
       technologies: [
         {
-          name: "Docker",
-          icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" className="w-12 h-12" alt="Docker" />,
+          name: "WordPress",
+          icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-plain.svg" className="w-12 h-12" alt="WordPress" />,
         },
         {
-          name: "AWS",
-          icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" className="w-12 h-12" alt="AWS" />,
-        },
-        {
-          name: "Google Cloud",
-          icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg" className="w-12 h-12" alt="Google Cloud" />,
-        },
-        {
-          name: "Azure",
-          icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" className="w-12 h-12" alt="Azure" />,
+          name: "WooCommerce",
+          icon: <img src="https://cdn.simpleicons.org/woocommerce/96588A" className="w-12 h-12" alt="WooCommerce" />,
         },
       ],
     },
     {
-      name: "Herramientas",
-      icon: Monitor,
+      name: "Calidad, Seguridad & Testing",
+      icon: ShieldCheck,
       technologies: [
+        {
+          name: "BrowserStack",
+          icon: (
+            <div
+              className="w-12 h-12 rounded-xl bg-[#FF7139] text-white flex items-center justify-center font-bold text-[11px] tracking-wide shadow-sm"
+              aria-label="BrowserStack"
+              title="BrowserStack"
+            >
+              BS
+            </div>
+          ),
+        },
+        {
+          name: "Katalon Studio",
+          icon: (
+            <svg
+              viewBox="0 0 48 48"
+              className="w-12 h-12"
+              role="img"
+              aria-label="Katalon Studio"
+            >
+              <defs>
+                <linearGradient id="katalonGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#6B4AE2" />
+                  <stop offset="100%" stopColor="#8A6BFF" />
+                </linearGradient>
+              </defs>
+              <rect x="4" y="4" width="40" height="40" rx="10" fill="url(#katalonGradient)" />
+              <path
+                d="M16 14h7L31 22v12h-7l-8-8V14Zm7 6h-2v6h2l3 3h2v-4l-5-5Z"
+                fill="white"
+              />
+            </svg>
+          ),
+        },
+        {
+          name: "Burp Suite",
+          icon: <img src="https://cdn.simpleicons.org/burpsuite/FF6633" className="w-12 h-12" alt="Burp Suite" />,
+        },
+      ],
+    },
+    {
+      name: "Infraestructura, Cloud & DevOps",
+      icon: Server,
+      technologies: [
+        {
+          name: "Azure",
+          icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" className="w-12 h-12" alt="Azure" />,
+        },
+        {
+          name: "Google Cloud Platform (GCP)",
+          icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg" className="w-12 h-12" alt="Google Cloud Platform" />,
+        },
         {
           name: "Git",
           icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" className="w-12 h-12" alt="Git" />,
@@ -527,56 +694,50 @@ const additionalSkills = {
           icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" className="w-12 h-12" alt="GitHub" />,
         },
         {
-          name: "VS Code",
-          icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" className="w-12 h-12" alt="VS Code" />,
+          name: "GitHub Actions (CI/CD)",
+          icon: <img src="https://cdn.simpleicons.org/githubactions/2088FF" className="w-12 h-12" alt="GitHub Actions" />,
         },
+        {
+          name: "cPanel",
+          icon: <img src="https://cdn.simpleicons.org/cpanel/FF6C2C" className="w-12 h-12" alt="cPanel" />,
+        },
+      ],
+    },
+    {
+      name: "Diseño, Gestión & Entornos",
+      icon: Settings2,
+      technologies: [
         {
           name: "Figma",
           icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" className="w-12 h-12" alt="Figma" />,
         },
-      ],
-    },
-    {
-      name: "Testing & Otros",
-      icon: MessageSquare,
-      technologies: [
         {
-          name: "Jest",
-          icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jest/jest-plain.svg" className="w-12 h-12" alt="Jest" />,
+          name: "Notion",
+          icon: <img src="https://cdn.simpleicons.org/notion/000000" className="w-12 h-12" alt="Notion" />,
         },
         {
-          name: "Jenkins",
-          icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" className="w-12 h-12" alt="Jenkins" />,
+          name: "Asana",
+          icon: <img src="https://cdn.simpleicons.org/asana/F06A6A" className="w-12 h-12" alt="Asana" />,
         },
         {
-          name: "Grafana",
-          icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grafana/grafana-original.svg" className="w-12 h-12" alt="Grafana" />,
+          name: "Linux (Ubuntu, CentOS, Pop!_OS)",
+          icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" className="w-12 h-12" alt="Linux" />,
         },
         {
-          name: "OWASP Top Ten",
-          icon: <img src="https://owasp.org/assets/images/logo.svg" className="w-12 h-12" alt="OWASP" />,
+          name: "IntelliJ IDEA",
+          icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/intellij/intellij-original.svg" className="w-12 h-12" alt="IntelliJ IDEA" />,
         },
         {
-          name: "Burpsuite",
-          icon: <img src="https://www.kali.org/tools/burpsuite/images/burpsuite-logo.svg" className="w-12 h-12" alt="Burp Suite" />,
-        },
-      ],
-    },
-    {
-      name: "CRM y similares",
-      icon: Users,
-      technologies: [
-        {
-          name: "Odoo",
-          icon: <Briefcase className="w-12 h-12 text-[#714B67]" />,
+          name: "VS Code",
+          icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" className="w-12 h-12" alt="VS Code" />,
         },
         {
-          name: "WordPress",
-          icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-plain.svg" className="w-12 h-12" alt="WordPress" />,
+          name: "Apache NetBeans",
+          icon: <img src="https://cdn.simpleicons.org/apachenetbeanside/1B6AC6" className="w-12 h-12" alt="Apache NetBeans" />,
         },
         {
-          name: "Shopify",
-          icon: <ShoppingBag className="w-12 h-12 text-[#95BF47]" />,
+          name: "Antigravity",
+          icon: <Rocket className="w-12 h-12 text-slate-700" />,
         },
       ],
     },
@@ -677,24 +838,24 @@ export default function Skills() {
 
   const categoryDescriptionMap: Record<string, { en: string; es: string }> = {
     frontend: {
-      en: "Specialized in building modern and responsive user interfaces. Solid experience with React, Next.js, TypeScript, and frontend tooling.",
-      es: "Especializado en crear interfaces de usuario modernas y responsivas. Experiencia sólida en React, Next.js, TypeScript y herramientas de desarrollo frontend.",
+      en: "Core frontend stack focused on Angular, Astro, TypeScript, JavaScript (ES6+), HTML5, and CSS3.",
+      es: "Stack core de frontend enfocado en Angular, Astro, TypeScript, JavaScript (ES6+), HTML5 y CSS3.",
     },
     backend: {
-      en: "Development of robust and scalable APIs. Experience with Node.js, Python, databases, and microservice architectures.",
-      es: "Desarrollo de APIs robustas y escalables. Experiencia en Node.js, Python, bases de datos y arquitecturas de microservicios para aplicaciones empresariales.",
+      en: "Backend development with Java (Spring Boot) and PHP for APIs and business logic.",
+      es: "Desarrollo backend con Java (Spring Boot) y PHP para APIs y lógica de negocio.",
     },
     database: {
-      en: "Management and design of relational and NoSQL databases. Query optimization and data architecture for high-performance applications.",
-      es: "Gestión y diseño de bases de datos relacionales y NoSQL. Optimización de consultas y arquitectura de datos para aplicaciones de alto rendimiento.",
+      en: "Data persistence with PostgreSQL, MySQL, SQL Server, and Firebase.",
+      es: "Persistencia de datos con PostgreSQL, MySQL, SQL Server y Firebase.",
     },
   }
 
   const additionalCategoryNameMap: Record<string, { en: string; es: string }> = {
-    "DevOps & Cloud": { en: "DevOps & Cloud", es: "DevOps & Cloud" },
-    Herramientas: { en: "Tools", es: "Herramientas" },
-    "Testing & Otros": { en: "Testing & Others", es: "Testing & Otros" },
-    "CRM y similares": { en: "CRM and Similar", es: "CRM y similares" },
+    "Plataformas & CMS": { en: "Platforms & CMS", es: "Plataformas & CMS" },
+    "Calidad, Seguridad & Testing": { en: "Quality, Security & Testing", es: "Calidad, Seguridad & Testing" },
+    "Infraestructura, Cloud & DevOps": { en: "Infrastructure, Cloud & DevOps", es: "Infraestructura, Cloud & DevOps" },
+    "Diseño, Gestión & Entornos": { en: "Design, Management & Environments", es: "Diseño, Gestión & Entornos" },
   }
 
   const formatYears = (value: string) => {

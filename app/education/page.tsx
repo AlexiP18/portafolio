@@ -363,78 +363,77 @@ export default function Education() {
                     <h3 className="font-semibold text-base text-gray-800 text-center line-clamp-2">{education.institution}</h3>
                   </div>
                   
-                  {/* Flipping Body - Reduced height */}
-                  <div className="perspective-1000">
-                    <div 
-                      className={`relative h-[210px] w-full transition-all duration-500 transform-style-3d ${
-                        hoveredCard === education.id ? 'rotate-y-180' : ''
+                  {/* Body with the same hover-reveal pattern used by the other cards */}
+                  <div className="relative h-[210px] w-full">
+                    <div
+                      className={`absolute inset-0 bg-white border border-t-0 border-b-0 border-gray-200 overflow-hidden transition-opacity duration-300 ${
+                        hoveredCard === education.id ? "opacity-0 pointer-events-none" : "opacity-100"
                       }`}
                     >
-                      {/* Body Front */}
-                      <div className="absolute inset-0 backface-hidden bg-white border border-t-0 border-b-0 border-gray-200 overflow-hidden">
-                        {/* Body - Logo with subtle animation */}
-                        <div className="p-3 flex items-center justify-center h-full bg-gradient-to-br from-gray-50 to-transparent">
-                          <div className="w-36 h-36 relative transition-all duration-500">
-                            <Image 
-                              src={education.logo} 
-                              alt={`${education.institution} logo`}
-                              fill
-                              className="object-contain drop-shadow-md"
-                              onError={(e) => {
-                                const target = e.target as HTMLImageElement;
-                                target.src = "https://via.placeholder.com/150?text=Logo";
-                              }}
-                            />
-                          </div>
+                      <div className="p-3 flex items-center justify-center h-full bg-gradient-to-br from-gray-50 to-transparent">
+                        <div className="w-36 h-36 relative transition-all duration-500">
+                          <Image
+                            src={education.logo}
+                            alt={`${education.institution} logo`}
+                            fill
+                            className="object-contain drop-shadow-md"
+                            onError={(e) => {
+                              const target = e.target as HTMLImageElement;
+                              target.src = "https://via.placeholder.com/150?text=Logo";
+                            }}
+                          />
                         </div>
                       </div>
-                      
-                      {/* Body Back - More compact */}
-                      <div className="absolute inset-0 backface-hidden rotate-y-180 bg-gradient-to-br from-gray-50 to-white border border-t-0 border-b-0 border-gray-200">
-                        {/* External Link Icon */}
-                        <a 
-                          href={education.institutionUrl} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="absolute top-2 right-2 w-12 h-12 flex items-center justify-center bg-white rounded-full hover:bg-teal-500 transition-all duration-300 z-10 hover:shadow-md group"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          <ExternalLink size={24} className="text-gray-600 group-hover:text-white transition-all duration-300" />
-                        </a>
-                        
-                        {/* Body with details - More compact spacing */}
-                        <div className="p-3 flex flex-col justify-center h-full space-y-3">
-                          <div className="flex items-center space-x-2 animate-fadeIn" style={{ animationDelay: '0.1s' }}>
-                            <div className="p-1.5 bg-gray-100 rounded-full shadow-inner">
-                              <MapPin className="w-4.5 h-4.5 text-gray-600" />
-                            </div>
-                            <span className="text-gray-700 text-sm font-medium">{education.location}</span>
+                    </div>
+
+                    <div
+                      className={`absolute inset-0 bg-gradient-to-br from-gray-50 to-white border border-t-0 border-b-0 border-gray-200 transition-opacity duration-300 ${
+                        hoveredCard === education.id ? "opacity-100" : "opacity-0 pointer-events-none"
+                      }`}
+                    >
+                      <a
+                        href={education.institutionUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="absolute top-2 right-2 w-12 h-12 flex items-center justify-center bg-white rounded-full hover:bg-teal-500 transition-all duration-300 z-10 hover:shadow-md group"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <ExternalLink size={24} className="text-gray-600 group-hover:text-white transition-all duration-300" />
+                      </a>
+
+                      <div className="p-3 flex flex-col justify-center h-full space-y-3">
+                        <div className="flex items-center space-x-2 animate-fadeIn" style={{ animationDelay: "0.1s" }}>
+                          <div className="p-1.5 bg-gray-100 rounded-full shadow-inner">
+                            <MapPin className="w-4.5 h-4.5 text-gray-600" />
                           </div>
-                          
-                          <div className="flex items-center space-x-2 animate-fadeIn" style={{ animationDelay: '0.2s' }}>
-                            <div className="p-1.5 bg-blue-100 rounded-full shadow-inner">
-                              <CalendarClock className="w-4.5 h-4.5 text-blue-600" />
-                            </div>
-                            <span className="text-gray-700 text-sm font-medium">{education.startDate}</span>
+                          <span className="text-gray-700 text-sm font-medium">{education.location}</span>
+                        </div>
+
+                        <div className="flex items-center space-x-2 animate-fadeIn" style={{ animationDelay: "0.2s" }}>
+                          <div className="p-1.5 bg-blue-100 rounded-full shadow-inner">
+                            <CalendarClock className="w-4.5 h-4.5 text-blue-600" />
                           </div>
-                          
-                          <div className="flex items-center space-x-2 animate-fadeIn" style={{ animationDelay: '0.3s' }}>
-                            <div className="p-1.5 bg-green-100 rounded-full shadow-inner">
-                              <CalendarClock className="w-4.5 h-4.5 text-green-600" />
-                            </div>
-                            <span className="text-gray-700 text-sm font-medium">{education.endDate}</span>
+                          <span className="text-gray-700 text-sm font-medium">{education.startDate}</span>
+                        </div>
+
+                        <div className="flex items-center space-x-2 animate-fadeIn" style={{ animationDelay: "0.3s" }}>
+                          <div className="p-1.5 bg-green-100 rounded-full shadow-inner">
+                            <CalendarClock className="w-4.5 h-4.5 text-green-600" />
                           </div>
-                          
-                          <div className="animate-fadeIn text-center" style={{ animationDelay: '0.4s' }}>
-                            <Link 
-                              href={education.certificateUrl}
-                              className="inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full bg-amber-50 hover:bg-amber-100 text-amber-700 transition-all duration-300 hover:shadow group"
-                              onClick={(e) => e.stopPropagation()}
-                            >
-                              <Award className="w-4.5 h-4.5 text-amber-500 group-hover:scale-110 transition-all duration-300" />
-                              <span className="text-sm font-semibold">{pageText.viewCertificate}</span>
-                            </Link>
-                          </div>
+                          <span className="text-gray-700 text-sm font-medium">{education.endDate}</span>
+                        </div>
+
+                        <div className="animate-fadeIn text-center" style={{ animationDelay: "0.4s" }}>
+                          <Link
+                            href={education.certificateUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full bg-amber-50 hover:bg-amber-100 text-amber-700 transition-all duration-300 hover:shadow group"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <Award className="w-4.5 h-4.5 text-amber-500 group-hover:scale-110 transition-all duration-300" />
+                            <span className="text-sm font-semibold">{pageText.viewCertificate}</span>
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -726,6 +725,8 @@ export default function Education() {
                             <div className="mt-1.5 text-center">
                               <a
                                 href={course.certificateUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className="inline-flex items-center justify-center space-x-1.5 px-4 py-2 rounded-full bg-amber-50 hover:bg-amber-100 text-amber-700 transition-all duration-300 hover:shadow-md group"
                                 onClick={(e) => e.stopPropagation()}
                               >
@@ -1070,6 +1071,8 @@ export default function Education() {
                             <div className="mt-1.5 text-center">
                               <a
                                 href={event.certificateUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className="inline-flex items-center justify-center space-x-1.5 px-4 py-2 rounded-full bg-amber-50 hover:bg-amber-100 text-amber-700 transition-all duration-300 hover:shadow-md group"
                                 onClick={(e) => e.stopPropagation()}
                               >

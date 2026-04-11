@@ -141,7 +141,7 @@ export const coursesData: Course[] = [
   },
   {
     id: 7,
-    title: "Cisco Networking Academy - Curso de Especialización",
+    title: "C++ Essentials 1",
     platform: "CISCO",
     platformLogo: "https://www.netacad.com/sfa-assets/images/svg/netacad_logo_black.svg",
     modality: "Virtual",

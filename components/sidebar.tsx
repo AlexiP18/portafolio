@@ -7,9 +7,7 @@ import { usePathname } from "next/navigation"
 import { useState } from "react"
 import { LanguageSwitcher } from "@/components/language-switcher"
 import { useLanguage, type AppLanguage } from "@/components/language-provider"
-
-const profileImageUrl =
-  "https://scontent.fatf6-1.fna.fbcdn.net/v/t39.30808-1/482063674_122098752290799599_4639200773569733832_n.jpg?stp=c219.0.864.864a_dst-jpg_s200x200_tt6&_nc_cat=100&ccb=1-7&_nc_sid=e99d92&_nc_ohc=1cnEuO3TAx4Q7kNvwFadUFF&_nc_oc=Adn-kIeTUNzzJu8bMVLfUSHeTYF8b4MBbflKKqNLMqW5OU5KsUj1Tkn_Ieqip5swMbg&_nc_zt=24&_nc_ht=scontent.fatf6-1.fna&_nc_gid=1Rj8s84CAcqY-mEIEiC3vQ&oh=00_AfOdguSZAs2oXvotJXG7jP_3a8kI3Jf7w_xqQ7IlxUAEVQ&oe=686B5D55"
+import profileImageUrl from "@/images/foto_perfil.jpg"
 
 const menuItems = [
   {
@@ -66,7 +64,7 @@ const socialLinks = {
   github: "https://github.com/AlexiP18",
   linkedin: "https://www.linkedin.com/in/alexis-poaquiza/",
   whatsapp: "https://wa.link/gqwair",
-  cv: "https://drive.google.com/",
+  cv: "/documents/curriculum_joel_penaloza.pdf",
 }
 
 interface SidebarCopy {

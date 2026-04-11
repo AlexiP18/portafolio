@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
-import { Mail, Github, Linkedin, MessageCircle, FileText, MapPin, Briefcase, ExternalLink } from "lucide-react"
+import { Mail, Github, Linkedin, MessageCircle, FileText, MapPin, Briefcase, ExternalLink, Star, GitFork, Users, Trophy, Sparkles } from "lucide-react"
 import { useLanguage } from "@/components/language-provider"
 
 const contactLinks = {
@@ -10,7 +10,7 @@ const contactLinks = {
   github: "https://github.com/AlexiP18",
   linkedin: "https://www.linkedin.com/in/alexis-poaquiza/",
   whatsapp: "https://wa.link/gqwair",
-  cv: "https://drive.google.com/",
+  cv: "/documents/curriculum_joel_penaloza.pdf",
 }
 
 const githubUser = "AlexiP18"
@@ -30,10 +30,38 @@ const linkedinCard = {
     "https://scontent.fatf6-1.fna.fbcdn.net/v/t39.30808-1/482063674_122098752290799599_4639200773569733832_n.jpg?stp=c219.0.864.864a_dst-jpg_s200x200_tt6&_nc_cat=100&ccb=1-7&_nc_sid=e99d92&_nc_ohc=1cnEuO3TAx4Q7kNvwFadUFF&_nc_oc=Adn-kIeTUNzzJu8bMVLfUSHeTYF8b4MBbflKKqNLMqW5OU5KsUj1Tkn_Ieqip5swMbg&_nc_zt=24&_nc_ht=scontent.fatf6-1.fna&_nc_gid=1Rj8s84CAcqY-mEIEiC3vQ&oh=00_AfOdguSZAs2oXvotJXG7jP_3a8kI3Jf7w_xqQ7IlxUAEVQ&oe=686B5D55",
 }
 
+const featuredRepoNames = ["portafolio", "FlightBookings", "Ecommerce-Spring-Boot", "sign-language-prediction"]
+
+interface GitHubProfile {
+  login: string
+  public_repos: number
+  followers: number
+  following: number
+}
+
+interface GitHubRepo {
+  id: number
+  name: string
+  description: string | null
+  html_url: string
+  homepage: string | null
+  language: string | null
+  stargazers_count: number
+  forks_count: number
+  archived: boolean
+  fork: boolean
+  updated_at: string
+  pushed_at: string
+}
+
 export default function ContactoPage() {
   const { language } = useLanguage()
   const [isScrolled, setIsScrolled] = useState(false)
   const lastScrollY = useRef(0)
+  const [githubProfile, setGithubProfile] = useState<GitHubProfile | null>(null)
+  const [githubRepos, setGithubRepos] = useState<GitHubRepo[]>([])
+  const [githubLoading, setGithubLoading] = useState(true)
+  const [githubError, setGithubError] = useState<string | null>(null)
 
   const pageText = {
     title: language === "en" ? "Contact" : "Contacto",
@@ -50,7 +78,131 @@ export default function ContactoPage() {
       language === "en"
         ? `Widgets connected to @${githubUser}. They update automatically with your activity.`
         : `Widgets conectados a @${githubUser}. Se actualizan automáticamente con tu actividad.`,
+    loadingGithub: language === "en" ? "Loading live GitHub data..." : "Cargando datos en vivo de GitHub...",
+    githubUnavailable:
+      language === "en"
+        ? "Some live GitHub panels could not be loaded at this moment."
+        : "Algunos paneles en vivo de GitHub no se pudieron cargar en este momento.",
+    publicRepos: language === "en" ? "Public repos" : "Repos públicos",
+    followers: language === "en" ? "Followers" : "Seguidores",
+    following: language === "en" ? "Following" : "Siguiendo",
+    stars: language === "en" ? "Stars" : "Stars",
+    forks: language === "en" ? "Forks" : "Forks",
+    topLanguages: language === "en" ? "Top languages" : "Top lenguajes",
+    basedOnRepos: language === "en" ? "Based on public repositories" : "Basado en repositorios públicos",
+    githubTrophies: language === "en" ? "GitHub trophies" : "Trofeos GitHub",
+    featuredRepos: language === "en" ? "Featured repositories" : "Repositorios destacados",
+    viewRepo: language === "en" ? "View repository" : "Ver repositorio",
+    updated: language === "en" ? "Updated" : "Actualizado",
+    noRepoDescription:
+      language === "en"
+        ? "No public description available for this repository."
+        : "No hay una descripción pública disponible para este repositorio.",
+    noFeaturedRepos:
+      language === "en"
+        ? "The selected repositories are not available as public repos right now."
+        : "Los repositorios seleccionados no están disponibles como repos públicos en este momento.",
   }
+
+  useEffect(() => {
+    let isCancelled = false
+
+    const loadGitHubData = async () => {
+      try {
+        setGithubLoading(true)
+        setGithubError(null)
+
+        const [profileResponse, reposResponse] = await Promise.all([
+          fetch(`https://api.github.com/users/${githubUser}`),
+          fetch(`https://api.github.com/users/${githubUser}/repos?per_page=100&sort=updated`),
+        ])
+
+        if (!profileResponse.ok || !reposResponse.ok) {
+          throw new Error("GitHub API request failed")
+        }
+
+        const [profileData, reposData] = await Promise.all([
+          profileResponse.json() as Promise<GitHubProfile>,
+          reposResponse.json() as Promise<GitHubRepo[]>,
+        ])
+
+        if (isCancelled) return
+
+        setGithubProfile(profileData)
+        setGithubRepos(Array.isArray(reposData) ? reposData : [])
+      } catch {
+        if (isCancelled) return
+        setGithubError(pageText.githubUnavailable)
+      } finally {
+        if (!isCancelled) {
+          setGithubLoading(false)
+        }
+      }
+    }
+
+    loadGitHubData()
+
+    return () => {
+      isCancelled = true
+    }
+  }, [pageText.githubUnavailable])
+
+  const publicRepos = githubRepos.filter((repo) => !repo.fork && !repo.archived)
+  const totalStars = publicRepos.reduce((sum, repo) => sum + repo.stargazers_count, 0)
+  const totalForks = publicRepos.reduce((sum, repo) => sum + repo.forks_count, 0)
+  const languagesCount = publicRepos.reduce<Record<string, number>>((acc, repo) => {
+    if (!repo.language) return acc
+    acc[repo.language] = (acc[repo.language] ?? 0) + 1
+    return acc
+  }, {})
+  const topLanguages = Object.entries(languagesCount)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 6)
+  const featuredRepos = featuredRepoNames
+    .map((repoName) => publicRepos.find((repo) => repo.name === repoName))
+    .filter((repo): repo is GitHubRepo => Boolean(repo))
+  const latestUpdatedRepo = [...publicRepos].sort(
+    (a, b) => new Date(b.pushed_at).getTime() - new Date(a.pushed_at).getTime()
+  )[0]
+
+  const trophyItems = [
+    {
+      label: language === "en" ? "Repository Builder" : "Constructor de Repos",
+      description:
+        language === "en"
+          ? `${publicRepos.length} public repositories available.`
+          : `${publicRepos.length} repositorios públicos disponibles.`,
+      active: publicRepos.length > 0,
+    },
+    {
+      label: language === "en" ? "Community Presence" : "Presencia en Comunidad",
+      description:
+        language === "en"
+          ? `${githubProfile?.followers ?? 0} followers on GitHub.`
+          : `${githubProfile?.followers ?? 0} seguidores en GitHub.`,
+      active: (githubProfile?.followers ?? 0) > 0,
+    },
+    {
+      label: language === "en" ? "Polyglot Coder" : "Polyglot Coder",
+      description:
+        language === "en"
+          ? `${topLanguages.length} languages detected across public repos.`
+          : `${topLanguages.length} lenguajes detectados en los repos públicos.`,
+      active: topLanguages.length > 0,
+    },
+    {
+      label: language === "en" ? "Active Maintainer" : "Mantenedor Activo",
+      description:
+        latestUpdatedRepo
+          ? `${pageText.updated}: ${new Intl.DateTimeFormat(language === "en" ? "en-US" : "es-EC", {
+              month: "short",
+              day: "numeric",
+              year: "numeric",
+            }).format(new Date(latestUpdatedRepo.pushed_at))}`
+          : pageText.githubUnavailable,
+      active: Boolean(latestUpdatedRepo),
+    },
+  ]
 
   useEffect(() => {
     const onScroll = () => {
@@ -187,31 +339,95 @@ export default function ContactoPage() {
           </p>
 
           <div className="mt-5 flex flex-col gap-4">
-            <a
-              href={contactLinks.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-xl border border-gray-200 p-3 hover:border-gray-300 transition-colors"
-            >
-              <img
-                src={`https://github-readme-stats.vercel.app/api?username=${githubUser}&show_icons=true&theme=transparent&hide_border=true&include_all_commits=true&count_private=true`}
-                alt="GitHub stats"
-                className="w-full h-auto"
-              />
-            </a>
+            <div className="rounded-xl border border-gray-200 p-4">
+              <div className="flex items-center justify-between gap-3">
+                <div>
+                  <h3 className="text-base font-semibold text-gray-900">GitHub Stats</h3>
+                  <p className="text-sm text-gray-500">{pageText.basedOnRepos}</p>
+                </div>
+                <Github className="w-5 h-5 text-gray-700" />
+              </div>
 
-            <a
-              href={contactLinks.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-xl border border-gray-200 p-3 hover:border-gray-300 transition-colors"
-            >
-              <img
-                src={`https://github-readme-stats.vercel.app/api/top-langs/?username=${githubUser}&layout=compact&theme=transparent&hide_border=true`}
-                alt="Top lenguajes en GitHub"
-                className="w-full h-auto"
-              />
-            </a>
+              {githubLoading ? (
+                <p className="mt-4 text-sm text-gray-500">{pageText.loadingGithub}</p>
+              ) : githubError ? (
+                <p className="mt-4 text-sm text-red-600">{githubError}</p>
+              ) : (
+                <div className="mt-4 grid grid-cols-2 md:grid-cols-3 gap-3">
+                  <div className="rounded-lg bg-slate-50 p-3">
+                    <p className="text-xs text-gray-500">{pageText.publicRepos}</p>
+                    <p className="mt-1 text-xl font-semibold text-gray-900">{githubProfile?.public_repos ?? publicRepos.length}</p>
+                  </div>
+                  <div className="rounded-lg bg-slate-50 p-3">
+                    <p className="text-xs text-gray-500">{pageText.followers}</p>
+                    <p className="mt-1 text-xl font-semibold text-gray-900">{githubProfile?.followers ?? 0}</p>
+                  </div>
+                  <div className="rounded-lg bg-slate-50 p-3">
+                    <p className="text-xs text-gray-500">{pageText.following}</p>
+                    <p className="mt-1 text-xl font-semibold text-gray-900">{githubProfile?.following ?? 0}</p>
+                  </div>
+                  <div className="rounded-lg bg-amber-50 p-3">
+                    <p className="text-xs text-amber-700">{pageText.stars}</p>
+                    <div className="mt-1 inline-flex items-center gap-2 text-xl font-semibold text-amber-900">
+                      <Star className="w-4 h-4" />
+                      <span>{totalStars}</span>
+                    </div>
+                  </div>
+                  <div className="rounded-lg bg-blue-50 p-3">
+                    <p className="text-xs text-blue-700">{pageText.forks}</p>
+                    <div className="mt-1 inline-flex items-center gap-2 text-xl font-semibold text-blue-900">
+                      <GitFork className="w-4 h-4" />
+                      <span>{totalForks}</span>
+                    </div>
+                  </div>
+                  <div className="rounded-lg bg-emerald-50 p-3">
+                    <p className="text-xs text-emerald-700">{pageText.topLanguages}</p>
+                    <div className="mt-1 inline-flex items-center gap-2 text-xl font-semibold text-emerald-900">
+                      <Users className="w-4 h-4" />
+                      <span>{topLanguages.length}</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="rounded-xl border border-gray-200 p-4">
+              <div className="flex items-center justify-between gap-3">
+                <div>
+                  <h3 className="text-base font-semibold text-gray-900">{pageText.topLanguages}</h3>
+                  <p className="text-sm text-gray-500">{pageText.basedOnRepos}</p>
+                </div>
+                <Sparkles className="w-5 h-5 text-emerald-700" />
+              </div>
+
+              {githubLoading ? (
+                <p className="mt-4 text-sm text-gray-500">{pageText.loadingGithub}</p>
+              ) : githubError ? (
+                <p className="mt-4 text-sm text-red-600">{githubError}</p>
+              ) : topLanguages.length > 0 ? (
+                <div className="mt-4 space-y-3">
+                  {topLanguages.map(([languageName, count]) => {
+                    const percentage = Math.round((count / publicRepos.length) * 100)
+                    return (
+                      <div key={languageName}>
+                        <div className="flex items-center justify-between text-sm text-gray-700">
+                          <span className="font-medium">{languageName}</span>
+                          <span>{count} repos</span>
+                        </div>
+                        <div className="mt-1.5 h-2 rounded-full bg-gray-100 overflow-hidden">
+                          <div
+                            className="h-full rounded-full bg-gradient-to-r from-teal-500 to-blue-500"
+                            style={{ width: `${percentage}%` }}
+                          />
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              ) : (
+                <p className="mt-4 text-sm text-gray-500">{pageText.githubUnavailable}</p>
+              )}
+            </div>
 
             <a
               href={contactLinks.github}
@@ -239,18 +455,38 @@ export default function ContactoPage() {
               />
             </a>
 
-            <a
-              href={contactLinks.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-xl border border-gray-200 p-3 hover:border-gray-300 transition-colors"
-            >
-              <img
-                src={`https://github-profile-trophy.vercel.app/?username=${githubUser}&theme=flat&no-frame=true&column=4&margin-w=8&margin-h=8`}
-                alt="Trofeos de GitHub"
-                className="w-full h-auto"
-              />
-            </a>
+            <div className="rounded-xl border border-gray-200 p-4">
+              <div className="flex items-center justify-between gap-3">
+                <div>
+                  <h3 className="text-base font-semibold text-gray-900">{pageText.githubTrophies}</h3>
+                  <p className="text-sm text-gray-500">{pageText.basedOnRepos}</p>
+                </div>
+                <Trophy className="w-5 h-5 text-amber-600" />
+              </div>
+
+              {githubLoading ? (
+                <p className="mt-4 text-sm text-gray-500">{pageText.loadingGithub}</p>
+              ) : githubError ? (
+                <p className="mt-4 text-sm text-red-600">{githubError}</p>
+              ) : (
+                <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {trophyItems.map((item) => (
+                    <div
+                      key={item.label}
+                      className={`rounded-lg border p-3 ${
+                        item.active ? "border-amber-200 bg-amber-50" : "border-gray-200 bg-gray-50"
+                      }`}
+                    >
+                      <div className="inline-flex items-center gap-2">
+                        <Trophy className={`w-4 h-4 ${item.active ? "text-amber-600" : "text-gray-400"}`} />
+                        <p className="font-medium text-gray-900">{item.label}</p>
+                      </div>
+                      <p className="mt-2 text-sm text-gray-600">{item.description}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
 
             <a
               href={contactLinks.github}
@@ -317,57 +553,62 @@ export default function ContactoPage() {
               />
             </a>
 
-            <a
-              href={contactLinks.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-xl border border-gray-200 p-3 hover:border-gray-300 transition-colors"
-            >
-              <img
-                src={`https://github-readme-stats.vercel.app/api/pin/?username=${githubUser}&repo=portafolio&theme=transparent&hide_border=true`}
-                alt="Repositorio destacado: portafolio"
-                className="w-full h-auto"
-              />
-            </a>
+            <div className="rounded-xl border border-gray-200 p-4">
+              <div className="flex items-center justify-between gap-3">
+                <div>
+                  <h3 className="text-base font-semibold text-gray-900">{pageText.featuredRepos}</h3>
+                  <p className="text-sm text-gray-500">@{githubUser}</p>
+                </div>
+                <Github className="w-5 h-5 text-gray-700" />
+              </div>
 
-            <a
-              href={contactLinks.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-xl border border-gray-200 p-3 hover:border-gray-300 transition-colors"
-            >
-              <img
-                src={`https://github-readme-stats.vercel.app/api/pin/?username=${githubUser}&repo=FlightBookings&theme=transparent&hide_border=true`}
-                alt="Repositorio destacado: FlightBookings"
-                className="w-full h-auto"
-              />
-            </a>
+              {githubLoading ? (
+                <p className="mt-4 text-sm text-gray-500">{pageText.loadingGithub}</p>
+              ) : githubError ? (
+                <p className="mt-4 text-sm text-red-600">{githubError}</p>
+              ) : featuredRepos.length > 0 ? (
+                <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {featuredRepos.map((repo) => (
+                    <a
+                      key={repo.id}
+                      href={repo.html_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="rounded-xl border border-gray-200 p-4 hover:border-gray-300 transition-colors"
+                    >
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <h4 className="font-semibold text-gray-900">{repo.name}</h4>
+                          <p className="mt-1 text-sm text-gray-600 line-clamp-3">
+                            {repo.description || pageText.noRepoDescription}
+                          </p>
+                        </div>
+                        <ExternalLink className="w-4 h-4 text-gray-500 shrink-0" />
+                      </div>
 
-            <a
-              href={contactLinks.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-xl border border-gray-200 p-3 hover:border-gray-300 transition-colors"
-            >
-              <img
-                src={`https://github-readme-stats.vercel.app/api/pin/?username=${githubUser}&repo=Ecommerce-Spring-Boot&theme=transparent&hide_border=true`}
-                alt="Repositorio destacado: Ecommerce-Spring-Boot"
-                className="w-full h-auto"
-              />
-            </a>
-
-            <a
-              href={contactLinks.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-xl border border-gray-200 p-3 hover:border-gray-300 transition-colors"
-            >
-              <img
-                src={`https://github-readme-stats.vercel.app/api/pin/?username=${githubUser}&repo=sign-language-prediction&theme=transparent&hide_border=true`}
-                alt="Repositorio destacado: sign-language-prediction"
-                className="w-full h-auto"
-              />
-            </a>
+                      <div className="mt-4 flex flex-wrap items-center gap-3 text-xs text-gray-600">
+                        {repo.language && (
+                          <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-1">
+                            <Sparkles className="w-3.5 h-3.5" />
+                            {repo.language}
+                          </span>
+                        )}
+                        <span className="inline-flex items-center gap-1">
+                          <Star className="w-3.5 h-3.5" />
+                          {repo.stargazers_count}
+                        </span>
+                        <span className="inline-flex items-center gap-1">
+                          <GitFork className="w-3.5 h-3.5" />
+                          {repo.forks_count}
+                        </span>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              ) : (
+                <p className="mt-4 text-sm text-gray-500">{pageText.noFeaturedRepos}</p>
+              )}
+            </div>
           </div>
         </div>
       </div>

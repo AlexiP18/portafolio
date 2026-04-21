@@ -1,158 +1,136 @@
-\documentclass[letterpaper,11pt]{article}
+\documentclass[10pt,a4paper]{article}
 
-\usepackage{latexsym}
-\usepackage[empty]{fullpage}
-\usepackage{titlesec}
-\usepackage{marvosym}
-\usepackage[usenames,dvipsnames]{color}
-\usepackage{verbatim}
-\usepackage{enumitem}
-\usepackage[hidelinks]{hyperref}
-\usepackage{fancyhdr}
-\usepackage[english,spanish]{babel}
-\usepackage{tabularx}
-\input{glyphtounicode}
-
-% Fuentes limpias tipo ATS (Roboto)
+% ---------------------------
+% Paquetes base (ATS-friendly)
+% ---------------------------
+\usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage[sfdefault]{roboto} 
+\usepackage[spanish]{babel}
+\usepackage{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{helvet}
 
-\pagestyle{fancy}
-\fancyhf{} 
-\fancyfoot{}
-\renewcommand{\headrulewidth}{0pt}
-\renewcommand{\footrulewidth}{0pt}
-
-% Ajuste de márgenes (CV de 1 página)
-\addtolength{\oddsidemargin}{-0.5in}
-\addtolength{\evensidemargin}{-0.5in}
-\addtolength{\textwidth}{1in}
-\addtolength{\topmargin}{-0.5in}
-\addtolength{\textheight}{1.0in}
-
-\urlstyle{same}
-\raggedbottom
-\raggedright
-\setlength{\tabcolsep}{0in}
-
-% Formato de secciones (Líneas limpias)
-\titleformat{\section}{
-  \vspace{-4pt}\scshape\raggedright\large\bfseries
-}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
-
-\pdfgentounicode=1
-
-%----------COMANDOS PERSONALIZADOS----------
-\newcommand{\resumeItem}[1]{
-  \item\small{
-    {#1 \vspace{-2pt}}
-  }
+% ---------------------------
+% Configuracion de pagina
+% ---------------------------
+\geometry{
+  left=1.8cm,
+  right=1.8cm,
+  top=1.8cm,
+  bottom=1.8cm
 }
 
-\newcommand{\resumeSubheading}[4]{
-  \vspace{-2pt}\item
-    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
-      \textbf{#1} & #2 \\
-      \textit{\small#3} & \textit{\small #4} \\
-    \end{tabular*}\vspace{-7pt}
-}
+\renewcommand{\familydefault}{\sfdefault} % Sans-serif moderna (Helvetica)
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist[itemize]{leftmargin=1.2em, itemsep=1pt, topsep=1pt}
 
-\newcommand{\resumeProjectHeading}[2]{
-    \item
-    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
-      \small#1 & #2 \\
-    \end{tabular*}\vspace{-7pt}
-}
-
-\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
-\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
-\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
-\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
-\newcommand{\resumeItemListStart}{\begin{itemize}}
-\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
-
-%-------------------------------------------
-%%%%%%  COMIENZA EL CURRÍCULUM  %%%%%%%%%%%%%%%%
+% Estilo de secciones
+\titleformat{\section}
+  {\large\bfseries}
+  {}
+  {0pt}
+  {}
+  [\vspace{-0.35em}\titlerule]
+\titlespacing*{\section}{0pt}{0.65em}{0.35em}
 
 \begin{document}
 
-%----------ENCABEZADO----------
+% ===========================
+% Header
+% ===========================
 \begin{center}
-    \textbf{\Huge \scshape Alexis Joel Poaquiza Peñaloza} \\ \vspace{5pt}
-    \small \href{https://wa.link/gqwair}{\underline{+593 96 363 9813}} $|$
-    \href{mailto:joelpstudy10@gmail.com}{\underline{joelpstudy10@gmail.com}} $|$ 
-    \href{https://www.linkedin.com/in/developer-joel/}{\underline{linkedin.com/in/developer-joel}} $|$
-    \href{https://github.com/AlexiP18}{\underline{github.com/AlexiP18}} $|$
-    \href{https://portafolio-personal-blue-phi.vercel.app/}{\underline{Portafolio Web}}
+  {\LARGE \textbf{Joel Peñaloza}}\\
+  {\normalsize Ingeniero de Software}\\[4pt]
+  \href{mailto:joelpstudy10@gmail.com}{joelpstudy10@gmail.com}
+  \textbar\ 
+  \href{https://www.linkedin.com/in/developer-joel/}{linkedin.com/in/developer-joel}
+  \textbar\ 
+  \href{https://github.com/AlexiP18}{github.com/AlexiP18}
+  \textbar\ 
+  \href{https://portafolio-personal-blue-phi.vercel.app/}{Portafolio}
 \end{center}
 
-%-----------RESUMEN-----------
+% ===========================
+% Perfil Profesional
+% ===========================
 \section{Perfil Profesional}
-  \small{Futuro Ingeniero de Software enfocado en desarrollo frontend, backend y soluciones web completas. Experiencia en proyectos institucionales y freelance, con enfoque en codigo limpio, mejora continua y despliegue de aplicaciones modernas. Motivado por aprender de forma constante y aportar valor en equipos colaborativos como perfil Junior.}
+La elección de desarrollar tecnologías no es por la pasión al código, sino por la pasión por resolver los problemas del mundo moderno. Ingeniero de Software Fullstack con enfoque pragmático en la construcción de sistemas escalables, seguros y de alto rendimiento. Experiencia en proyectos institucionales y freelance con enfoque en mejora continua, mantenibilidad y entrega de valor técnico.
 
-%-----------EDUCACIÓN-----------
-\section{Educación}
-  \resumeSubHeadingListStart
-    \resumeSubheading
-      {Universidad Técnica de Ambato}{Ambato, Ecuador}
-      {Ingeniería de Software}{Marzo 2020 -- Junio 2026 (en curso)}
-      \resumeItemListStart
-        \resumeItem{\textbf{Materias relevantes:} Estructuras de Datos, Algoritmos, Ingeniería de Requisitos, Bases de Datos, Programación Orientada a Objetos.}
-        \resumeItem{\textbf{Formación complementaria:} Cursos de Angular, SQL, HTML5/CSS3, SQL Server, Python Essentials 2 y C++ Essentials 1 (Cisco Networking Academy y Udemy).}
-        \resumeItem{\textbf{Participación académica:} Asistente en CSEI (Conferencia Internacional de Computer Science, Electronics and Industrial Engineering) ediciones 2021 a 2025.}
-      \resumeItemListEnd
-  \resumeSubHeadingListEnd
+% ===========================
+% Areas de Expertise
+% ===========================
+\section{Áreas de Expertise}
+\begin{itemize}
+  \item \textbf{Desarrollo Fullstack:} Java/Spring Boot, PHP, Angular, Astro.
+  \item \textbf{Bases de Datos:} PostgreSQL, SQL Server.
+  \item \textbf{SecDevOps \& QA:} Burp Suite, BrowserStack, GitHub Actions, Linux.
+  \item \textbf{Gestión:} Notion, Asana, Figma.
+\end{itemize}
 
-%-----------HABILIDADES TÉCNICAS-----------
-\section{Habilidades Técnicas}
- \begin{itemize}[leftmargin=0.15in, label={}]
-    \small{\item{
-     \textbf{Lenguajes de Programación}{: JavaScript (ES6+), TypeScript, Java, PHP, Python, C++} \\
-     \textbf{Desarrollo Frontend}{: Angular, Astro, HTML5, CSS3, Tailwind CSS, diseño responsivo} \\
-     \textbf{Desarrollo Backend}{: Java (Spring Boot), PHP, APIs REST} \\
-     \textbf{Bases de Datos}{: PostgreSQL, MySQL, SQL Server, Firebase} \\
-     \textbf{Herramientas y Entornos}{: Git, GitHub, GitHub Actions, Azure, Google Cloud Platform, WordPress, WooCommerce, VS Code, IntelliJ IDEA, Linux}
-    }}
- \end{itemize}
+% ===========================
+% Experiencia Laboral
+% ===========================
+\section{Experiencia Laboral}
 
-%-----------PROYECTOS DESTACADOS-----------
+% Si deseas ampliar esta seccion, redacta cada logro con formula Google XYZ:
+% "Logré [X] medido por [Y] haciendo [Z]."
+
+\textbf{Web Developer} \hfill 2024 -- Actualidad\\
+\textit{Casa de la Cultura (Núcleo Tungurahua) -- Ambato, Ecuador}
+\begin{itemize}
+  \item Desarrollo y mantenimiento de soluciones web para procesos institucionales y culturales, incluyendo páginas informativas y módulos funcionales.
+  \item Implementación de mejoras continuas en experiencia digital para usuarios y administradores usando WordPress, PHP, JavaScript, CSS y MySQL.
+\end{itemize}
+
+\textbf{Freelancer (Web, Soporte e IA)} \hfill 2022 -- Actualidad\\
+\textit{Servicios Independientes -- Ambato, Ecuador}
+\begin{itemize}
+  \item Desarrollo de sitios web y soporte técnico en mantenimiento de software y hardware para clientes y proyectos propios.
+  \item Montaje y optimización de PCs, e implementación de agentes de IA para automatización de tareas y asistencia operativa.
+\end{itemize}
+
+% ===========================
+% Proyectos de Software
+% ===========================
 \section{Proyectos de Software}
-    \resumeSubHeadingListStart
-      \resumeProjectHeading
-          {\textbf{Ecommerce Platform} $|$ \emph{Angular, Spring Boot, Tailwind CSS}}{2024}
-          \resumeItemListStart
-            \resumeItem{Desarrollé una plataforma de comercio electrónico con gestión de productos, flujo de compra y estructura administrativa para operación del negocio.}
-            \resumeItem{Implementé frontend moderno y backend desacoplado, priorizando mantenibilidad del código y una experiencia de usuario clara.}
-            \resumeItem{\href{https://github.com/AlexiP18/Ecommerce-Spring-Boot}{\underline{Ver Repositorio}} $|$ \href{https://portafolio-personal-blue-phi.vercel.app/proyectos}{\underline{Ver Demo}}}
-          \resumeItemListEnd
-      
-      \resumeProjectHeading
-          {\textbf{Sistema de Vuelos} $|$ \emph{Angular, C\#, SQL Server}}{2024}
-          \resumeItemListStart
-            \resumeItem{Construí una aplicación para reserva y gestión de vuelos con búsqueda avanzada, comparación de opciones y enfoque en usabilidad.}
-            \resumeItem{Desarrollé módulos clave de consulta y persistencia, aplicando buenas prácticas de versionado y organización por capas.}
-            \resumeItem{\href{https://github.com/AlexiP18/FlightBookings}{\underline{Ver Repositorio}} $|$ \href{https://portafolio-personal-blue-phi.vercel.app/proyectos}{\underline{Ver Demo}}}
-          \resumeItemListEnd
-    \resumeSubHeadingListEnd
+\textbf{Ecommerce Platform} \hfill 2024\\
+\textit{Angular, Spring Boot, Tailwind CSS}
+\begin{itemize}
+  \item Plataforma de comercio electrónico con gestión de productos, flujo de compra y estructura administrativa para operación del negocio.
+  \item \href{https://github.com/AlexiP18/Ecommerce-Spring-Boot}{Repositorio} \textbar\ \href{https://portafolio-personal-blue-phi.vercel.app/proyectos}{Demo}
+\end{itemize}
 
-%-----------EXPERIENCIA (Pasantías/Voluntariados)-----------
-\section{Experiencia}
-  \resumeSubHeadingListStart
-    \resumeSubheading
-      {Web Developer}{Ambato, Tungurahua - Ecuador}
-      {Casa de la Cultura (Núcleo Tungurahua)}{2024 -- Actualidad}
-      \resumeItemListStart
-        \resumeItem{Desarrollo y mantenimiento de soluciones web para procesos institucionales y culturales, incluyendo páginas informativas y módulos funcionales.}
-        \resumeItem{Implementación de mejoras continuas en experiencia digital para usuarios y administradores usando WordPress, PHP, JavaScript, CSS y MySQL.}
-      \resumeItemListEnd
+\textbf{Sistema de Vuelos} \hfill 2024\\
+\textit{Angular, C\#, SQL Server}
+\begin{itemize}
+  \item Aplicación para reserva y gestión de vuelos con búsqueda avanzada, comparación de opciones y enfoque en usabilidad.
+  \item \href{https://github.com/AlexiP18/FlightBookings}{Repositorio} \textbar\ \href{https://portafolio-personal-blue-phi.vercel.app/proyectos}{Demo}
+\end{itemize}
 
-    \resumeSubheading
-      {Freelancer (Web, Soporte y IA)}{Ambato, Tungurahua - Ecuador}
-      {Servicios Independientes}{2022 -- Actualidad}
-      \resumeItemListStart
-        \resumeItem{Desarrollo de sitios web y soporte técnico en mantenimiento de software/hardware para clientes y proyectos propios.}
-        \resumeItem{Montaje y optimización de PCs, e implementación de agentes de IA para automatización de tareas y asistencia operativa.}
-      \resumeItemListEnd
-  \resumeSubHeadingListEnd
+% ===========================
+% Educacion
+% ===========================
+\section{Educación}
+\textbf{Ingeniería de Software} \hfill Marzo 2020 -- Junio 2026 (en curso)\\
+\textit{Universidad Técnica de Ambato -- Ambato, Ecuador}
+\begin{itemize}
+  \item Materias relevantes: Estructuras de Datos, Algoritmos, Ingeniería de Requisitos, Bases de Datos, Programación Orientada a Objetos.
+  \item Participación académica: Asistente en CSEI (Conferencia Internacional de Computer Science, Electronics and Industrial Engineering), ediciones 2021 a 2025.
+\end{itemize}
+
+% ===========================
+% Certificaciones
+% ===========================
+\section{Certificaciones}
+\begin{itemize}
+  \item C++ Essentials 1 -- Cisco Networking Academy (2025).
+  \item Angular - The Complete Guide (2025 Edition) -- Udemy (2025).
+  \item Python Essential 2 -- Cisco Networking Academy (2024).
+  \item SQL - Curso completo de Bases de Datos -- Udemy (2024).
+\end{itemize}
 
 \end{document}

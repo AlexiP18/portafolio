@@ -213,6 +213,37 @@ const projects: Project[] = [
     ],
     link: "#",
   },
+  {
+    id: "udemy-desarrollo-web-completo",
+    title: 'Proyectos - UDEMY "Desarrollo Web completo"',
+    description: "Colección de prácticas y mini proyectos desarrollados durante la formación en UDEMY, aplicando maquetación web, lógica en frontend e integración básica con backend.",
+    image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2070&auto=format&fit=crop",
+    category: ["Code", "Web"],
+    technologies: [
+      {
+        name: "HTML5",
+        icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" className="w-5 h-5" alt="HTML5" />,
+      },
+      {
+        name: "CSS3",
+        icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" className="w-5 h-5" alt="CSS3" />,
+      },
+      {
+        name: "JavaScript",
+        icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" className="w-5 h-5" alt="JavaScript" />,
+      },
+      {
+        name: "PHP",
+        icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" className="w-5 h-5" alt="PHP" />,
+      },
+      {
+        name: "MySQL",
+        icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" className="w-5 h-5" alt="MySQL" />,
+      },
+    ],
+    link: "https://www.udemy.com/course/desarrollo-web-completo-con-html5-css3-js-php-y-mysql/",
+    documentation: "https://drive.google.com/file/d/17vK_nWoBhHQq81BGoC82P8uMxhGGHf9n/view?usp=drive_link",
+  },
 ]
 
 const filterOptions = ["All", "Code", "Frameworks", "CMS", "Web", "AI"]
@@ -302,6 +333,16 @@ const projectLocaleContent: Record<
     description: {
       en: "System for issuing, managing, and validating digital certificates with customizable templates and authenticity verification.",
       es: "Sistema de generación, administración y validación de certificados digitales con plantillas personalizables, descarga automatizada y verificación de autenticidad integrada.",
+    },
+  },
+  "udemy-desarrollo-web-completo": {
+    title: {
+      en: 'Projects - UDEMY "Complete Web Development"',
+      es: 'Proyectos - UDEMY "Desarrollo Web completo"',
+    },
+    description: {
+      en: "Collection of practices and mini projects developed during UDEMY training, applying web layout, frontend logic, and basic backend integration.",
+      es: "Colección de prácticas y mini proyectos desarrollados durante la formación en UDEMY, aplicando maquetación web, lógica en frontend e integración básica con backend.",
     },
   },
 }

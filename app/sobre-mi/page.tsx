@@ -28,8 +28,8 @@ const profile = {
     es: "Ingeniero de Software",
   },
   summary: {
-    en: "Future software engineer passionate about building modern digital solutions, focused on frontend, DevOps, and continuous improvement.",
-    es: "Futuro ingeniero de software apasionado por construir soluciones digitales modernas, con foco en frontend, DevOps y mejora continua.",
+    en: "Future software engineer focused on building modern digital solutions with measurable impact. I work with a practical mindset in frontend and DevOps, integrating backend foundations to deliver maintainable, secure, and scalable products. I am motivated by continuous learning, technical quality, and solving real-world problems through software.",
+    es: "Futuro ingeniero de software enfocado en construir soluciones digitales modernas con impacto medible. Trabajo con un enfoque práctico en frontend y DevOps, integrando bases backend para entregar productos mantenibles, seguros y escalables. Me motiva el aprendizaje continuo, la calidad técnica y la resolución de problemas reales mediante software.",
   },
 }
 
@@ -41,8 +41,8 @@ const aboutSections: AboutSection[] = [
       es: "Sobre mí",
     },
     description: {
-      en: "I consider myself a creative, disciplined, and results-oriented person. I enjoy turning ideas into real products with a practical approach at every stage of development.",
-      es: "Me considero una persona creativa, disciplinada y orientada a resultados. Disfruto convertir ideas en productos reales, manteniendo un enfoque práctico en cada etapa del desarrollo.",
+      en: "I consider myself a creative, disciplined, and results-oriented person. I enjoy turning ideas into real products with a practical approach in every development stage, from planning and implementation to optimization and continuous improvement.",
+      es: "Me considero una persona creativa, disciplinada y orientada a resultados. Disfruto convertir ideas en productos reales, manteniendo un enfoque práctico en cada etapa del desarrollo, desde la planificación e implementación hasta la optimización y mejora continua.",
     },
     icon: User,
   },
@@ -56,7 +56,20 @@ const aboutSections: AboutSection[] = [
       en: "I specialize in Frontend and DevOps, with Backend knowledge to build end-to-end scalable solutions.",
       es: "Me especializo en Frontend y DevOps, con conocimientos en Backend para construir soluciones integrales y escalables de extremo a extremo.",
     },
-    technologies: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Docker", "AWS", "Node.js", "Python"],
+    technologies: [
+      "Angular",
+      "Astro",
+      "TypeScript",
+      "JavaScript",
+      "HTML5",
+      "CSS3",
+      "Spring Boot",
+      "PHP",
+      "PostgreSQL",
+      "MySQL",
+      "SQL Server",
+      "Firebase",
+    ],
     icon: Briefcase,
   },
   {
@@ -110,9 +123,20 @@ const aboutSections: AboutSection[] = [
 ]
 
 const techIconMap: Record<string, string> = {
+  Angular: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg",
+  Astro: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/astro/astro-original.svg",
   React: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
   "Next.js": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
   TypeScript: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+  JavaScript: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+  HTML5: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
+  CSS3: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
+  "Spring Boot": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg",
+  PHP: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg",
+  PostgreSQL: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
+  MySQL: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
+  "SQL Server": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-plain.svg",
+  Firebase: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
   "Tailwind CSS": "https://cdn.simpleicons.org/tailwindcss/06B6D4",
   Docker: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
   AWS: "https://cdn.simpleicons.org/amazonaws/FF9900",
@@ -340,9 +364,9 @@ export default function AboutMePage() {
         </div>
       </section>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <aside className="lg:col-span-1 space-y-4">
-          <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:items-stretch">
+        <aside className="lg:col-span-1 flex flex-col gap-4 lg:h-full">
+          <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm flex-1">
             <div className="flex items-center gap-2 mb-3">
               <User className="w-5 h-5 text-teal-600" />
               <h2 className="text-lg font-semibold text-gray-900">{aboutPageText.summaryTitle}</h2>
@@ -350,25 +374,30 @@ export default function AboutMePage() {
             <p className="text-gray-600 text-sm">{aboutSections[0].description[language]}</p>
           </div>
 
-          <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+          <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm flex-1">
             <div className="flex items-center gap-2 mb-4">
               <Code2 className="w-5 h-5 text-indigo-600" />
               <h2 className="text-lg font-semibold text-gray-900">{aboutPageText.stackTitle}</h2>
             </div>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2.5 content-start">
               {techStack.map((tech) => (
                 <span
                   key={tech}
-                  className="inline-flex items-center rounded-full border border-teal-200 bg-teal-50 px-3 py-1 text-xs font-medium text-teal-800"
+                  className="group inline-flex items-center gap-1.5 rounded-full border border-teal-200 bg-teal-50 px-3 py-1 text-xs font-medium text-teal-900 transition-all duration-200 hover:-translate-y-0.5 hover:border-teal-300 hover:bg-teal-100 hover:text-teal-950 hover:shadow-sm"
                 >
-                  {tech}
+                  {techIconMap[tech] ? (
+                    <img src={techIconMap[tech]} alt={`${tech} icon`} className="w-4 h-4 object-contain shrink-0 transition-transform duration-200 group-hover:scale-110" />
+                  ) : (
+                    <Code2 className="w-3.5 h-3.5 text-teal-700 shrink-0 transition-transform duration-200 group-hover:scale-110" />
+                  )}
+                  <span className="leading-none">{tech}</span>
                 </span>
               ))}
             </div>
           </div>
         </aside>
 
-        <section className="lg:col-span-2 rounded-2xl border border-gray-200 bg-white p-4 sm:p-6 shadow-sm">
+        <section className="lg:col-span-2 rounded-2xl border border-gray-200 bg-white p-4 sm:p-6 shadow-sm h-full">
           <h2 className="text-2xl font-semibold text-gray-900 mb-1">{aboutPageText.moreAboutTitle}</h2>
           <p className="text-sm text-gray-500 mb-5">{aboutPageText.moreAboutSubtitle}</p>
 
@@ -443,9 +472,9 @@ export default function AboutMePage() {
                 </div>
 
                 <div className="min-w-0 flex-1">
-                  <div className="flex items-center justify-between gap-3">
-                    <h3 className="text-base font-semibold text-gray-900">{reference.name}</h3>
-                    <span className="inline-flex items-center gap-1 rounded-full bg-red-50 text-red-700 border border-red-100 px-2.5 py-1 text-xs font-medium">
+                  <div className="flex flex-col-reverse sm:flex-row sm:items-start gap-2">
+                    <h3 className="text-base font-semibold text-gray-900 leading-snug">{reference.name}</h3>
+                    <span className="inline-flex w-fit items-center gap-1 rounded-full bg-red-50 text-red-700 border border-red-100 px-2.5 py-1 text-xs font-medium sm:ml-auto shrink-0">
                       <Youtube className="w-3.5 h-3.5" />
                       {reference.platform}
                     </span>

@@ -73,7 +73,6 @@ interface SidebarCopy {
   closeMenu: string
   downloadCv: string
   copyright: string
-  navigation: string
 }
 
 const getSidebarCopy = (language: AppLanguage): SidebarCopy => ({
@@ -82,7 +81,6 @@ const getSidebarCopy = (language: AppLanguage): SidebarCopy => ({
   closeMenu: language === "en" ? "Close menu" : "Cerrar menú",
   downloadCv: language === "en" ? "Download CV" : "Descargar CV",
   copyright: language === "en" ? "© 2026 Personal Portfolio" : "© 2026 Portafolio Personal",
-  navigation: language === "en" ? "Navigation" : "Navegación",
 })
 
 export function Sidebar() {
@@ -100,7 +98,7 @@ export function Sidebar() {
   }
 
   const getMenuLinkClassName = (isActive: boolean) =>
-    `group relative flex items-center gap-3 px-3 py-3 rounded-xl border transition-all duration-200 ${
+    `group relative w-full flex items-center justify-start gap-3 px-3 py-3 rounded-xl border text-left transition-all duration-200 ${
       isActive
         ? "bg-teal-600 text-white border-teal-600 shadow-md shadow-teal-100"
         : "bg-white text-slate-600 border-slate-100 hover:bg-slate-50 hover:border-slate-200 hover:shadow-sm hover:-translate-y-0.5"
@@ -174,15 +172,14 @@ export function Sidebar() {
           <LanguageSwitcher />
         </div>
 
-        <nav className="flex-1 min-h-0 overflow-y-auto px-4 py-4">
-          <p className="px-1 pb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-400">{copy.navigation}</p>
-          <ul className="space-y-2">
+        <nav className="flex-1 min-h-0 overflow-y-auto px-4 py-4 flex flex-col items-center justify-start">
+          <ul className="w-full space-y-2">
             {menuItems.map((item) => {
               const Icon = item.icon
               const isActive = pathname === item.href
 
               return (
-                <li key={item.href}>
+                <li key={item.href} className="w-full">
                   <Link
                     href={item.href}
                     onClick={closeMobileMenu}
@@ -192,11 +189,6 @@ export function Sidebar() {
                       <Icon className="w-4 h-4" />
                     </span>
                     <span className="font-medium">{item.name[language]}</span>
-                    <span
-                      className={`ml-auto h-2 w-2 rounded-full transition-colors duration-200 ${
-                        isActive ? "bg-white" : "bg-slate-300 group-hover:bg-teal-300"
-                      }`}
-                    />
                   </Link>
                 </li>
               )
@@ -265,15 +257,14 @@ export function Sidebar() {
           </div>
         </div>
 
-        <nav className="flex-1 min-h-0 overflow-y-auto px-4 py-4">
-          <p className="px-1 pb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-400">{copy.navigation}</p>
-          <ul className="space-y-2">
+        <nav className="flex-1 min-h-0 overflow-y-auto px-4 py-4 flex flex-col items-center justify-center [@media(max-height:860px)]:justify-start">
+          <ul className="w-full space-y-2">
             {menuItems.map((item) => {
               const Icon = item.icon
               const isActive = pathname === item.href
 
               return (
-                <li key={item.href}>
+                <li key={item.href} className="w-full">
                   <Link
                     href={item.href}
                     className={getMenuLinkClassName(isActive)}
@@ -282,11 +273,6 @@ export function Sidebar() {
                       <Icon className="w-4 h-4" />
                     </span>
                     <span className="font-medium">{item.name[language]}</span>
-                    <span
-                      className={`ml-auto h-2 w-2 rounded-full transition-colors duration-200 ${
-                        isActive ? "bg-white" : "bg-slate-300 group-hover:bg-teal-300"
-                      }`}
-                    />
                   </Link>
                 </li>
               )

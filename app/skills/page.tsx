@@ -707,6 +707,39 @@ const techDetails = {
       ],
     },
   },
+  Java: {
+    years: "2 Años",
+    sections: {
+      fundamentos: [
+        "Programación orientada a objetos (clases, objetos, herencia, encapsulación)",
+        "Uso de tipos de datos, condicionales, ciclos y métodos",
+        "Manejo básico de colecciones como ArrayList y HashMap",
+        "Organización de código en paquetes y clases reutilizables",
+        "Lectura y depuración de errores comunes de compilación y ejecución",
+      ],
+      caracteristicasAvanzadas: [
+        "Uso inicial de interfaces y clases abstractas en ejercicios guiados",
+        "Manejo básico de excepciones con try-catch",
+        "Aplicación de principios básicos de clean code en proyectos académicos",
+        "Lectura y escritura simple de archivos para persistencia local",
+        "Práctica inicial de estructura por capas para preparar proyectos backend",
+      ],
+      ecosistema: [
+        "Desarrollo con IntelliJ IDEA o NetBeans",
+        "Uso de Maven o Gradle para dependencias en proyectos Java",
+        "Control de versiones básico con Git y GitHub",
+        "Pruebas manuales de lógica con clases de prueba simples",
+        "Consulta de documentación oficial de Java y recursos de aprendizaje",
+      ],
+      proyectos: [
+        "Aplicación de consola para gestión de registros simples",
+        "Sistema académico básico con operaciones CRUD",
+        "Prácticas de POO con entidades y reglas de negocio",
+        "Módulo Java conectado a base de datos en proyecto universitario",
+        "Refactor de código Java para mejorar legibilidad y orden",
+      ],
+    },
+  },
   "Java (Spring Boot)": {
     years: "1.5 Años",
     sections: {
@@ -1318,6 +1351,14 @@ const techDetailsEn: Partial<Record<keyof typeof techDetails, { sections: TechDe
       proyectos: ["Client-side form validation", "Fetching and listing data from a public API", "Filter or search feature for a list", "Basic calculator or simulator", "Interactive component for a landing page"],
     },
   },
+  Java: {
+    sections: {
+      fundamentos: ["Object-oriented programming (classes, objects, inheritance, encapsulation)", "Using data types, conditionals, loops, and methods", "Basic collection handling with ArrayList and HashMap", "Organizing code into reusable packages and classes", "Reading and debugging common compile and runtime errors"],
+      caracteristicasAvanzadas: ["Initial usage of interfaces and abstract classes in guided exercises", "Basic exception handling with try-catch", "Applying basic clean code principles in academic projects", "Simple file read/write for local persistence", "Initial layered-structure practice to prepare backend projects"],
+      ecosistema: ["Development with IntelliJ IDEA or NetBeans", "Using Maven or Gradle for dependencies in Java projects", "Basic version control with Git and GitHub", "Manual logic testing with simple test classes", "Using official Java documentation and learning resources"],
+      proyectos: ["Console app for simple record management", "Basic academic system with CRUD operations", "OOP practice with entities and business rules", "Java module connected to a database in a university project", "Refactor of Java code to improve readability and structure"],
+    },
+  },
   CSS3: {
     sections: {
       fundamentos: ["Using selectors, classes, and IDs", "Understanding the box model: margin, padding, border, and width", "Building basic layouts with Flexbox", "Initial use of CSS Grid for simple structures", "Applying media queries for responsive design"],
@@ -1574,6 +1615,10 @@ const skillsData = {
       "Desarrollo backend orientado a APIs y lógica de negocio con foco en robustez y mantenibilidad.",
     technologies: [
       {
+        name: "Java",
+        icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" className="w-12 h-12" alt="Java" />,
+      },
+      {
         name: "Java (Spring Boot)",
         icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" className="w-12 h-12" alt="Spring Boot" />,
       },
@@ -1821,6 +1866,7 @@ export default function Skills() {
     contactMe: language === "en" ? "Contact me" : "Contáctame",
     year: language === "en" ? "Year" : "Año",
     years: language === "en" ? "Years" : "Años",
+    closeModal: language === "en" ? "Close modal" : "Cerrar modal",
   }
 
   const categoryTitleMap: Record<string, { en: string; es: string }> = {
@@ -1950,9 +1996,17 @@ export default function Skills() {
           onClick={handleCloseModal}
         >
           <div
-            className="bg-white rounded-2xl border border-gray-200 shadow-2xl w-full max-w-2xl max-h-[92vh] flex flex-col overflow-hidden"
+            className="relative bg-white rounded-2xl border border-gray-200 shadow-2xl w-full max-w-2xl max-h-[92vh] flex flex-col overflow-visible"
             onClick={(e) => e.stopPropagation()}
           >
+            <button
+              onClick={handleCloseModal}
+              aria-label={pageText.closeModal}
+              className="absolute -top-3 -right-3 z-30 w-10 h-10 rounded-full border border-gray-200 bg-white text-gray-500 shadow-lg hover:text-gray-700 hover:bg-gray-50 transition-colors flex items-center justify-center"
+            >
+              <X size={20} />
+            </button>
+
             {/* Modal Header */}
             <div className="flex items-center justify-between p-5 border-b bg-gradient-to-r from-slate-50 to-white">
               <div className="flex items-center gap-4 min-w-0">
@@ -1965,17 +2019,11 @@ export default function Skills() {
 	                </div>
 	              </div>
 
-              <div className="flex items-center gap-3">
-	                <div className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-3 py-1.5 text-white text-xs font-semibold">
-	                  <Briefcase className="w-3.5 h-3.5" />
-	                  <span>{formatYears(selectedTechDetails?.years || `1 ${pageText.year}`)}</span>
-	                </div>
-                <button
-                  onClick={handleCloseModal}
-                  className="w-9 h-9 rounded-full border border-gray-200 bg-white text-gray-500 hover:text-gray-700 hover:bg-gray-50 transition-colors flex items-center justify-center"
-                >
-                  <X size={20} />
-                </button>
+              <div className="flex items-center gap-3 shrink-0">
+		                <div className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-3 py-1.5 text-white text-xs font-semibold">
+		                  <Briefcase className="w-3.5 h-3.5" />
+		                  <span>{formatYears(selectedTechDetails?.years || `1 ${pageText.year}`)}</span>
+		                </div>
               </div>
             </div>
 

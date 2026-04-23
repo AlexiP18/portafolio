@@ -257,8 +257,8 @@ export function Sidebar() {
           </div>
         </div>
 
-        <nav className="flex-1 min-h-0 overflow-y-auto px-4 py-4 flex flex-col items-center justify-center [@media(max-height:860px)]:justify-start">
-          <ul className="w-full space-y-2">
+        <nav className="flex-1 min-h-0 overflow-y-auto px-4 py-4 flex flex-col items-center">
+          <ul className="w-full space-y-2 my-auto">
             {menuItems.map((item) => {
               const Icon = item.icon
               const isActive = pathname === item.href

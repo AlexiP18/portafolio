@@ -225,7 +225,7 @@ export default function Home() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center relative overflow-hidden">
+    <div className="-m-4 lg:m-0 min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center relative overflow-hidden">
       {/* Efectos de fondo */}
       <div className="absolute inset-0 z-0">
         {/* Círculos de fondo animados */}

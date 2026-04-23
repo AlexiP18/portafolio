@@ -283,10 +283,10 @@ export default function Education() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto p-4 md:p-8">
+    <div className="max-w-6xl mx-auto min-w-0 overflow-x-hidden p-4 md:p-8">
       <div className="mb-8 rounded-2xl border border-slate-200 bg-white shadow-sm">
-        <div className="p-6 md:p-8 flex items-start justify-between gap-4">
-          <div className="flex items-start gap-4">
+        <div className="p-6 md:p-8 flex flex-wrap items-start justify-between gap-4">
+          <div className="flex min-w-0 flex-1 items-start gap-4">
             <div className="hidden sm:block h-16 w-1 rounded-full bg-slate-800 mt-1" />
             <div>
               <p className="text-xs md:text-sm font-semibold uppercase tracking-[0.16em] text-slate-500 mb-2">
@@ -309,10 +309,10 @@ export default function Education() {
       <div className="bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden transition-all duration-300 hover:shadow-xl w-full mb-8">
         {/* Accordion Header */}
         <div 
-          className="flex items-center justify-between p-4 md:p-5 bg-white cursor-pointer border-b border-gray-200"
+          className="flex flex-wrap items-start sm:items-center justify-between gap-3 p-4 md:p-5 bg-white cursor-pointer border-b border-gray-200"
           onClick={toggleAccordion}
         >
-          <div className="flex items-center gap-3 md:gap-4 min-w-0">
+          <div className="flex min-w-0 flex-1 items-center gap-3 md:gap-4">
             <div className="h-10 w-1.5 rounded-full bg-teal-500" />
             <div className="p-1.5 md:p-2 bg-teal-50 border border-teal-100 rounded-lg">
               <GraduationCap className="w-5 h-5 md:w-6 md:h-6 text-teal-700" />
@@ -322,7 +322,7 @@ export default function Education() {
               <p className="text-xs text-gray-500 truncate">{pageText.professionalTrainingSubtitle}</p>
             </div>
           </div>
-          <button className="flex items-center gap-2 px-2.5 py-1.5 rounded-full bg-teal-50 border border-teal-100 text-teal-700 hover:bg-teal-100 transition-all duration-300">
+          <button className="flex w-full sm:w-auto shrink-0 items-center justify-center gap-2 px-2.5 py-1.5 rounded-full bg-teal-50 border border-teal-100 text-teal-700 hover:bg-teal-100 transition-all duration-300">
             <span className="inline-flex items-center justify-center min-w-6 h-6 px-1.5 rounded-full bg-white border border-teal-200 text-xs font-bold">
               {educationData.length}
             </span>
@@ -454,10 +454,10 @@ export default function Education() {
       <div className="bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden transition-all duration-300 hover:shadow-xl w-full">
         {/* Courses Accordion Header */}
         <div 
-          className="flex items-center justify-between p-4 md:p-5 bg-white cursor-pointer border-b border-gray-200"
+          className="flex flex-wrap items-start sm:items-center justify-between gap-3 p-4 md:p-5 bg-white cursor-pointer border-b border-gray-200"
           onClick={toggleCoursesAccordion}
         >
-          <div className="flex items-center gap-3 md:gap-4 min-w-0">
+          <div className="flex min-w-0 flex-1 items-center gap-3 md:gap-4">
             <div className="h-10 w-1.5 rounded-full bg-blue-500" />
             <div className="p-1.5 md:p-2 bg-blue-50 border border-blue-100 rounded-lg">
               <BookOpen className="w-5 h-5 md:w-6 md:h-6 text-blue-700" />
@@ -467,7 +467,7 @@ export default function Education() {
               <p className="text-xs text-gray-500 truncate">{pageText.coursesAndDiplomasSubtitle}</p>
             </div>
           </div>
-          <button className="flex items-center gap-2 px-2.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-700 hover:bg-blue-100 transition-all duration-300">
+          <button className="flex w-full sm:w-auto shrink-0 items-center justify-center gap-2 px-2.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-700 hover:bg-blue-100 transition-all duration-300">
             <span className="inline-flex items-center justify-center min-w-6 h-6 px-1.5 rounded-full bg-white border border-blue-200 text-xs font-bold">
               {coursesData.length}
             </span>
@@ -486,7 +486,7 @@ export default function Education() {
             {/* Filters section - Improved layout and clean filters button */}
             <div className="mb-6">
               <div className="rounded-xl border border-blue-100 bg-blue-50/30 p-4 md:p-5 flex flex-col gap-4">
-                <div className="flex items-center justify-between">
+                <div className="flex flex-wrap items-start sm:items-center justify-between gap-2">
                   <div className="inline-flex items-center gap-2 text-gray-700 font-semibold">
                     <RotateCw size={14} className="text-blue-600" />
                     {pageText.filterBy}
@@ -496,7 +496,7 @@ export default function Education() {
                   {(modalityFilter || technologyFilter || typeFilter || courseYearFilter || courseSearchQuery.trim()) && (
                     <button
                       onClick={resetFilters}
-                      className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-blue-100 text-blue-700 hover:bg-blue-200 transition-all duration-300"
+                      className="flex w-full sm:w-auto items-center justify-center gap-1 px-3 py-1.5 rounded-lg bg-blue-100 text-blue-700 hover:bg-blue-200 transition-all duration-300"
                     >
                       <RotateCw size={14} className="text-blue-600" />
                       <span className="text-sm font-medium">{pageText.clearFilters}</span>
@@ -758,8 +758,8 @@ export default function Education() {
             </div>
             
             {/* Pagination Controls */}
-            <div className="mt-auto pt-8 flex items-center justify-center">
-              <nav className="flex items-center space-x-1">
+            <div className="mt-auto pt-8 flex items-center justify-center w-full overflow-x-hidden">
+              <nav className="flex max-w-full flex-wrap items-center justify-center gap-2">
                 <button 
                   onClick={prevPage}
                   disabled={currentPage === 1 || filteredCourses.length <= cardsPerPage}
@@ -771,7 +771,7 @@ export default function Education() {
                 </button>
                 
                 {/* Page numbers */}
-                <div className="flex items-center space-x-1">
+                <div className="flex max-w-full flex-wrap items-center justify-center gap-1">
                   {Array.from({ length: totalPages }).map((_, index) => (
                     <button
                       key={index}
@@ -809,10 +809,10 @@ export default function Education() {
       <div className="bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden transition-all duration-300 hover:shadow-xl w-full mt-8">
         {/* Events Accordion Header */}
         <div 
-          className="flex items-center justify-between p-4 md:p-5 bg-white cursor-pointer border-b border-gray-200"
+          className="flex flex-wrap items-start sm:items-center justify-between gap-3 p-4 md:p-5 bg-white cursor-pointer border-b border-gray-200"
           onClick={toggleEventsAccordion}
         >
-          <div className="flex items-center gap-3 md:gap-4 min-w-0">
+          <div className="flex min-w-0 flex-1 items-center gap-3 md:gap-4">
             <div className="h-10 w-1.5 rounded-full bg-purple-500" />
             <div className="p-1.5 md:p-2 bg-purple-50 border border-purple-100 rounded-lg">
               <Presentation className="w-5 h-5 md:w-6 md:h-6 text-purple-700" />
@@ -822,7 +822,7 @@ export default function Education() {
               <p className="text-xs text-gray-500 truncate">{pageText.academicEventsSubtitle}</p>
             </div>
           </div>
-          <button className="flex items-center gap-2 px-2.5 py-1.5 rounded-full bg-purple-50 border border-purple-100 text-purple-700 hover:bg-purple-100 transition-all duration-300">
+          <button className="flex w-full sm:w-auto shrink-0 items-center justify-center gap-2 px-2.5 py-1.5 rounded-full bg-purple-50 border border-purple-100 text-purple-700 hover:bg-purple-100 transition-all duration-300">
             <span className="inline-flex items-center justify-center min-w-6 h-6 px-1.5 rounded-full bg-white border border-purple-200 text-xs font-bold">
               {eventsData.length}
             </span>
@@ -841,7 +841,7 @@ export default function Education() {
             {/* Events Filters section */}
             <div className="mb-6">
               <div className="rounded-xl border border-purple-100 bg-purple-50/30 p-4 md:p-5 flex flex-col gap-4">
-                <div className="flex items-center justify-between">
+                <div className="flex flex-wrap items-start sm:items-center justify-between gap-2">
                   <div className="inline-flex items-center gap-2 text-gray-700 font-semibold">
                     <RotateCw size={14} className="text-purple-600" />
                     {pageText.filterBy}
@@ -851,7 +851,7 @@ export default function Education() {
                   {(modalityEventFilter || typeEventFilter || eventYearFilter || eventSearchQuery.trim()) && (
                     <button
                       onClick={resetEventFilters}
-                      className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-purple-100 text-purple-700 hover:bg-purple-200 transition-all duration-300"
+                      className="flex w-full sm:w-auto items-center justify-center gap-1 px-3 py-1.5 rounded-lg bg-purple-100 text-purple-700 hover:bg-purple-200 transition-all duration-300"
                     >
                       <RotateCw size={14} className="text-purple-600" />
                       <span className="text-sm font-medium">{pageText.clearFilters}</span>
@@ -1104,8 +1104,8 @@ export default function Education() {
             </div>
             
             {/* Event Pagination Controls */}
-            <div className="mt-auto pt-8 flex items-center justify-center">
-              <nav className="flex items-center space-x-1">
+            <div className="mt-auto pt-8 flex items-center justify-center w-full overflow-x-hidden">
+              <nav className="flex max-w-full flex-wrap items-center justify-center gap-2">
                 <button 
                   onClick={prevEventPage}
                   disabled={currentEventPage === 1 || filteredEvents.length <= eventsPerPage}
@@ -1117,7 +1117,7 @@ export default function Education() {
                 </button>
                 
                 {/* Page numbers */}
-                <div className="flex items-center space-x-1">
+                <div className="flex max-w-full flex-wrap items-center justify-center gap-1">
                   {Array.from({ length: totalEventPages }).map((_, index) => (
                     <button
                       key={index}

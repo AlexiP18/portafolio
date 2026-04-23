@@ -41,8 +41,8 @@ const aboutSections: AboutSection[] = [
       es: "Sobre mí",
     },
     description: {
-      en: "I consider myself a creative, disciplined, and results-oriented person. I enjoy turning ideas into real products with a practical approach in every development stage, from planning and implementation to optimization and continuous improvement.",
-      es: "Me considero una persona creativa, disciplinada y orientada a resultados. Disfruto convertir ideas en productos reales, manteniendo un enfoque práctico en cada etapa del desarrollo, desde la planificación e implementación hasta la optimización y mejora continua.",
+      en: "I consider myself a creative, disciplined, and results-oriented person. I enjoy turning ideas into real products with a practical approach in every development stage, from planning and implementation to optimization and continuous improvement. I adapt quickly to new contexts and stay focused on delivering measurable value.",
+      es: "Me considero una persona creativa, disciplinada y orientada a resultados. Disfruto convertir ideas en productos reales, manteniendo un enfoque práctico en cada etapa del desarrollo, desde la planificación e implementación hasta la optimización y mejora continua. Me adapto rápido a nuevos contextos y mantengo el foco en aportar valor medible.",
     },
     icon: User,
   },
@@ -364,9 +364,9 @@ export default function AboutMePage() {
         </div>
       </section>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:items-stretch">
-        <aside className="lg:col-span-1 flex flex-col gap-4 lg:h-full">
-          <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm flex-1">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-stretch">
+        <aside className="lg:col-span-5 flex flex-col gap-4 lg:h-full">
+          <div className="rounded-2xl border border-gray-200 bg-white px-6 py-5 shadow-sm flex-1">
             <div className="flex items-center gap-2 mb-3">
               <User className="w-5 h-5 text-teal-600" />
               <h2 className="text-lg font-semibold text-gray-900">{aboutPageText.summaryTitle}</h2>
@@ -374,30 +374,32 @@ export default function AboutMePage() {
             <p className="text-gray-600 text-sm">{aboutSections[0].description[language]}</p>
           </div>
 
-          <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm flex-1">
+          <div className="rounded-2xl border border-gray-200 bg-white px-6 py-5 shadow-sm flex-1 flex flex-col">
             <div className="flex items-center gap-2 mb-4">
               <Code2 className="w-5 h-5 text-indigo-600" />
               <h2 className="text-lg font-semibold text-gray-900">{aboutPageText.stackTitle}</h2>
             </div>
-            <div className="flex flex-wrap gap-2.5 content-start">
-              {techStack.map((tech) => (
-                <span
-                  key={tech}
-                  className="group inline-flex items-center gap-1.5 rounded-full border border-teal-200 bg-teal-50 px-3 py-1 text-xs font-medium text-teal-900 transition-all duration-200 hover:-translate-y-0.5 hover:border-teal-300 hover:bg-teal-100 hover:text-teal-950 hover:shadow-sm"
-                >
-                  {techIconMap[tech] ? (
-                    <img src={techIconMap[tech]} alt={`${tech} icon`} className="w-4 h-4 object-contain shrink-0 transition-transform duration-200 group-hover:scale-110" />
-                  ) : (
-                    <Code2 className="w-3.5 h-3.5 text-teal-700 shrink-0 transition-transform duration-200 group-hover:scale-110" />
-                  )}
-                  <span className="leading-none">{tech}</span>
-                </span>
-              ))}
+            <div className="flex flex-1 items-center">
+              <div className="flex w-full flex-wrap justify-center gap-2.5 content-center">
+                {techStack.map((tech) => (
+                  <span
+                    key={tech}
+                    className="group inline-flex items-center gap-1.5 rounded-full border border-teal-200 bg-teal-50 px-3 py-1 text-xs font-medium text-teal-900 transition-all duration-200 hover:-translate-y-0.5 hover:border-teal-300 hover:bg-teal-100 hover:text-teal-950 hover:shadow-sm"
+                  >
+                    {techIconMap[tech] ? (
+                      <img src={techIconMap[tech]} alt={`${tech} icon`} className="w-4 h-4 object-contain shrink-0 transition-transform duration-200 group-hover:scale-110" />
+                    ) : (
+                      <Code2 className="w-3.5 h-3.5 text-teal-700 shrink-0 transition-transform duration-200 group-hover:scale-110" />
+                    )}
+                    <span className="leading-none">{tech}</span>
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         </aside>
 
-        <section className="lg:col-span-2 rounded-2xl border border-gray-200 bg-white p-4 sm:p-6 shadow-sm h-full">
+        <section className="lg:col-span-7 rounded-2xl border border-gray-200 bg-white p-4 sm:p-6 shadow-sm h-full">
           <h2 className="text-2xl font-semibold text-gray-900 mb-1">{aboutPageText.moreAboutTitle}</h2>
           <p className="text-sm text-gray-500 mb-5">{aboutPageText.moreAboutSubtitle}</p>
 

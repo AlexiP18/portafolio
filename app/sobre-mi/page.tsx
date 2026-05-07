@@ -292,7 +292,7 @@ export default function AboutMePage() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8 lg:py-10 space-y-6">
+    <div className="max-w-6xl mx-auto px-4 pt-4 pb-8 md:pt-6 md:pb-12 space-y-6">
       <section className="rounded-2xl border border-slate-800 bg-gradient-to-br from-slate-950 via-slate-900 to-teal-900 text-white p-6 sm:p-8 shadow-xl">
         <div className="grid grid-cols-1 md:grid-cols-[0.75fr_1.25fr] gap-6 items-center">
           <div className="relative mx-auto md:mx-0 w-full max-w-[210px] aspect-square">

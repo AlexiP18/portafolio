@@ -3,7 +3,7 @@
 import type React from "react"
 
 import { useState, useEffect } from "react"
-import { User, TrendingUp, FolderOpen, BarChart3, GraduationCap, ArrowRight, Sparkles } from "lucide-react"
+import { User, TrendingUp, FolderOpen, BarChart3, GraduationCap, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { useLanguage } from "@/components/language-provider"
 
@@ -225,7 +225,7 @@ export default function Home() {
   }, [])
 
   return (
-    <div className="-m-4 lg:m-0 min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center relative overflow-hidden">
+    <div className="-m-4 lg:m-0 min-h-[calc(100dvh-4rem)] lg:min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center relative overflow-hidden">
       {/* Efectos de fondo */}
       <div className="absolute inset-0 z-0">
         {/* Círculos de fondo animados */}
@@ -243,31 +243,25 @@ export default function Home() {
       </div>
 
       {/* Radar central - SIN PADDING en móvil/tablet, ocupa toda la pantalla */}
-      <div className="relative w-full h-full md:max-w-4xl md:mx-auto md:px-8 z-10 overflow-hidden">
+      <div className="relative z-10 w-full min-h-[calc(100dvh-4rem)] lg:min-h-screen md:max-w-4xl md:mx-auto px-4 md:px-8 flex items-center justify-center">
         {/* Círculos concéntricos del radar - Centrados y escalados para pantalla completa */}
         <div className="absolute inset-0 flex items-center justify-center z-10">
           {/* Círculo más grande - Ocupa casi toda la pantalla en móvil */}
           <div
             className={`rounded-full border border-teal-400/30 ${pulseAnimation ? "animate-ping" : ""} ${
-              isMobile ? "w-[85vw] h-[85vw] max-w-[85vh] max-h-[85vh]" : "w-96 h-96"
+              isMobile ? "w-[min(84vw,70dvh)] h-[min(84vw,70dvh)]" : "w-96 h-96"
             }`}
           ></div>
           {/* Círculo mediano */}
           <div
             className={`absolute rounded-full border border-teal-400/40 ${pulseAnimation ? "animate-ping" : ""} delay-300 ${
-              isMobile ? "w-[65vw] h-[65vw] max-w-[65vh] max-h-[65vh]" : "w-72 h-72"
+              isMobile ? "w-[min(64vw,52dvh)] h-[min(64vw,52dvh)]" : "w-72 h-72"
             }`}
           ></div>
           {/* Círculo pequeño */}
           <div
             className={`absolute rounded-full border border-teal-400/50 ${pulseAnimation ? "animate-ping" : ""} delay-500 ${
-              isMobile ? "w-[45vw] h-[45vw] max-w-[45vh] max-h-[45vh]" : "w-48 h-48"
-            }`}
-          ></div>
-          {/* Centro del radar */}
-          <div
-            className={`bg-teal-400 rounded-full animate-pulse shadow-lg shadow-teal-400/50 ${
-              isMobile ? "w-4 h-4" : "w-6 h-6"
+              isMobile ? "w-[min(44vw,36dvh)] h-[min(44vw,36dvh)]" : "w-48 h-48"
             }`}
           ></div>
         </div>
@@ -371,19 +365,9 @@ export default function Home() {
         })}
 
         {/* Contenido central - SIN PADDING en móvil */}
-        <div className="relative z-20 text-center h-full flex flex-col justify-center px-4 md:px-0 md:py-16">
-          {/* Icono decorativo */}
-          <div className="flex justify-center mb-4 md:mb-6">
-            <div className="relative">
-              <Sparkles className="w-6 h-6 md:w-8 md:h-8 text-teal-400 animate-pulse" />
-              <div className="absolute inset-0 animate-ping">
-                <Sparkles className="w-6 h-6 md:w-8 md:h-8 text-teal-400/50" />
-              </div>
-            </div>
-          </div>
-
-	          {/* Subtítulo superior */}
-	          <p className="text-gray-400 text-xs md:text-sm lg:text-base tracking-[0.2em] md:tracking-[0.3em] uppercase mb-6 md:mb-8 font-light animate-fade-in">
+        <div className="relative z-20 w-full text-center h-full flex flex-col items-center justify-center md:py-16">
+		          {/* Subtítulo superior */}
+		          <p className="text-gray-400 text-xs md:text-sm lg:text-base tracking-[0.2em] md:tracking-[0.3em] uppercase mb-6 md:mb-8 font-light animate-fade-in">
 	            {homeText.topSubtitle}
 	          </p>
 
@@ -418,14 +402,6 @@ export default function Home() {
 	            </Link>
           </div>
 
-          {/* Indicador de scroll - Solo desktop */}
-          {!isMobile && (
-            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-              <div className="w-6 h-10 border-2 border-gray-400 rounded-full flex justify-center">
-                <div className="w-1 h-3 bg-gray-400 rounded-full mt-2 animate-pulse"></div>
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </div>

@@ -3,7 +3,7 @@
 import type React from "react"
 
 import { useState } from "react"
-import { ExternalLink, Code2, Globe, Layers, Zap, BrainCircuit, X, Github, BookOpen, FileText } from "lucide-react"
+import { ExternalLink, Code, Code2, Globe, Layers, Zap, BrainCircuit, X, Github, BookOpen, FileText, FolderOpen, Star, Tags, MoreHorizontal } from "lucide-react"
 import Image from "next/image"
 import { Dialog, DialogClose, DialogContent, DialogTitle } from "@/components/ui/dialog"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
@@ -50,7 +50,6 @@ const projects: Project[] = [
     link: "https://ecommerce-demo.com",
     github: "https://github.com/AlexiP18/Ecommerce-Spring-Boot",
     documentation: "https://docs.ecommerce-demo.com",
-    featured: true,
   },
   {
     id: "flight-system",
@@ -127,7 +126,6 @@ const projects: Project[] = [
       },
     ],
     github: "https://github.com/AlexiP18/sign-language-prediction",
-    featured: true,
   },
   {
     id: "law-firm",
@@ -145,13 +143,13 @@ const projects: Project[] = [
         icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-plain.svg" className="w-5 h-5" alt="PHP" />,
       },
     ],
-    link: "https://portal.azure.com/",
+    link: "https://dev-lex-abogados.pantheonsite.io/",
   },
   {
     id: "carpio-constructora",
     title: "Carpio-Constructora",
     description: "Sitio web moderno para empresa constructora con showcase de proyectos, galería de obras realizadas, servicios especializados y formulario de contacto integrado.",
-    image: "https://images.unsplash.com/photo-1487958449943-2f6bffe50e00?q=80&w=2070&auto=format&fit=crop",
+    image: "/images/projects/web_carpio_home.png",
     category: ["Web"],
     technologies: [
       {
@@ -167,13 +165,14 @@ const projects: Project[] = [
         icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" className="w-5 h-5" alt="JavaScript" />,
       },
     ],
-    link: "#",
+    github: "https://github.com/AlexiP18/Web---Carpio-Constructora",
+    link: "https://carpio-constructora.netlify.app/",
   },
   {
     id: "casa-cultura-web",
     title: "Página web - Casa de la Cultura Núcleo de Tungurahua",
     description: "Portal institucional con gestión de eventos culturales, calendario de actividades educativas, galerías multimedia de exposiciones y sistema de inscripción para talleres y programas.",
-    image: "https://images.unsplash.com/photo-1517457373614-b7152f800fd1?q=80&w=2070&auto=format&fit=crop",
+    image: "/images/projects/web_cce_home.png",
     category: ["CMS"],
     technologies: [
       {
@@ -189,7 +188,8 @@ const projects: Project[] = [
         icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" className="w-5 h-5" alt="CSS" />,
       },
     ],
-    link: "#",
+    github: "https://github.com/AlexiP18/casa-cultura-tungurahua_plantillas-cce",
+    link: "https://culturatungurahua.com/",
   },
   {
     id: "casa-cultura-certificados",
@@ -211,6 +211,7 @@ const projects: Project[] = [
         icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" className="w-5 h-5" alt="CSS" />,
       },
     ],
+    github: "https://github.com/AlexiP18/CCE-Certificados",
     link: "#",
   },
   {
@@ -241,7 +242,7 @@ const projects: Project[] = [
         icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" className="w-5 h-5" alt="MySQL" />,
       },
     ],
-    link: "https://www.udemy.com/course/desarrollo-web-completo-con-html5-css3-js-php-y-mysql/",
+    link: "https://magical-naiad-4f9689.netlify.app/",
     documentation: "https://drive.google.com/file/d/17vK_nWoBhHQq81BGoC82P8uMxhGGHf9n/view?usp=drive_link",
   },
 ]
@@ -352,16 +353,22 @@ export default function Proyectos() {
   const [activeFilter, setActiveFilter] = useState("All")
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const featuredProjects = projects.filter((project) => project.featured).length
+  const categoryCount = new Set(projects.flatMap((project) => project.category)).size
 
   const pageText = {
     title: language === "en" ? "My Projects" : "Mis Proyectos",
+    eyebrow: language === "en" ? "Portfolio Showcase" : "Portafolio de Proyectos",
     subtitle:
       language === "en"
         ? "A collection of projects that demonstrate my skills and experience"
         : "Una colección de proyectos que demuestran mis habilidades y experiencia",
+    totalProjects: language === "en" ? "Projects" : "Proyectos",
+    featuredProjects: language === "en" ? "Featured" : "Destacados",
+    categories: language === "en" ? "Categories" : "Categorías",
     filterLabel: language === "en" ? "Filter:" : "Filtro:",
     viewDocs: language === "en" ? "Documentation" : "Documentación",
-    viewCode: language === "en" ? "Code" : "Código",
+    viewCode: language === "en" ? "Repository" : "Repositorio",
     viewProject: language === "en" ? "View Project" : "Ver proyecto",
     aboutProject: language === "en" ? "About the Project" : "Acerca del Proyecto",
     technologies: language === "en" ? "Technologies" : "Tecnologías",
@@ -373,7 +380,7 @@ export default function Proyectos() {
     featured: language === "en" ? "Featured" : "Destacado",
     closeModal: language === "en" ? "Close modal" : "Cerrar modal",
     openDocumentation: language === "en" ? "Open documentation" : "Ver documentación",
-    openCode: language === "en" ? "Open code" : "Ver código",
+    openCode: language === "en" ? "Open repository" : "Ver repositorio",
     openProject: language === "en" ? "Open project" : "Ver proyecto",
   }
 
@@ -391,10 +398,42 @@ export default function Proyectos() {
   })
 
   return (
-    <div className="max-w-6xl mx-auto p-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">{pageText.title}</h1>
-        <p className="text-gray-600">{pageText.subtitle}</p>
+    <div className="max-w-6xl mx-auto px-4 pt-4 pb-8 md:pt-6 md:pb-12">
+      <div className="mb-8 rounded-3xl border border-slate-200 bg-white shadow-sm">
+        <div className="p-6 md:p-8 flex flex-wrap items-start justify-between gap-6">
+          <div className="min-w-0 w-full lg:flex-1">
+            <p className="inline-flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-slate-600">
+              <Layers className="h-3.5 w-3.5" />
+              {pageText.eyebrow}
+            </p>
+            <h1 className="mt-3 text-3xl md:text-4xl font-bold text-slate-900">{pageText.title}</h1>
+            <p className="mt-3 max-w-3xl text-sm md:text-base text-slate-600">{pageText.subtitle}</p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 w-full lg:w-auto lg:shrink-0">
+            <div className="flex items-center justify-between sm:justify-start gap-3 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2">
+              <div className="flex items-center gap-2">
+                <FolderOpen className="h-3.5 w-3.5 text-slate-500 shrink-0" />
+                <span className="text-xs font-semibold uppercase tracking-wide text-slate-500 whitespace-nowrap">{pageText.totalProjects}</span>
+              </div>
+              <span className="text-lg font-bold text-slate-900">{projects.length}</span>
+            </div>
+            <div className="flex items-center justify-between sm:justify-start gap-3 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2">
+              <div className="flex items-center gap-2">
+                <Star className="h-3.5 w-3.5 text-slate-500 shrink-0" />
+                <span className="text-xs font-semibold uppercase tracking-wide text-slate-500 whitespace-nowrap">{pageText.featuredProjects}</span>
+              </div>
+              <span className="text-lg font-bold text-slate-900">{featuredProjects}</span>
+            </div>
+            <div className="flex items-center justify-between sm:justify-start gap-3 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2">
+              <div className="flex items-center gap-2">
+                <Tags className="h-3.5 w-3.5 text-slate-500 shrink-0" />
+                <span className="text-xs font-semibold uppercase tracking-wide text-slate-500 whitespace-nowrap">{pageText.categories}</span>
+              </div>
+              <span className="text-lg font-bold text-slate-900">{categoryCount}</span>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Filtros */}
@@ -454,21 +493,33 @@ export default function Proyectos() {
             )}
 
             {/* Overlay que aparece en hover */}
-            <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-6">
-              {/* Contenido principal */}
-              <div className="flex-1">
-                <h3 className="text-white text-xl font-bold mb-3">{getLocalizedProjectContent(project).title}</h3>
-                <p className="text-gray-200 text-sm leading-relaxed">{getLocalizedProjectContent(project).description}</p>
+            <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between pt-4 px-6 pb-4">
+              {/* Categoría en cuarto de círculo superior derecho */}
+              {project.category.length > 0 && (
+                <div className="absolute top-0 right-0 w-16 h-16 bg-white/15 backdrop-blur-md rounded-bl-full border-b border-l border-white/30 shadow-xl z-10 pointer-events-none">
+                  <span className="absolute top-3 right-3 text-white [&_svg]:w-7 [&_svg]:h-7">
+                    {filterIcons[project.category[0]] ?? <Layers className="w-7 h-7" />}
+                  </span>
+                </div>
+              )}
+
+              <div className="flex-1 flex flex-col relative z-10">
+                <h3 className="text-white text-xl font-bold mb-3 line-clamp-2">{getLocalizedProjectContent(project).title}</h3>
+                <div className="flex-1 flex items-center justify-center -mt-4">
+                  <p className="text-gray-200 text-base leading-relaxed text-center line-clamp-4">
+                    {getLocalizedProjectContent(project).description}
+                  </p>
+                </div>
               </div>
 
               {/* Tecnologías y enlace */}
               <div className="flex items-end justify-between">
                 {/* Iconos de tecnologías */}
                 <div className="flex gap-2">
-                  {project.technologies.map((tech) => (
+                  {project.technologies.slice(0, project.technologies.length > 4 ? 3 : 4).map((tech) => (
                     <div
                       key={tech.name}
-                      className="relative bg-white/20 backdrop-blur-sm rounded p-1.5 hover:bg-white/30 transition-colors group/tech"
+                      className="relative bg-white/20 backdrop-blur-sm rounded p-1.5 hover:bg-white/30 transition-colors group/tech flex items-center justify-center w-8 h-8"
                       title={tech.name}
                     >
                       {tech.icon}
@@ -480,6 +531,20 @@ export default function Proyectos() {
                       </div>
                     </div>
                   ))}
+                  {project.technologies.length > 4 && (
+                    <div
+                      className="relative bg-white/20 backdrop-blur-sm rounded-full p-1.5 hover:bg-white/30 transition-colors group/tech flex items-center justify-center w-8 h-8"
+                      title={`+${project.technologies.length - 3} ${language === "en" ? "more" : "más"}`}
+                    >
+                      <MoreHorizontal className="w-5 h-5 text-white" />
+                      {/* Tooltip que aparece en hover */}
+                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover/tech:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10">
+                        +{project.technologies.length - 3} {language === "en" ? "more" : "más"}
+                        {/* Flecha del tooltip */}
+                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-2 border-r-2 border-t-2 border-transparent border-t-gray-900"></div>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* Accesos rápidos */}
@@ -544,12 +609,13 @@ export default function Proyectos() {
       )}
 
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+        {/* ── DESKTOP modal ── */}
         <DialogContent
           showCloseButton={false}
-          className="max-w-6xl w-[95vw] h-[85vh] max-h-[90vh] overflow-y-auto overflow-x-visible lg:overflow-visible p-4 sm:p-5"
+          className="max-w-6xl w-[95vw] h-[85vh] max-h-[90vh] overflow-visible p-0 flex flex-col"
         >
           <DialogClose
-            className="absolute right-0 top-0 z-10 inline-flex h-12 w-12 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-gray-900 text-white shadow-lg transition-colors hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-white/70 focus:ring-offset-2 focus:ring-offset-transparent"
+            className="absolute right-2 top-2 md:right-0 md:top-0 z-20 inline-flex h-10 w-10 md:h-12 md:w-12 md:translate-x-1/2 md:-translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-gray-900 text-white shadow-lg transition-colors hover:bg-gray-800 focus:outline-none"
             aria-label={pageText.closeModal}
           >
             <X className="h-5 w-5" />
@@ -558,27 +624,24 @@ export default function Proyectos() {
           <DialogTitle className="sr-only">{pageText.detailsTitle}</DialogTitle>
 
           {selectedProject && (
-            <div className="h-full">
-              <div className="grid h-full grid-cols-1 lg:grid-cols-2 gap-8">
-                <div className="w-full h-full py-2">
-                  <Carousel
-                    opts={{ loop: true }}
-                    className="w-full h-[260px] sm:h-[320px] lg:h-full lg:min-h-0 [&>div:first-child]:h-full [&>div:first-child>div]:h-full"
-                  >
+            <div className="h-full overflow-hidden rounded-lg p-4 sm:p-5 flex flex-col bg-white">
+              {/* Título Fijo en móvil (Header) */}
+              <div className="lg:hidden shrink-0 mb-4 px-1 border-b border-gray-100 pb-3 relative">
+                <h2 className="text-xl sm:text-2xl font-bold text-gray-900 leading-tight pr-8">
+                  {getLocalizedProjectContent(selectedProject).title}
+                </h2>
+              </div>
+              
+              {/* Área escroleable en móvil / Grid en Desktop */}
+              <div className="flex-1 overflow-y-auto overflow-x-hidden lg:overflow-visible flex flex-col lg:grid lg:grid-cols-2 gap-4 lg:gap-8 min-h-0 pr-1 lg:pr-0 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-slate-300 hover:[&::-webkit-scrollbar-thumb]:bg-slate-400 [&::-webkit-scrollbar-thumb]:rounded-full">
+                {/* Galería */}
+                <div className="relative shrink-0 h-52 sm:h-64 lg:h-full py-1 lg:py-2">
+                  <Carousel opts={{ loop: true }} className="w-full h-full [&>div:first-child]:h-full [&>div:first-child>div]:h-full">
                     <CarouselContent className="h-full">
-                      {(selectedProject.images && selectedProject.images.length > 0
-                        ? selectedProject.images
-                        : [selectedProject.image]
-                      ).map((img, idx) => (
-                        <CarouselItem key={idx} className="h-[260px] sm:h-[320px] lg:h-full">
+                      {(selectedProject.images && selectedProject.images.length > 0 ? selectedProject.images : [selectedProject.image]).map((img, idx) => (
+                        <CarouselItem key={idx} className="h-full">
                           <div className="relative h-full w-full rounded-xl overflow-hidden bg-gray-100 shadow-sm border border-gray-100">
-                            <Image
-                              src={img || "/placeholder.svg"}
-                              alt={`${selectedProject.title} ${idx + 1}`}
-                              fill
-                              className="object-cover"
-                              sizes="(max-width: 1024px) 95vw, 48vw"
-                            />
+                            <Image src={img || "/placeholder.svg"} alt={`${selectedProject.title} ${idx + 1}`} fill className="object-cover" sizes="48vw" />
                           </div>
                         </CarouselItem>
                       ))}
@@ -586,98 +649,115 @@ export default function Proyectos() {
                     <CarouselPrevious className="left-2 bg-white/80 hover:bg-white text-gray-800 border-none shadow-md" />
                     <CarouselNext className="right-2 bg-white/80 hover:bg-white text-gray-800 border-none shadow-md" />
                   </Carousel>
+                  <div className="absolute top-4 left-4 z-10 flex flex-row gap-2">
+                    {selectedProject.category.map((cat) => (
+                      <div key={cat} className="w-11 h-11 flex items-center justify-center rounded-full bg-white/80 backdrop-blur-md shadow-xl border border-white/40 text-slate-800 transition-all duration-300 hover:scale-110 hover:bg-white" title={cat}>
+                        <div className="scale-110">{filterIcons[cat] || <Layers className="w-5 h-5" />}</div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
-                <div className="flex flex-col h-full py-2">
-                  <h2 className="text-3xl font-bold text-gray-900 mb-6">{getLocalizedProjectContent(selectedProject).title}</h2>
-
-                  <div className="mb-6">
-                    <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">{pageText.technologies}</h3>
-                    <div className="flex gap-2 flex-wrap">
+                {/* Info */}
+                <div className="flex flex-col lg:h-full py-1 lg:py-2 lg:min-h-0">
+                  <div className="hidden lg:block mb-4 sm:mb-6 shrink-0">
+                    <h2 className="text-xl sm:text-3xl font-bold text-gray-900 leading-tight max-h-[2.6em] overflow-y-auto pr-2 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-slate-300 hover:[&::-webkit-scrollbar-thumb]:bg-slate-400 [&::-webkit-scrollbar-thumb]:rounded-full">
+                      {getLocalizedProjectContent(selectedProject).title}
+                    </h2>
+                  </div>
+                  <div className="mb-4 sm:mb-6 shrink-0">
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="p-1.5 bg-teal-50 border border-teal-100 rounded-lg"><Code className="w-4 h-4 text-teal-600" /></div>
+                      <h3 className="text-sm font-bold text-gray-900 uppercase tracking-wider">{pageText.technologies}</h3>
+                    </div>
+                    <div 
+                      className="flex gap-2.5 flex-nowrap overflow-x-auto pb-3 scroll-smooth [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-slate-300 hover:[&::-webkit-scrollbar-thumb]:bg-slate-400 [&::-webkit-scrollbar-thumb]:rounded-full"
+                      onWheel={(e) => {
+                        const container = e.currentTarget;
+                        if (container) {
+                          container.scrollLeft += e.deltaY;
+                        }
+                      }}
+                    >
                       {selectedProject.technologies.map((tech) => (
-                        <div
-                          key={tech.name}
-                          className="flex items-center gap-2 bg-teal-50 hover:bg-teal-100 transition-colors border border-teal-100 rounded-lg px-3 py-2 text-sm font-medium text-teal-800"
-                        >
-                          {tech.icon}
+                        <div key={tech.name} className="group flex items-center gap-2.5 bg-white hover:bg-gray-50 transition-all duration-300 border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-semibold text-gray-700 shadow-sm hover:shadow-md hover:-translate-y-0.5 shrink-0">
+                          <span className="text-xl transition-transform group-hover:scale-110">{tech.icon}</span>
                           {tech.name}
                         </div>
                       ))}
                     </div>
                   </div>
-
-                  <div className="mb-8">
-                    <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">{pageText.aboutProject}</h3>
-                    <div className="max-h-44 lg:max-h-56 overflow-y-auto pr-2">
-                      <p className="text-gray-600 text-base leading-relaxed">{getLocalizedProjectContent(selectedProject).description}</p>
+                  <div className="mb-4 sm:mb-6 lg:flex-1 flex flex-col lg:min-h-0">
+                    <div className="flex items-center gap-2 mb-3 shrink-0">
+                      <div className="p-1.5 bg-indigo-50 border border-indigo-100 rounded-lg"><FileText className="w-4 h-4 text-indigo-600" /></div>
+                      <h3 className="text-sm font-bold text-gray-900 uppercase tracking-wider">{pageText.aboutProject}</h3>
+                    </div>
+                    <div className="bg-gray-50/50 rounded-2xl p-4 sm:p-6 border border-gray-100 lg:flex-1 lg:overflow-y-auto pr-2 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-slate-300 hover:[&::-webkit-scrollbar-thumb]:bg-slate-400 [&::-webkit-scrollbar-thumb]:rounded-full">
+                      <p className="text-gray-600 text-base sm:text-lg leading-relaxed font-medium">{getLocalizedProjectContent(selectedProject).description}</p>
                     </div>
                   </div>
-
-                  <div className="mt-auto pt-6 border-t border-gray-100 flex flex-wrap gap-4">
+                  {/* Botones en Desktop (dentro de la columna Info) */}
+                  <div className="hidden lg:grid mt-auto pt-8 grid-cols-3 gap-4 shrink-0">
                     {isUrlAvailable(selectedProject.documentation) ? (
-                      <a
-                        href={selectedProject.documentation}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex-1 min-w-[140px] flex items-center justify-center gap-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 font-medium py-3.5 px-6 rounded-xl transition-all shadow-sm hover:shadow-md"
-                      >
-                        <FileText className="w-5 h-5 shrink-0" />
-                        {pageText.viewDocs}
+                      <a href={selectedProject.documentation} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-3 bg-white hover:bg-indigo-50 text-indigo-700 border border-indigo-200 font-bold p-3 lg:py-4 lg:px-6 rounded-2xl transition-all duration-300 shadow-sm hover:shadow-lg hover:-translate-y-1 group">
+                        <FileText className="w-5 h-5 shrink-0 text-indigo-700 transition-transform group-hover:scale-110" /><span className="text-sm">{pageText.viewDocs}</span>
                       </a>
                     ) : (
-                      <button
-                        type="button"
-                        disabled
-                        className="flex-1 min-w-[140px] flex items-center justify-center gap-2 bg-gray-100 text-gray-500 border border-gray-200 font-medium py-3.5 px-6 rounded-xl cursor-not-allowed"
-                      >
-                        <FileText className="w-5 h-5 shrink-0" />
-                        {pageText.viewDocs}
+                      <button type="button" disabled className="flex items-center justify-center gap-3 bg-gray-50 text-gray-400 border border-gray-200 font-bold p-3 lg:py-4 lg:px-6 rounded-2xl cursor-not-allowed opacity-60">
+                        <FileText className="w-5 h-5 shrink-0 text-gray-400" /><span className="text-sm">{pageText.viewDocs}</span>
                       </button>
                     )}
-
                     {isUrlAvailable(selectedProject.github) ? (
-                      <a
-                        href={selectedProject.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex-1 min-w-[140px] flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-800 border border-gray-200 font-medium py-3.5 px-6 rounded-xl transition-all shadow-sm hover:shadow-md"
-                      >
-                        <Github className="w-5 h-5" />
-                        {pageText.viewCode}
+                      <a href={selectedProject.github} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-3 bg-white hover:bg-gray-100 text-gray-900 border border-gray-300 font-bold p-3 lg:py-4 lg:px-6 rounded-2xl transition-all duration-300 shadow-sm hover:shadow-lg hover:-translate-y-1 group">
+                        <Github className="w-5 h-5 shrink-0 transition-transform group-hover:rotate-12" /><span className="text-sm">{pageText.viewCode}</span>
                       </a>
                     ) : (
-                      <button
-                        type="button"
-                        disabled
-                        className="flex-1 min-w-[140px] flex items-center justify-center gap-2 bg-gray-100 text-gray-400 border border-gray-200 font-medium py-3.5 px-6 rounded-xl cursor-not-allowed"
-                      >
-                        <Github className="w-5 h-5" />
-                        {pageText.viewCode}
+                      <button type="button" disabled className="flex items-center justify-center gap-3 bg-gray-50 text-gray-400 border border-gray-200 font-bold p-3 lg:py-4 lg:px-6 rounded-2xl cursor-not-allowed opacity-60">
+                        <Github className="w-5 h-5 shrink-0" /><span className="text-sm">{pageText.viewCode}</span>
                       </button>
                     )}
-
                     {isUrlAvailable(selectedProject.link) ? (
-                      <a
-                        href={selectedProject.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex-1 min-w-[140px] flex items-center justify-center gap-2 whitespace-nowrap bg-gray-900 hover:bg-gray-800 text-white font-medium py-3.5 px-6 rounded-xl transition-all shadow-sm hover:shadow-md"
-                      >
-                        <ExternalLink className="w-5 h-5" />
-                        {pageText.viewProject}
+                      <a href={selectedProject.link} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-3 bg-gray-900 hover:bg-black text-white font-bold p-3 lg:py-4 lg:px-6 rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1 group">
+                        <ExternalLink className="w-5 h-5 shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" /><span className="text-sm">{pageText.viewProject}</span>
                       </a>
                     ) : (
-                      <button
-                        type="button"
-                        disabled
-                        className="flex-1 min-w-[140px] flex items-center justify-center gap-2 whitespace-nowrap bg-gray-100 text-gray-400 border border-gray-200 font-medium py-3.5 px-6 rounded-xl cursor-not-allowed"
-                      >
-                        <ExternalLink className="w-5 h-5" />
-                        {pageText.viewProject}
+                      <button type="button" disabled className="flex items-center justify-center gap-3 bg-gray-50 text-gray-400 border border-gray-200 font-bold p-3 lg:py-4 lg:px-6 rounded-2xl cursor-not-allowed opacity-60">
+                        <ExternalLink className="w-5 h-5 shrink-0" /><span className="text-sm">{pageText.viewProject}</span>
                       </button>
                     )}
                   </div>
                 </div>
+              </div>
+
+              {/* FIXED FOOTER MOBILE (Botones) */}
+              <div className="lg:hidden shrink-0 mt-4 pt-4 border-t border-gray-100 bg-white grid grid-cols-3 gap-2">
+                {isUrlAvailable(selectedProject.documentation) ? (
+                  <a href={selectedProject.documentation} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 bg-white hover:bg-indigo-50 text-indigo-700 border border-indigo-200 font-bold p-3 rounded-2xl transition-all duration-300 shadow-sm active:scale-95 group">
+                    <FileText className="w-5 h-5 shrink-0 text-indigo-700" /><span className="text-sm hidden sm:inline">{pageText.viewDocs}</span>
+                  </a>
+                ) : (
+                  <button type="button" disabled className="flex items-center justify-center gap-2 bg-gray-50 text-gray-400 border border-gray-200 font-bold p-3 rounded-2xl cursor-not-allowed opacity-60">
+                    <FileText className="w-5 h-5 shrink-0 text-gray-400" /><span className="text-sm hidden sm:inline">{pageText.viewDocs}</span>
+                  </button>
+                )}
+                {isUrlAvailable(selectedProject.github) ? (
+                  <a href={selectedProject.github} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 bg-white hover:bg-gray-100 text-gray-900 border border-gray-300 font-bold p-3 rounded-2xl transition-all duration-300 shadow-sm active:scale-95 group">
+                    <Github className="w-5 h-5 shrink-0" /><span className="text-sm hidden sm:inline">{pageText.viewCode}</span>
+                  </a>
+                ) : (
+                  <button type="button" disabled className="flex items-center justify-center gap-2 bg-gray-50 text-gray-400 border border-gray-200 font-bold p-3 rounded-2xl cursor-not-allowed opacity-60">
+                    <Github className="w-5 h-5 shrink-0" /><span className="text-sm hidden sm:inline">{pageText.viewCode}</span>
+                  </button>
+                )}
+                {isUrlAvailable(selectedProject.link) ? (
+                  <a href={selectedProject.link} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 bg-gray-900 hover:bg-black text-white font-bold p-3 rounded-2xl transition-all duration-300 shadow-lg active:scale-95 group">
+                    <ExternalLink className="w-5 h-5 shrink-0" /><span className="text-sm hidden sm:inline">{pageText.viewProject}</span>
+                  </a>
+                ) : (
+                  <button type="button" disabled className="flex items-center justify-center gap-2 bg-gray-50 text-gray-400 border border-gray-200 font-bold p-3 rounded-2xl cursor-not-allowed opacity-60">
+                    <ExternalLink className="w-5 h-5 shrink-0" /><span className="text-sm hidden sm:inline">{pageText.viewProject}</span>
+                  </button>
+                )}
               </div>
             </div>
           )}

@@ -20,11 +20,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} overflow-x-hidden`}>
         <LanguageProvider>
           <div className="flex min-h-screen bg-gray-50">
             <Sidebar />
-            <main className="flex-1 lg:ml-64 pt-16 lg:pt-0">
+            <main className="flex-1 lg:ml-64 pt-16 lg:pt-0 min-w-0 overflow-x-hidden">
               <div className="p-4 lg:p-0">{children}</div>
             </main>
           </div>

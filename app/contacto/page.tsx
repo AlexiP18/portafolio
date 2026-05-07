@@ -8,7 +8,7 @@ import { useLanguage } from "@/components/language-provider"
 const contactLinks = {
   email: "mailto:alexispoaquiza.dev@gmail.com",
   github: "https://github.com/AlexiP18",
-  linkedin: "https://www.linkedin.com/in/alexis-poaquiza/",
+  linkedin: "https://www.linkedin.com/in/developer-joel/",
   whatsapp: "https://wa.link/gqwair",
   cv: "/documents/curriculum_joel_penaloza.pdf",
 }
@@ -16,18 +16,17 @@ const contactLinks = {
 const githubUser = "AlexiP18"
 
 const linkedinCard = {
-  name: "Alexis Poaquiza",
+  name: "Joel Peñaloza",
   role: {
-    en: "Software Engineer | Frontend & DevOps",
-    es: "Ingeniero de Software | Frontend & DevOps",
+    en: "Full Stack Developer | UX/UI Designer | WordPress",
+    es: "Desarrollador Full Stack | UX/UI Designer | WordPress",
   },
-  location: "Ambato, Ecuador",
+  location: "Ambato, Tungurahua - Ecuador",
   about: {
-    en: "Passionate about building modern, accessible, and high-performance web experiences. Focused on React, Next.js, TypeScript, and cloud deployment.",
-    es: "Apasionado por construir experiencias web modernas, accesibles y con buen rendimiento. Enfocado en React, Next.js, TypeScript y despliegue en la nube.",
+    en: "For me, the choice to develop technology does not stem from a simple passion for writing code, but from the desire to create solutions that generate real impact. Dedicated to web development and building intuitive interfaces.",
+    es: "Para mí, la elección de desarrollar tecnología no nace de una simple pasión por escribir código, sino del deseo de crear soluciones que generen un impacto real. Dedicado al desarrollo web y la creación de interfaces intuitivas.",
   },
-  avatar:
-    "https://scontent.fatf6-1.fna.fbcdn.net/v/t39.30808-1/482063674_122098752290799599_4639200773569733832_n.jpg?stp=c219.0.864.864a_dst-jpg_s200x200_tt6&_nc_cat=100&ccb=1-7&_nc_sid=e99d92&_nc_ohc=1cnEuO3TAx4Q7kNvwFadUFF&_nc_oc=Adn-kIeTUNzzJu8bMVLfUSHeTYF8b4MBbflKKqNLMqW5OU5KsUj1Tkn_Ieqip5swMbg&_nc_zt=24&_nc_ht=scontent.fatf6-1.fna&_nc_gid=1Rj8s84CAcqY-mEIEiC3vQ&oh=00_AfOdguSZAs2oXvotJXG7jP_3a8kI3Jf7w_xqQ7IlxUAEVQ&oe=686B5D55",
+  avatar: "/images/foto_perfil.jpg",
 }
 
 const featuredRepoNames = ["portafolio", "FlightBookings", "Ecommerce-Spring-Boot", "sign-language-prediction"]
@@ -56,8 +55,6 @@ interface GitHubRepo {
 
 export default function ContactoPage() {
   const { language } = useLanguage()
-  const [isScrolled, setIsScrolled] = useState(false)
-  const lastScrollY = useRef(0)
   const [githubProfile, setGithubProfile] = useState<GitHubProfile | null>(null)
   const [githubRepos, setGithubRepos] = useState<GitHubRepo[]>([])
   const [githubLoading, setGithubLoading] = useState(true)
@@ -204,94 +201,82 @@ export default function ContactoPage() {
     },
   ]
 
-  useEffect(() => {
-    const onScroll = () => {
-      const currentY = window.scrollY
-      const isGoingDown = currentY > lastScrollY.current
-
-      if (isGoingDown && currentY > 40) {
-        setIsScrolled(true)
-      } else if (!isGoingDown) {
-        setIsScrolled(false)
-      }
-
-      lastScrollY.current = currentY
-    }
-
-    onScroll()
-    window.addEventListener("scroll", onScroll, { passive: true })
-    return () => window.removeEventListener("scroll", onScroll)
-  }, [])
-
   return (
-    <div className="max-w-5xl mx-auto px-4 py-12 lg:py-16 space-y-8">
-      <div>
-        <h1 className="text-3xl lg:text-4xl font-bold text-gray-900">{pageText.title}</h1>
-        <p className="mt-3 text-gray-600 max-w-3xl">
-          {pageText.subtitle}
-        </p>
-      </div>
+    <div className="max-w-6xl mx-auto px-4 pt-4 pb-8 md:pt-6 md:pb-12 space-y-8">
+      <div className="relative mb-16 rounded-3xl border border-slate-200 bg-white shadow-sm">
+        <div className="pt-6 pb-16 px-6 md:p-8 md:pb-12 flex flex-col items-center text-center">
+          <p className="inline-flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-slate-600">
+            <Mail className="h-3.5 w-3.5" />
+            {language === "en" ? "Let's Talk" : "Hablemos"}
+          </p>
+          <h1 className="mt-3 text-3xl md:text-4xl font-bold text-slate-900">{pageText.title}</h1>
+          <p className="mt-3 max-w-2xl text-sm md:text-base text-slate-600">{pageText.subtitle}</p>
+        </div>
 
-      <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4">
-        <div className="flex items-center justify-center gap-6">
-          <a
-            href={contactLinks.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-500 hover:text-gray-900 transition-colors duration-200"
-            aria-label="GitHub"
-          >
-            <Github className="w-8 h-8" />
-          </a>
-          <a
-            href={contactLinks.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-500 hover:text-blue-700 transition-colors duration-200"
-            aria-label="LinkedIn"
-          >
-            <Linkedin className="w-8 h-8" />
-          </a>
-          <a
-            href={contactLinks.whatsapp}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-500 hover:text-green-700 transition-colors duration-200"
-            aria-label="WhatsApp"
-          >
-            <MessageCircle className="w-8 h-8" />
-          </a>
-          <a
-            href={contactLinks.email}
-            className="text-gray-500 hover:text-red-700 transition-colors duration-200"
-            aria-label={pageText.emailAria}
-          >
-            <Mail className="w-8 h-8" />
-          </a>
-          <a
-            href={contactLinks.cv}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-teal-600 text-white hover:bg-teal-700 transition-colors duration-200"
-            aria-label={pageText.cvAria}
-          >
-            <FileText className="w-6 h-6" />
-          </a>
+        <div className="absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2 w-max max-w-[95%] rounded-2xl border border-slate-200 bg-white p-3 sm:p-4 shadow-md z-10">
+          <div className="flex flex-nowrap items-center justify-center gap-4 sm:gap-6">
+            <a
+              href={contactLinks.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-slate-500 hover:text-slate-900 transition-colors duration-200"
+              aria-label="GitHub"
+            >
+              <Github className="w-7 h-7 sm:w-8 sm:h-8" />
+            </a>
+            <a
+              href={contactLinks.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-slate-500 hover:text-blue-700 transition-colors duration-200"
+              aria-label="LinkedIn"
+            >
+              <Linkedin className="w-7 h-7 sm:w-8 sm:h-8" />
+            </a>
+            <a
+              href={contactLinks.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-slate-500 hover:text-green-600 transition-colors duration-200"
+              aria-label="WhatsApp"
+            >
+              <MessageCircle className="w-7 h-7 sm:w-8 sm:h-8" />
+            </a>
+            <a
+              href={contactLinks.email}
+              className="text-slate-500 hover:text-red-600 transition-colors duration-200"
+              aria-label={pageText.emailAria}
+            >
+              <Mail className="w-7 h-7 sm:w-8 sm:h-8" />
+            </a>
+            <a
+              href={contactLinks.cv}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-teal-600 text-white hover:bg-teal-700 transition-colors duration-200 shadow-sm hover:shadow-md"
+              aria-label={pageText.cvAria}
+            >
+              <FileText className="w-5 h-5 sm:w-6 sm:h-6" />
+            </a>
+          </div>
         </div>
       </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-[380px_minmax(0,1fr)] gap-6 items-start">
-        <div
-          className={`xl:sticky self-start rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition-all duration-300 ${
-            isScrolled ? "xl:top-1/2 xl:-translate-y-1/2" : "xl:top-6 xl:translate-y-0"
-          }`}
-        >
+        <div className="xl:sticky xl:top-8 self-start rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition-shadow hover:shadow-md">
 
           <article className="overflow-hidden rounded-2xl border border-blue-100 bg-white shadow-sm">
-              <div className="h-24 bg-gradient-to-r from-blue-700 to-blue-500" />
+              <div className="relative h-24 w-full">
+                <Image
+                  src="/images/linkedin_cover.png"
+                  alt="LinkedIn Cover"
+                  fill
+                  className="object-cover"
+                />
+              </div>
 
-              <div className="px-5 pb-5 -mt-10">
-                <div className="w-20 h-20 rounded-full border-4 border-white overflow-hidden bg-white shadow-sm">
+              <div className="px-5 pb-5 -mt-12 relative z-10">
+                <div className="w-24 h-24 rounded-full border-4 border-white overflow-hidden bg-white shadow-md">
                   <Image
                     src={linkedinCard.avatar}
                     alt={linkedinCard.name}

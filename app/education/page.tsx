@@ -283,7 +283,7 @@ export default function Education() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto min-w-0 overflow-x-hidden p-4 md:p-8">
+    <div className="w-full max-w-6xl mx-auto min-w-0 overflow-x-hidden px-4 pt-4 pb-8 md:pt-6 md:pb-12">
       <div className="mb-8 rounded-2xl border border-slate-200 bg-white shadow-sm">
         <div className="p-6 md:p-8 flex flex-wrap items-start justify-between gap-4">
           <div className="flex min-w-0 flex-1 items-start gap-4">
@@ -505,7 +505,7 @@ export default function Education() {
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-6 gap-3">
-                  <div className="md:col-span-2">
+                  <div className="md:col-span-2 min-w-0">
                     <label className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-gray-600 mb-1.5">
                       <Search className="w-3.5 h-3.5 text-blue-600" />
                       {pageText.search}
@@ -522,7 +522,7 @@ export default function Education() {
                     </div>
                   </div>
 
-                  <div>
+                  <div className="min-w-0">
                     <label className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-gray-600 mb-1.5">
                       <Presentation className="w-3.5 h-3.5 text-blue-600" />
                       {pageText.modality}
@@ -546,7 +546,7 @@ export default function Education() {
                     </div>
                   </div>
 
-                  <div>
+                  <div className="min-w-0">
                     <label className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-gray-600 mb-1.5">
                       <Code className="w-3.5 h-3.5 text-blue-600" />
                       {pageText.technology}
@@ -572,7 +572,7 @@ export default function Education() {
                     </div>
                   </div>
 
-                  <div>
+                  <div className="min-w-0">
                     <label className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-gray-600 mb-1.5">
                       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-600">
                         <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
@@ -597,7 +597,7 @@ export default function Education() {
                     </div>
                   </div>
 
-                  <div>
+                  <div className="min-w-0">
                     <label className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-gray-600 mb-1.5">
                       <CalendarClock className="w-3.5 h-3.5 text-blue-600" />
                       {pageText.year}
@@ -642,7 +642,7 @@ export default function Education() {
                         {course.year}
                       </span>
                       <div className="h-12 rounded-t-lg border border-gray-200 border-b-0 bg-gray-50 p-2 flex items-center justify-center">
-                        <h3 className="font-bold text-center text-gray-700">{course.platform}</h3>
+                        <h3 className="font-bold text-center text-gray-700 line-clamp-2 px-1">{course.platform}</h3>
                       </div>
 
                       <div
@@ -662,7 +662,7 @@ export default function Education() {
                                 <img
                                   src={courseLogoSrc}
                                   alt={`${course.platform} logo`}
-                                  className="h-auto w-[170px] object-contain"
+                                  className="w-full max-w-[160px] h-auto object-contain"
                                   loading="lazy"
                                 />
                               ) : (
@@ -697,28 +697,28 @@ export default function Education() {
                                     <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
                                   </svg>
                                 </div>
-                                <span className="text-gray-800 font-semibold text-sm">{courseTypeLabelMap[course.type]?.[language] ?? course.type}</span>
+                                <span className="text-gray-800 font-semibold text-sm truncate flex-1 min-w-0">{courseTypeLabelMap[course.type]?.[language] ?? course.type}</span>
                               </div>
 
                               <div className="flex items-center gap-2">
                                 <div className="w-5 h-5 flex items-center justify-center">
                                   <Presentation size={15} className="text-gray-700" />
                                 </div>
-                                <span className="text-gray-800 font-semibold text-sm">{modalityLabelMap[course.modality]?.[language] ?? course.modality}</span>
+                                <span className="text-gray-800 font-semibold text-sm truncate flex-1 min-w-0">{modalityLabelMap[course.modality]?.[language] ?? course.modality}</span>
                               </div>
 
                               <div className="flex items-center gap-2">
                                 <div className="w-5 h-5 flex items-center justify-center">
                                   <Code size={15} className="text-gray-700" />
                                 </div>
-                                <span className="text-gray-800 font-semibold text-sm">{technologyLabelMap[course.technology]?.[language] ?? course.technology}</span>
+                                <span className="text-gray-800 font-semibold text-sm truncate flex-1 min-w-0">{technologyLabelMap[course.technology]?.[language] ?? course.technology}</span>
                               </div>
 
                               <div className="flex items-center gap-2">
                                 <div className="w-5 h-5 flex items-center justify-center">
                                   <Clock size={15} className="text-gray-700" />
                                 </div>
-                                <span className="text-gray-800 font-semibold text-sm">{formatHours(course.hours)}</span>
+                                <span className="text-gray-800 font-semibold text-sm truncate flex-1 min-w-0">{formatHours(course.hours)}</span>
                               </div>
                             </div>
 
@@ -860,7 +860,7 @@ export default function Education() {
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-3">
-                  <div className="md:col-span-2">
+                  <div className="md:col-span-2 min-w-0">
                     <label className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-gray-600 mb-1.5">
                       <Search className="w-3.5 h-3.5 text-purple-600" />
                       {pageText.search}
@@ -877,7 +877,7 @@ export default function Education() {
                     </div>
                   </div>
 
-                  <div>
+                  <div className="min-w-0">
                     <label className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-gray-600 mb-1.5">
                       <Presentation className="w-3.5 h-3.5 text-purple-600" />
                       {pageText.modality}
@@ -901,7 +901,7 @@ export default function Education() {
                     </div>
                   </div>
 
-                  <div>
+                  <div className="min-w-0">
                     <label className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-gray-600 mb-1.5">
                       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-purple-600">
                         <rect x="4" y="5" width="16" height="16" rx="2" />
@@ -931,7 +931,7 @@ export default function Education() {
                     </div>
                   </div>
 
-                  <div>
+                  <div className="min-w-0">
                     <label className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-gray-600 mb-1.5">
                       <CalendarClock className="w-3.5 h-3.5 text-purple-600" />
                       {pageText.year}
@@ -976,7 +976,7 @@ export default function Education() {
                         {event.year}
                       </span>
                       <div className="h-12 rounded-t-lg border border-gray-200 border-b-0 bg-gray-50 p-2 flex items-center justify-center">
-                        <h3 className="font-bold text-center text-gray-700">{event.organization}</h3>
+                        <h3 className="font-bold text-center text-gray-700 line-clamp-2 px-1">{event.organization}</h3>
                       </div>
 
                       <div
@@ -1035,14 +1035,14 @@ export default function Education() {
                                     <rect x="8" y="15" width="2" height="2" />
                                   </svg>
                                 </div>
-                                <span className="text-gray-800 font-semibold text-sm">{eventTypeLabelMap[event.type]?.[language] ?? event.type}</span>
+                                <span className="text-gray-800 font-semibold text-sm truncate flex-1 min-w-0">{eventTypeLabelMap[event.type]?.[language] ?? event.type}</span>
                               </div>
 
                               <div className="flex items-center gap-2">
                                 <div className="w-5 h-5 flex items-center justify-center">
                                   <Presentation size={15} className="text-gray-700" />
                                 </div>
-                                <span className="text-gray-800 font-semibold text-sm">{modalityLabelMap[event.modality]?.[language] ?? event.modality}</span>
+                                <span className="text-gray-800 font-semibold text-sm truncate flex-1 min-w-0">{modalityLabelMap[event.modality]?.[language] ?? event.modality}</span>
                               </div>
 
                               <div className="flex items-center gap-2">
@@ -1054,7 +1054,7 @@ export default function Education() {
                                     <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                                   </svg>
                                 </div>
-                                <span className="text-gray-800 font-semibold text-sm">{eventRoleLabelMap[event.role]?.[language] ?? event.role}</span>
+                                <span className="text-gray-800 font-semibold text-sm truncate flex-1 min-w-0">{eventRoleLabelMap[event.role]?.[language] ?? event.role}</span>
                               </div>
 
                               <div className="flex items-center gap-2">
@@ -1064,7 +1064,7 @@ export default function Education() {
                                     <polyline points="12 6 12 12 16 14"></polyline>
                                   </svg>
                                 </div>
-                                <span className="text-gray-800 font-semibold text-sm">{event.duration}</span>
+                                <span className="text-gray-800 font-semibold text-sm truncate flex-1 min-w-0">{event.duration}</span>
                               </div>
                             </div>
 

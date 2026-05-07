@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation"
 import { useState } from "react"
 import { LanguageSwitcher } from "@/components/language-switcher"
 import { useLanguage, type AppLanguage } from "@/components/language-provider"
-import profileImageUrl from "@/images/foto_perfil.jpg"
+import profileImageUrl from "@/public/images/foto_perfil.jpg"
 
 const menuItems = [
   {
@@ -62,7 +62,7 @@ const menuItems = [
 
 const socialLinks = {
   github: "https://github.com/AlexiP18",
-  linkedin: "https://www.linkedin.com/in/alexis-poaquiza/",
+  linkedin: "https://www.linkedin.com/in/developer-joel/",
   whatsapp: "https://wa.link/gqwair",
   cv: "/documents/curriculum_joel_penaloza.pdf",
 }
@@ -127,27 +127,24 @@ export function Sidebar() {
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
-            <LanguageSwitcher className="scale-90 origin-right" />
-            <button
-              onClick={toggleMobileMenu}
-              className="p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
-              aria-label={copy.toggleMenu}
-            >
-              {isMobileMenuOpen ? <X className="w-6 h-6 text-gray-600" /> : <Menu className="w-6 h-6 text-gray-600" />}
-            </button>
-          </div>
+          <button
+            onClick={toggleMobileMenu}
+            className="p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+            aria-label={copy.toggleMenu}
+          >
+            {isMobileMenuOpen ? <X className="w-6 h-6 text-gray-600" /> : <Menu className="w-6 h-6 text-gray-600" />}
+          </button>
         </div>
       </div>
 
       {isMobileMenuOpen && <div className="lg:hidden fixed inset-0 bg-black/50 z-40" onClick={closeMobileMenu} />}
 
       <div
-        className={`lg:hidden fixed top-0 left-0 h-full w-80 bg-white shadow-lg border-r border-slate-200 z-50 flex flex-col overflow-hidden transform transition-transform duration-300 ease-in-out ${
+        className={`lg:hidden fixed top-0 left-0 h-full w-[75vw] bg-white shadow-lg border-r border-slate-200 z-50 flex flex-col overflow-hidden transform transition-transform duration-300 ease-in-out ${
           isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="flex items-center justify-between p-4 border-b border-slate-200">
+        <div className="flex items-center p-4 border-b border-slate-200">
           <div className="flex items-center space-x-3" onClick={closeMobileMenu}>
             <Link href="/" onClick={closeMobileMenu}>
               <div className="w-14 h-14 rounded-full border-2 border-teal-500 overflow-hidden cursor-pointer hover:shadow-md transition-all duration-200">
@@ -159,16 +156,9 @@ export function Sidebar() {
               <p className="text-xs text-gray-600">{copy.role}</p>
             </div>
           </div>
-          <button
-            onClick={closeMobileMenu}
-            className="p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
-            aria-label={copy.closeMenu}
-          >
-            <X className="w-5 h-5 text-gray-600" />
-          </button>
         </div>
 
-        <div className="px-4 py-3 border-b border-slate-200">
+        <div className="px-4 py-3 border-b border-slate-200 flex items-center justify-center">
           <LanguageSwitcher />
         </div>
 

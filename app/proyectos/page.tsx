@@ -612,10 +612,10 @@ export default function Proyectos() {
         {/* ── DESKTOP modal ── */}
         <DialogContent
           showCloseButton={false}
-          className="max-w-6xl w-[95vw] h-[85vh] max-h-[90vh] overflow-visible p-0 flex flex-col"
+          className="max-w-6xl w-[95vw] h-[85vh] max-h-[90vh] overflow-visible p-0 flex flex-col bg-transparent border-none shadow-none"
         >
           <DialogClose
-            className="absolute right-2 top-2 md:right-0 md:top-0 z-20 inline-flex h-10 w-10 md:h-12 md:w-12 md:translate-x-1/2 md:-translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-gray-900 text-white shadow-lg transition-colors hover:bg-gray-800 focus:outline-none"
+            className="absolute right-0 top-0 z-20 inline-flex h-10 w-10 md:h-12 md:w-12 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-gray-900 text-white shadow-lg transition-colors hover:bg-gray-800 focus:outline-none"
             aria-label={pageText.closeModal}
           >
             <X className="h-5 w-5" />
@@ -624,7 +624,7 @@ export default function Proyectos() {
           <DialogTitle className="sr-only">{pageText.detailsTitle}</DialogTitle>
 
           {selectedProject && (
-            <div className="h-full overflow-hidden rounded-lg p-4 sm:p-5 flex flex-col bg-white">
+            <div className="h-full overflow-hidden rounded-2xl p-4 sm:p-5 flex flex-col bg-white">
               {/* Título Fijo en móvil (Header) */}
               <div className="lg:hidden shrink-0 mb-4 px-1 border-b border-gray-100 pb-3 relative">
                 <h2 className="text-xl sm:text-2xl font-bold text-gray-900 leading-tight pr-8">
@@ -633,7 +633,7 @@ export default function Proyectos() {
               </div>
               
               {/* Área escroleable en móvil / Grid en Desktop */}
-              <div className="flex-1 overflow-y-auto overflow-x-hidden lg:overflow-visible flex flex-col lg:grid lg:grid-cols-2 gap-4 lg:gap-8 min-h-0 pr-1 lg:pr-0 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-slate-300 hover:[&::-webkit-scrollbar-thumb]:bg-slate-400 [&::-webkit-scrollbar-thumb]:rounded-full">
+              <div className="flex-1 overflow-y-auto overflow-x-hidden lg:overflow-visible flex flex-col lg:grid lg:grid-cols-2 gap-4 lg:gap-8 min-h-0 -mr-2 pr-2 sm:-mr-4 sm:pr-4 lg:-mr-0 lg:pr-0 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-slate-300 hover:[&::-webkit-scrollbar-thumb]:bg-slate-400 [&::-webkit-scrollbar-thumb]:rounded-full">
                 {/* Galería */}
                 <div className="relative shrink-0 h-52 sm:h-64 lg:h-full py-1 lg:py-2">
                   <Carousel opts={{ loop: true }} className="w-full h-full [&>div:first-child]:h-full [&>div:first-child>div]:h-full">
@@ -671,7 +671,7 @@ export default function Proyectos() {
                       <h3 className="text-sm font-bold text-gray-900 uppercase tracking-wider">{pageText.technologies}</h3>
                     </div>
                     <div 
-                      className="flex gap-2.5 flex-nowrap overflow-x-auto pb-3 scroll-smooth [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-slate-300 hover:[&::-webkit-scrollbar-thumb]:bg-slate-400 [&::-webkit-scrollbar-thumb]:rounded-full"
+                      className="flex gap-2.5 flex-nowrap overflow-x-auto pb-3 scroll-smooth [scrollbar-width:none] md:[scrollbar-width:auto] [&::-webkit-scrollbar]:hidden md:[&::-webkit-scrollbar]:block md:[&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-slate-300 hover:[&::-webkit-scrollbar-thumb]:bg-slate-400 [&::-webkit-scrollbar-thumb]:rounded-full"
                       onWheel={(e) => {
                         const container = e.currentTarget;
                         if (container) {

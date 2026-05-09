@@ -403,44 +403,46 @@ export default function AboutMePage() {
           <h2 className="text-2xl font-semibold text-gray-900 mb-1">{aboutPageText.moreAboutTitle}</h2>
           <p className="text-sm text-gray-500 mb-5">{aboutPageText.moreAboutSubtitle}</p>
 
-          <Accordion type="single" collapsible className="w-full">
-            {overviewSections.map((section) => {
-              const SectionIcon = section.icon
-
-              return (
-                <AccordionItem key={section.id} value={section.id}>
-                  <AccordionTrigger className="text-left">
-                    <div className="flex items-center gap-3 pr-3">
-                      <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-slate-700">
-                        <SectionIcon className="w-4 h-4" />
-                      </span>
-                      <span className="text-base font-semibold text-gray-800">{section.title[language]}</span>
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    <p className="text-gray-600 leading-relaxed">{section.description[language]}</p>
-                    {section.technologies && section.technologies.length > 0 && (
-                      <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-2">
-                        {section.technologies.map((tech) => (
-                          <span
-                            key={tech}
-                            className="inline-flex items-center justify-center gap-2 rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-sm text-gray-700"
-                          >
-                            {techIconMap[tech] ? (
-                              <img src={techIconMap[tech]} alt={`${tech} icon`} className="w-4 h-4 object-contain" />
-                            ) : (
-                              <Code2 className="w-4 h-4 text-gray-500" />
-                            )}
-                            <span>{tech}</span>
-                          </span>
-                        ))}
+          <div className="overflow-y-auto h-[320px] sm:h-[400px] lg:h-[380px] pr-2 -mr-2 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-slate-300 hover:[&::-webkit-scrollbar-thumb]:bg-slate-400 [&::-webkit-scrollbar-thumb]:rounded-full">
+            <Accordion type="single" collapsible className="w-full">
+              {overviewSections.map((section) => {
+                const SectionIcon = section.icon
+  
+                return (
+                  <AccordionItem key={section.id} value={section.id}>
+                    <AccordionTrigger className="text-left">
+                      <div className="flex items-center gap-3 pr-3">
+                        <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-slate-700">
+                          <SectionIcon className="w-4 h-4" />
+                        </span>
+                        <span className="text-base font-semibold text-gray-800">{section.title[language]}</span>
                       </div>
-                    )}
-                  </AccordionContent>
-                </AccordionItem>
-              )
-            })}
-          </Accordion>
+                    </AccordionTrigger>
+                    <AccordionContent>
+                      <p className="text-gray-600 leading-relaxed">{section.description[language]}</p>
+                      {section.technologies && section.technologies.length > 0 && (
+                        <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-2">
+                          {section.technologies.map((tech) => (
+                            <span
+                              key={tech}
+                              className="inline-flex items-center justify-center gap-2 rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-sm text-gray-700"
+                            >
+                              {techIconMap[tech] ? (
+                                <img src={techIconMap[tech]} alt={`${tech} icon`} className="w-4 h-4 object-contain" />
+                              ) : (
+                                <Code2 className="w-4 h-4 text-gray-500" />
+                              )}
+                              <span>{tech}</span>
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </AccordionContent>
+                  </AccordionItem>
+                )
+              })}
+            </Accordion>
+          </div>
         </section>
       </div>
 

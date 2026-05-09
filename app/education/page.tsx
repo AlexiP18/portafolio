@@ -33,6 +33,7 @@ export default function Education() {
   const [typeFilter, setTypeFilter] = useState<string | null>(null)
   const [courseYearFilter, setCourseYearFilter] = useState<string | null>(null)
   const [courseSearchQuery, setCourseSearchQuery] = useState("")
+  const [isCourseFiltersMobileOpen, setIsCourseFiltersMobileOpen] = useState(false)
   const [filteredCourses, setFilteredCourses] = useState(() => sortByYearFromCurrentDown(coursesData))
 
   // Pagination state
@@ -45,6 +46,7 @@ export default function Education() {
   const [typeEventFilter, setTypeEventFilter] = useState<string | null>(null)
   const [eventYearFilter, setEventYearFilter] = useState<string | null>(null)
   const [eventSearchQuery, setEventSearchQuery] = useState("")
+  const [isEventFiltersMobileOpen, setIsEventFiltersMobileOpen] = useState(false)
   const [filteredEvents, setFilteredEvents] = useState(() => sortByYearFromCurrentDown(eventsData))
   const [hoveredEvent, setHoveredEvent] = useState<number | null>(null)
   
@@ -223,7 +225,7 @@ export default function Education() {
     modality: language === "en" ? "Modality" : "Modalidad",
     technology: language === "en" ? "Technology" : "Tecnología",
     type: language === "en" ? "Type" : "Tipo",
-    choose: language === "en" ? "Choose..." : "Elija...",
+    choose: language === "en" ? "All" : "Todas",
     viewCertificate: language === "en" ? "View certificate" : "Ver certificado",
     noCourses:
       language === "en"
@@ -469,7 +471,7 @@ export default function Education() {
           </div>
           <button className="flex w-full sm:w-auto shrink-0 items-center justify-center gap-2 px-2.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-700 hover:bg-blue-100 transition-all duration-300">
             <span className="inline-flex items-center justify-center min-w-6 h-6 px-1.5 rounded-full bg-white border border-blue-200 text-xs font-bold">
-              {coursesData.length}
+              {filteredCourses.length}
             </span>
             <BookOpen size={14} />
             <ChevronDown size={16} className={`transition-transform duration-300 ${isCoursesOpen ? "rotate-180" : ""}`} />
@@ -479,18 +481,22 @@ export default function Education() {
         {/* Courses Content - Added min-height for better vertical spacing */}
         <div 
           className={`overflow-hidden transition-all duration-500 ease-in-out ${
-            isCoursesOpen ? 'min-h-[700px] max-h-[1500px] opacity-100' : 'max-h-0 opacity-0'
+            isCoursesOpen ? 'md:min-h-[700px] max-h-[1500px] opacity-100' : 'max-h-0 opacity-0'
           }`}
         >
-          <div className="p-4 md:p-6 min-h-[860px] flex flex-col">
+          <div className="p-4 md:p-6 md:min-h-[860px] flex flex-col">
             {/* Filters section - Improved layout and clean filters button */}
             <div className="mb-6">
               <div className="rounded-xl border border-blue-100 bg-blue-50/30 p-4 md:p-5 flex flex-col gap-4">
                 <div className="flex flex-wrap items-start sm:items-center justify-between gap-2">
-                  <div className="inline-flex items-center gap-2 text-gray-700 font-semibold">
+                  <button 
+                    onClick={() => setIsCourseFiltersMobileOpen(!isCourseFiltersMobileOpen)}
+                    className="inline-flex items-center gap-2 text-gray-700 font-semibold md:pointer-events-none focus:outline-none"
+                  >
                     <RotateCw size={14} className="text-blue-600" />
                     {pageText.filterBy}
-                  </div>
+                    <ChevronDown size={16} className={`md:hidden text-gray-400 transition-transform duration-300 ${isCourseFiltersMobileOpen ? "rotate-180" : ""}`} />
+                  </button>
                   
                   {/* Reset Filters Button - Now with icon */}
                   {(modalityFilter || technologyFilter || typeFilter || courseYearFilter || courseSearchQuery.trim()) && (
@@ -504,7 +510,7 @@ export default function Education() {
                   )}
                 </div>
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-6 gap-3">
+                <div className={`grid-cols-1 md:grid-cols-2 xl:grid-cols-6 gap-3 ${isCourseFiltersMobileOpen ? "grid" : "hidden md:grid"}`}>
                   <div className="md:col-span-2 min-w-0">
                     <label className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-gray-600 mb-1.5">
                       <Search className="w-3.5 h-3.5 text-blue-600" />
@@ -626,10 +632,10 @@ export default function Education() {
             
             {/* Mobile-only scrollable container for course cards */}
             <div className="sm:block flex-1">
-              {/* Scrollable container for mobile */}
-              <div className="sm:block max-h-[500px] overflow-y-auto pb-4 sm:max-h-none sm:overflow-visible">
+              {/* Scrollable container for mobile - Exactly 2 cards tall */}
+              <div className="sm:block max-h-[568px] overflow-y-auto pb-4 sm:max-h-none sm:overflow-visible pr-1 sm:pr-0 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-slate-300 hover:[&::-webkit-scrollbar-thumb]:bg-slate-400 [&::-webkit-scrollbar-thumb]:rounded-full">
                 {/* Courses Grid - Now using paginated courses */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 min-h-[550px]">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:min-h-[550px]">
                   {currentCourses.length > 0 ? currentCourses.map((course, index) => (
                     <div
                       key={course.id}
@@ -758,7 +764,7 @@ export default function Education() {
             </div>
             
             {/* Pagination Controls */}
-            <div className="mt-auto pt-8 flex items-center justify-center w-full overflow-x-hidden">
+            <div className="mt-auto pt-4 md:pt-8 flex items-center justify-center w-full overflow-x-hidden">
               <nav className="flex max-w-full flex-wrap items-center justify-center gap-2">
                 <button 
                   onClick={prevPage}
@@ -824,7 +830,7 @@ export default function Education() {
           </div>
           <button className="flex w-full sm:w-auto shrink-0 items-center justify-center gap-2 px-2.5 py-1.5 rounded-full bg-purple-50 border border-purple-100 text-purple-700 hover:bg-purple-100 transition-all duration-300">
             <span className="inline-flex items-center justify-center min-w-6 h-6 px-1.5 rounded-full bg-white border border-purple-200 text-xs font-bold">
-              {eventsData.length}
+              {filteredEvents.length}
             </span>
             <Presentation size={14} />
             <ChevronDown size={16} className={`transition-transform duration-300 ${isEventsOpen ? "rotate-180" : ""}`} />
@@ -834,18 +840,22 @@ export default function Education() {
         {/* Events Content */}
         <div 
           className={`overflow-hidden transition-all duration-500 ease-in-out ${
-            isEventsOpen ? 'min-h-[700px] max-h-[1500px] opacity-100' : 'max-h-0 opacity-0'
+            isEventsOpen ? 'md:min-h-[700px] max-h-[1500px] opacity-100' : 'max-h-0 opacity-0'
           }`}
         >
-          <div className="p-4 md:p-6 min-h-[860px] flex flex-col">
+          <div className="p-4 md:p-6 md:min-h-[860px] flex flex-col">
             {/* Events Filters section */}
             <div className="mb-6">
               <div className="rounded-xl border border-purple-100 bg-purple-50/30 p-4 md:p-5 flex flex-col gap-4">
                 <div className="flex flex-wrap items-start sm:items-center justify-between gap-2">
-                  <div className="inline-flex items-center gap-2 text-gray-700 font-semibold">
+                  <button 
+                    onClick={() => setIsEventFiltersMobileOpen(!isEventFiltersMobileOpen)}
+                    className="inline-flex items-center gap-2 text-gray-700 font-semibold md:pointer-events-none focus:outline-none"
+                  >
                     <RotateCw size={14} className="text-purple-600" />
                     {pageText.filterBy}
-                  </div>
+                    <ChevronDown size={16} className={`md:hidden text-gray-400 transition-transform duration-300 ${isEventFiltersMobileOpen ? "rotate-180" : ""}`} />
+                  </button>
                   
                   {/* Reset Filters Button */}
                   {(modalityEventFilter || typeEventFilter || eventYearFilter || eventSearchQuery.trim()) && (
@@ -859,7 +869,7 @@ export default function Education() {
                   )}
                 </div>
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-3">
+                <div className={`grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-3 ${isEventFiltersMobileOpen ? "grid" : "hidden md:grid"}`}>
                   <div className="md:col-span-2 min-w-0">
                     <label className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-gray-600 mb-1.5">
                       <Search className="w-3.5 h-3.5 text-purple-600" />
@@ -960,10 +970,10 @@ export default function Education() {
             
             {/* Events Cards */}
             <div className="sm:block flex-1">
-              {/* Scrollable container for mobile */}
-              <div className="sm:block max-h-[500px] overflow-y-auto pb-4 sm:max-h-none sm:overflow-visible">
+              {/* Scrollable container for mobile - Exactly 2 cards tall */}
+              <div className="sm:block max-h-[568px] overflow-y-auto pb-4 sm:max-h-none sm:overflow-visible pr-1 sm:pr-0 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-slate-300 hover:[&::-webkit-scrollbar-thumb]:bg-slate-400 [&::-webkit-scrollbar-thumb]:rounded-full">
                 {/* Events Grid - Using paginated events */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 min-h-[550px]">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:min-h-[550px]">
                   {currentEvents.length > 0 ? currentEvents.map((event, index) => (
                     <div
                       key={event.id}
@@ -1104,7 +1114,7 @@ export default function Education() {
             </div>
             
             {/* Event Pagination Controls */}
-            <div className="mt-auto pt-8 flex items-center justify-center w-full overflow-x-hidden">
+            <div className="mt-auto pt-4 md:pt-8 flex items-center justify-center w-full overflow-x-hidden">
               <nav className="flex max-w-full flex-wrap items-center justify-center gap-2">
                 <button 
                   onClick={prevEventPage}

@@ -1944,7 +1944,7 @@ export default function Skills() {
             <p className="mt-3 max-w-3xl text-sm md:text-base text-slate-600">{pageText.subtitle}</p>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 w-full lg:w-auto mt-4 lg:mt-0">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 w-full lg:w-auto mt-4 lg:mt-0">
             <div className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-center">
               <p className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-slate-500">
                 <FolderOpen className="h-3.5 w-3.5" />
@@ -1959,7 +1959,7 @@ export default function Skills() {
               </p>
               <p className="mt-1 text-2xl font-bold text-slate-900">{totalTech}</p>
             </div>
-            <div className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-center col-span-2 sm:col-span-1">
+            <div className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-center col-span-1">
               <p className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-slate-500">
                 <Briefcase className="h-3.5 w-3.5" />
                 {language === "en" ? "Experience" : "Experiencia"}
@@ -2045,7 +2045,7 @@ export default function Skills() {
             </button>
 
             {/* Modal Header */}
-            <div className="flex items-center justify-between p-5 border-b bg-gradient-to-r from-slate-50 to-white">
+            <div className="flex items-center justify-between p-5 border-b bg-gradient-to-r from-slate-50 to-white rounded-t-2xl">
               <div className="flex items-center gap-4 min-w-0">
                 <div className="w-14 h-14 rounded-xl border border-gray-200 bg-white shadow-sm flex items-center justify-center shrink-0">
                   {selectedTechIcon || <div className="w-10 h-10 bg-gray-200 rounded-lg"></div>}
@@ -2168,7 +2168,7 @@ export default function Skills() {
             </div>
 
             {/* Modal Footer */}
-	            <div className="border-t p-4 bg-slate-50 flex items-center justify-between gap-4">
+	            <div className="border-t p-4 bg-slate-50 flex items-center justify-between gap-4 rounded-b-2xl">
 	              <div className="text-gray-600 text-sm flex items-center gap-2">
 	                <MessageSquare size={16} className="text-gray-500" />
 	                {pageText.questions}
